@@ -29,11 +29,11 @@ class Customer {
 		std::string myAddress;
 		std::string myCity;
 		std::string myState;
-		std::string myZip;
+		int myZip;
 		int myMoney;
 	public:
 		Customer();
-	Customer(const int customerID, const std::string username, const std::string password, const std::string fullName, const std::string address, const std::string city, const std::string state, const std::string zip, const int money);
+	Customer(const int customerID, const std::string username, const std::string password, const std::string fullName, const std::string address, const std::string city, const std::string state, const int zip, const int money);
 		Customer(const Customer& customer);
 		virtual ~Customer() {}
 		const int getCustomerID() const;
@@ -43,7 +43,7 @@ class Customer {
 		const std::string getAddress() const;
 		const std::string getCity() const;
 		const std::string getState() const;
-		const std::string getZip() const;
+		const int getZip() const;
 		const int getMoney() const;
 		void setCustomerID(const int customerID);
 		void setUsername(const std::string username);
@@ -52,7 +52,7 @@ class Customer {
 		void setAddress(const std::string address);
 		void setCity(const std::string city);
 		void setState(const std::string state);
-		void setZip(const std::string zip);
+		void setZip(const int zip);
 		void setMoney(const int money);
 };
 #endif

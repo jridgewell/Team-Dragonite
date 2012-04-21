@@ -25,11 +25,11 @@ Customer::Customer(){
 	this->setAddress("123 Street Dr.");
 	this->setCity("City");
 	this->setState("State");
-	this->setZip("12345");
+	this->setZip(12345);
 	this->setMoney(0);
 }
 
-Customer::Customer(const int customerID, const std::string username, const std::string password, const std::string fullName, const std::string address, const std::string city, const std::string state, const std::string zip, const int money) {
+Customer::Customer(const int customerID, const std::string username, const std::string password, const std::string fullName, const std::string address, const std::string city, const std::string state, const int zip, const int money) {
 	this->setCustomerID(customerID);
 	this->setUsername(username);
 	this->setPassword(password);
@@ -81,7 +81,7 @@ const std::string Customer::getState() const{
 	return myState;
 }
 
-const std::string Customer::getZip() const{
+const int Customer::getZip() const{
 	return myZip;
 }
 
@@ -117,7 +117,7 @@ void Customer::setState(const std::string state){
 	myState = state;
 }
 
-void Customer::setZip(const std::string zip){
+void Customer::setZip(const int zip){
 	myZip = zip;
 }
 

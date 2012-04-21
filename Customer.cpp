@@ -124,10 +124,3 @@ void Customer::setZip(const int zip){
 void Customer::setMoney(const int money){
 	myMoney = money;
 }
-
-#ifdef TEST
-int main() {
-	Customer c = Customer();
-	std::cout << c.getFullName() << std::endl;
-}
-#endif

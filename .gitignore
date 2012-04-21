@@ -1,1 +1,4 @@
 yaml-cpp/build
+unittest/*.o
+unittest/*.a
+unittest/All

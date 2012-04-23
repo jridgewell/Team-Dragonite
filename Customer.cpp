@@ -31,7 +31,7 @@ Customer::Customer(){
 	this->setMoney(0);
 }
 
-Customer::Customer(const int customerID, const std::string username, const std::string password, const std::string fullName, const std::string address, const std::string city, const std::string state, const int zip, const int money) {
+Customer::Customer(const int customerID, const std::string &username, const std::string &password, const std::string &fullName, const std::string &address, const std::string &city, const std::string &state, const int zip, const int money) {
 	this->setCustomerID(customerID);
 	this->setUsername(username);
 	this->setPassword(password);
@@ -55,39 +55,39 @@ Customer::Customer(const Customer& customer){
 	this->setMoney(customer.myMoney);
 }
 
-const int Customer::getCustomerID() const{
+int Customer::getCustomerID() const{
 	return myCustomerID;
 }
 
-const std::string Customer::getUsername() const{
+const std::string& Customer::getUsername() const{
 	return myUsername;
 }
 
-const std::string Customer::getPassword() const{
+const std::string& Customer::getPassword() const{
 	return myPassword;
 }
 
-const std::string Customer::getFullName() const{
+const std::string& Customer::getFullName() const{
 	return myFullName;
 }
 
-const std::string Customer::getAddress() const{
+const std::string& Customer::getAddress() const{
 	return myAddress;
 }
 
-const std::string Customer::getCity() const{
+const std::string& Customer::getCity() const{
 	return myCity;
 }
 
-const std::string Customer::getState() const{
+const std::string& Customer::getState() const{
 	return myState;
 }
 
-const int Customer::getZip() const{
+int Customer::getZip() const{
 	return myZip;
 }
 
-const int Customer::getMoney() const{
+int Customer::getMoney() const{
 	return myMoney;
 }
 
@@ -95,27 +95,27 @@ void Customer::setCustomerID(const int customerID){
 	myCustomerID = customerID;
 }
 
-void Customer::setUsername(const std::string username){
+void Customer::setUsername(const std::string &username){
 	myUsername = username;
 }
 
-void Customer::setPassword(const std::string password){
+void Customer::setPassword(const std::string &password){
 	myPassword = password;
 }
 
-void Customer::setFullName(const std::string fullName){
+void Customer::setFullName(const std::string &fullName){
 	myFullName = fullName;
 }
 
-void Customer::setAddress(const std::string address){
+void Customer::setAddress(const std::string &address){
 	myAddress = address;
 }
 
-void Customer::setCity(const std::string city){
+void Customer::setCity(const std::string &city){
 	myCity = city;
 }
 
-void Customer::setState(const std::string state){
+void Customer::setState(const std::string &state){
 	myState = state;
 }
 

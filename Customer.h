@@ -20,6 +20,8 @@
 #include <iostream>
 #include <string> 
 
+//TODO: javadocs
+
 class Customer {
 	private:
 		int myCustomerID;

@@ -17,6 +17,8 @@
  */
 #include "Customer.h"
 
+//TODO: javadocs
+
 Customer::Customer(){
 	this->setCustomerID(0);
 	this->setUsername("username");

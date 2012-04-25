@@ -18,7 +18,8 @@
  * =====================================================================================
  */
 #include <iostream>
-#include <string> 
+#include <string>
+#include <yaml-cpp/yaml.h>
 
 //TODO: javadocs
 
@@ -37,6 +38,7 @@ class Customer {
 		Customer();
 		Customer(const int customerID, const std::string &username, const std::string &password, const std::string &fullName, const std::string &address, const std::string &city, const std::string &state, const int zip, const int money);
 		Customer(const Customer &customer);
+		Customer(const YAML::Node& node);
 		virtual ~Customer() {}
 		int getCustomerID() const;
 		const std::string& getUsername() const;
@@ -47,6 +49,7 @@ class Customer {
 		const std::string& getState() const;
 		int getZip() const;
 		int getMoney() const;
+		void parseYaml(const YAML::Node& node);
 		void setCustomerID(const int customerID);
 		void setUsername(const std::string &username);
 		void setPassword(const std::string &password);

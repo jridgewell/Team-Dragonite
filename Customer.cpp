@@ -19,7 +19,7 @@
 
 //TODO: javadocs
 
-Customer::Customer(){
+Customer::Customer() {
 	this->setCustomerID(0);
 	this->setUsername("username");
 	this->setPassword("password");
@@ -43,7 +43,7 @@ Customer::Customer(const int customerID, const std::string &username, const std:
 	this->setMoney(money);
 }
 
-Customer::Customer(const Customer& customer){
+Customer::Customer(const Customer& customer) {
 	this->setCustomerID(customer.myCustomerID);
 	this->setUsername(customer.myUsername);
 	this->setPassword(customer.myPassword);
@@ -53,6 +53,10 @@ Customer::Customer(const Customer& customer){
 	this->setState(customer.myState);
 	this->setZip(customer.myZip);
 	this->setMoney(customer.myMoney);
+}
+
+Customer::Customer(const YAML::Node& node) {
+	this->parseYaml(node);
 }
 
 int Customer::getCustomerID() const{
@@ -89,6 +93,18 @@ int Customer::getZip() const{
 
 int Customer::getMoney() const{
 	return myMoney;
+}
+
+void Customer::parseYaml(const YAML::Node& node) {
+	node["myCustomerID"] >> this->myCustomerID;
+	node["myUsername"] >> this->myUsername;
+	node["myPassword"] >> this->myPassword;
+	node["myFullName"] >> this->myFullName;
+	node["myAddress"] >> this->myAddress;
+	node["myCity"] >> this->myCity;
+	node["myState"] >> this->myState;
+	node["myZip"] >> this->myZip;
+	node["myMoney"] >> this->myMoney;
 }
 
 void Customer::setCustomerID(const int customerID){

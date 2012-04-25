@@ -1,0 +1,18 @@
+- myCustomerID: 0
+  myUsername: shepard
+  myPassword: n7reaper
+  myFullName: John Shepard
+  myAddress: The Loft
+  myCity: SSV Normandy
+  myState: Milky Way
+  myZip: 4321352
+  myMoney: 100000
+- myCustomerID: 1
+  myUsername: ash
+  myPassword: pokemon
+  myFullName: Ash Ketchum
+  myAddress: 1st Home
+  myCity: Pallet Town
+  myState: Kanto
+  myZip: 11111
+  myMoney: 1

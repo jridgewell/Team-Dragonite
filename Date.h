@@ -48,7 +48,7 @@ class Date {
 		void createMonths();
 	public:
 		Date();
-		Date(int day, int month, int year);
+		Date(int year, int month, int day);
 		Date(const Date& date);
 		Date(std::string date);
 		~Date() {}

@@ -26,7 +26,7 @@ Date::Date() {
 	this->setDay(1);
 }
 
-Date::Date(int month, int day, int year) {
+Date::Date(int year, int month, int day) {
 	this->createMonths();
 	this->setMonth(month);
 	this->setYear(year);

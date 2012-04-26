@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 TEST(Date, Constructor) {
-	Date d = Date(11, 11, 1111);
+	Date d = Date(1111, 11, 11);
 	EXPECT_EQ(d.getDay(), 11);
 	EXPECT_EQ(d.getMonth(), 11);
 	EXPECT_EQ(d.getYear(), 1111);
@@ -16,7 +16,7 @@ TEST(Date, DefaultConstructor) {
 }
 
 TEST(Date, CopyConstructor) {
-	Date d = Date(11, 11, 1111);
+	Date d = Date(1111, 11, 11);
 	Date d2 = d;
 	EXPECT_EQ(d.getDay(), d2.getDay());
 	EXPECT_EQ(d.getMonth(), d2.getMonth());
@@ -24,7 +24,7 @@ TEST(Date, CopyConstructor) {
 }
 
 TEST(Date, IsLeapYear) {
-	Date d = Date(2, 28, 4);
+	Date d = Date(4, 2, 28);
 	EXPECT_EQ(d.isLeapYear(), true);
 	EXPECT_EQ(d.getDaysInMonth(), 29);
 	d.setYear(100);
@@ -36,7 +36,7 @@ TEST(Date, IsLeapYear) {
 }
 
 TEST(Date, IncreaseDayMonthYear) {
-	Date d = Date(12, 31, 2012);
+	Date d = Date(2012, 12, 31);
 	d.setDay(d.getDay() + 1);
 	EXPECT_EQ(d.getDay(), 1);
 	EXPECT_EQ(d.getMonth(), 1);
@@ -44,7 +44,7 @@ TEST(Date, IncreaseDayMonthYear) {
 }
 
 TEST(Date, IncreaseDayMonth) {
-	Date d = Date(1, 31, 2012);
+	Date d = Date(2012, 1, 31);
 	d.setDay(d.getDay() + 1);
 	EXPECT_EQ(d.getDay(), 1);
 	EXPECT_EQ(d.getMonth(), 2);
@@ -59,7 +59,7 @@ TEST(Date, IncreaseDayMonth) {
 }
 
 TEST(Date, DecreaseDayMonthYear) {
-	Date d = Date(1, 1, 2012);
+	Date d = Date(2012, 1, 1);
 	d.setDay(d.getDay() - 1);
 	EXPECT_EQ(d.getDay(), 31);
 	EXPECT_EQ(d.getMonth(), 12);
@@ -67,7 +67,7 @@ TEST(Date, DecreaseDayMonthYear) {
 }
 
 TEST(Date, DecreaseDayMonth) {
-	Date d = Date(2, 1, 2012);
+	Date d = Date(2012, 2, 1);
 	d.setDay(d.getDay() - 1);
 	EXPECT_EQ(d.getDay(), 31);
 	EXPECT_EQ(d.getMonth(), 1);
@@ -82,7 +82,7 @@ TEST(Date, DecreaseDayMonth) {
 }
 
 TEST(Date, IncreaseMonthDay) {
-	Date d = Date(1, 31, 2012);
+	Date d = Date(2012, 1, 31);
 	d.setMonth(d.getMonth() + 1);
 	EXPECT_EQ(d.getDay(), 29);
 	EXPECT_EQ(d.getMonth(), 2);
@@ -90,7 +90,7 @@ TEST(Date, IncreaseMonthDay) {
 }
 
 TEST(Date, DecreaseMonthDay) {
-	Date d = Date(3, 31, 2012);
+	Date d = Date(2012, 3, 31);
 	d.setMonth(d.getMonth() - 1);
 	EXPECT_EQ(d.getDay(), 29);
 	EXPECT_EQ(d.getMonth(), 2);

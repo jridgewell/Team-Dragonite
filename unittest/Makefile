@@ -21,7 +21,7 @@ USER_DIR = ..
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = $(patsubst %.cpp, %, $(wildcard *.cpp))
+TESTS = $(patsubst %.cpp, %, $(wildcard *.cpp)) All
 # TESTS = 
 
 # Flags passed to the preprocessor.
@@ -37,7 +37,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-all : $(TESTS) All
+all : $(TESTS)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o

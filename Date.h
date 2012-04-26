@@ -18,6 +18,7 @@
  * =====================================================================================
  */
 #include <iostream>
+#include <ctime>
 #include <string>
 
 //TODO: javadocs

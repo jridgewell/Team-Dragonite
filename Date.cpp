@@ -40,6 +40,18 @@ Date::Date(const Date& date) {
 	this->setDay(date.myDay);
 }
 
+Date::Date(std::string date) {
+	this->createMonths();
+	char* string = &date[0];
+	char* split;
+	split = strtok(string, "/");
+	this->setYear(atoi(split));
+	split = strtok(NULL, "/");
+	this->setMonth(atoi(split));
+	split = strtok(NULL, "/");
+	this->setDay(atoi(split));
+}
+
 void Date::checkDays() {
 	if (myDay > months[myMonth].days) {
 		this->setDay(months[myMonth].days);
@@ -96,6 +108,20 @@ bool Date::isLeapYear(int year) {
 		return true;
 	}
 	return false;
+}
+
+const std::string& Date::serializeDate() {
+	std::stringstream ss;
+	ss << ((myYear < 1000) ? "0" : "");
+	ss << ((myYear < 100) ? "0" : "");
+	ss << ((myYear < 10) ? "0" : "");
+	ss << myYear << "/";
+	ss << ((myMonth < 10) ? "0" : "");
+	ss << myMonth << "/";
+	ss << ((myDay < 10) ? "0" : "");
+	ss << myDay;
+	myString = ss.str();
+	return myString;
 }
 
 void Date::setDay(int day) {

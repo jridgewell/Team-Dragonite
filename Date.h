@@ -20,6 +20,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <sstream>
 
 //TODO: javadocs
 
@@ -42,12 +43,14 @@ class Date {
 		int myDay;
 		int myMonth;
 		int myYear;
+		std::string myString;
 		void checkDays();
 		void createMonths();
 	public:
 		Date();
 		Date(int day, int month, int year);
 		Date(const Date & date);
+		Date(std::string date);
 		~Date() {}
 		int getDay();
 		int getDaysInMonth();
@@ -56,6 +59,7 @@ class Date {
 		int getYear();
 		bool isLeapYear();
 		bool isLeapYear(int year);
+		const std::string& serializeDate();
 		void setDay(int day);
 		void setMonth(int month);
 		void setYear(int year);

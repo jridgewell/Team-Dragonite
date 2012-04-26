@@ -52,13 +52,13 @@ class Date {
 		Date(const Date& date);
 		Date(std::string date);
 		~Date() {}
-		int getDay();
-		int getDaysInMonth();
-		int getMonth();
-		const std::string& getMonthName();
-		int getYear();
-		bool isLeapYear();
-		bool isLeapYear(int year);
+		int getDay() const;
+		int getDaysInMonth() const;
+		int getMonth() const;
+		const std::string& getMonthName() const;
+		int getYear() const;
+		bool isLeapYear() const;
+		bool isLeapYear(int year) const;
 		const std::string& serializeDate();
 		void setDay(int day);
 		void setMonth(int month);

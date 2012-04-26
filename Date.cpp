@@ -76,31 +76,31 @@ void Date::createMonths() {
 }
 
 
-int Date::getDay() {
+int Date::getDay() const {
 	return myDay;
 }
 
-int Date::getDaysInMonth() {
+int Date::getDaysInMonth() const {
 	return months[myMonth].days;
 }
 
-int Date::getMonth() {
+int Date::getMonth() const {
 	return myMonth;
 }
 
-const std::string& Date::getMonthName() {
+const std::string& Date::getMonthName() const {
 	return months[myMonth].name;
 }
 
-int Date::getYear() {
+int Date::getYear() const {
 	return myYear;
 }
 
-bool Date::isLeapYear() {
+bool Date::isLeapYear() const {
 	return this->isLeapYear(myYear);
 }
 
-bool Date::isLeapYear(int year) {
+bool Date::isLeapYear(int year) const {
 	if (year % 4 == 0) {
 		if ((year % 100 == 0) && (year % 400 != 0)) {
 			return false;

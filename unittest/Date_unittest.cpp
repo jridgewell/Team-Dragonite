@@ -96,3 +96,20 @@ TEST(Date, DecreaseMonthDay) {
 	EXPECT_EQ(d.getMonth(), 2);
 	EXPECT_EQ(d.getYear(), 2012);
 }
+
+TEST(Date, DateFromString) {
+	std::string str = "2000/02/29";
+	Date d = Date(str);
+	EXPECT_EQ(d.getDay(), 29);
+	EXPECT_EQ(d.getMonth(), 2);
+	EXPECT_EQ(d.getYear(), 2000);
+}
+
+TEST(Date, DateToString) {
+	Date d = Date(2000, 02, 29);
+	EXPECT_EQ(d.serializeDate(), "2000/02/29");
+	d.setYear(4);
+	d.setMonth(2);
+	d.setDay(1);
+	EXPECT_EQ(d.serializeDate(), "0004/02/01");
+}

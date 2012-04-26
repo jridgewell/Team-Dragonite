@@ -49,7 +49,7 @@ class Date {
 	public:
 		Date();
 		Date(int day, int month, int year);
-		Date(const Date & date);
+		Date(const Date& date);
 		Date(std::string date);
 		~Date() {}
 		int getDay();

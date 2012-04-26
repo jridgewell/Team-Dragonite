@@ -25,7 +25,7 @@ USER_DIR = ..
 TESTS = All
 
 # Flags passed to the preprocessor.
-CPPFLAGS += -I$(GTEST_DIR)/include
+CPPFLAGS += -I$(GTEST_DIR)/include -lyaml-cpp
 
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -Wall -Wextra

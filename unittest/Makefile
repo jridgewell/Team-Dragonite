@@ -70,7 +70,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
-All: Customer.o Customer_unittest.o Date.o Date_unittest.o gtest_main.a
+All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
@@ -89,4 +89,13 @@ Date_unittest.o : Date_unittest.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Date_unittest.cpp
 
 Date_unittest : Date.o Date_unittest.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+Order.o : $(USER_DIR)/Order.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Order.cpp
+
+Order_unittest.o : Order_unittest.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Order_unittest.cpp
+
+Order_unittest : Order.o Date.o Order_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

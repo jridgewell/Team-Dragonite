@@ -1,4 +1,5 @@
 yaml-cpp/build
-unittest/*.o
-unittest/*.a
-unittest/All
+unittest/*
+!unittest/*.cpp
+!unittest/Makefile
+!unittest/README

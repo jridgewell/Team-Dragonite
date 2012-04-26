@@ -21,8 +21,8 @@ USER_DIR = ..
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-# TESTS = $(patsubst %.cpp, %, $(wildcard *.cpp))
-TESTS = All
+TESTS = $(patsubst %.cpp, %, $(wildcard *.cpp))
+# TESTS = 
 
 # Flags passed to the preprocessor.
 CPPFLAGS += -I$(GTEST_DIR)/include -lyaml-cpp
@@ -37,7 +37,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-all : $(TESTS)
+all : $(TESTS) All
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
@@ -70,11 +70,23 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
-All.o : $(wildcard $(USER_DIR)/*.cpp) $(wildcard $(USER_DIR)/*.h) $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(wildcard $(USER_DIR)/*.cpp)
+All: Customer.o Customer_unittest.o Date.o Date_unittest.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
-All_unittest.o : $(wildcard *.cpp) $(wildcard $(USER_DIR)/*.h) $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(wildcard *.cpp)
+Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Customer.cpp
 
-All : All.o All_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $(wildcard *.o) -o $@
+Customer_unittest.o : Customer_unittest.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Customer_unittest.cpp
+
+Customer_unittest : Customer.o Customer_unittest.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+	
+Date.o : $(USER_DIR)/Date.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Date.cpp
+
+Date_unittest.o : Date_unittest.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Date_unittest.cpp
+
+Date_unittest : Date.o Date_unittest.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

@@ -25,10 +25,20 @@ TESTS = $(patsubst %.cpp, %, $(wildcard *.cpp)) All
 # TESTS = 
 
 # Flags passed to the preprocessor.
-CPPFLAGS += -I$(GTEST_DIR)/include -lyaml-cpp
+CPPFLAGS += -I$(GTEST_DIR)/include -I$(yaml_incdir)
 
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -Wall -Wextra
+
+yaml_srcdir = ../yaml-cpp/src
+yaml_incdir = ../yaml-cpp/include
+yaml_builddir = ../build
+OBJS=aliasmanager.o emitfromevents.o exp.o nodeownership.o regex.o \
+	scantoken.o tag.o binary.o emitter.o iterator.o null.o scanner.o \
+	simplekey.o conversion.o emitterstate.o node.o ostream.o scanscalar.o \
+	singledocparser.o directives.o emitterutils.o nodebuilder.o parser.o \
+	scantag.o stream.o graphbuilder.o graphbuilderadapter.o
+CCFLAGS += -I$(yaml_incdir)
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -37,10 +47,17 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-all : $(TESTS)
+all : $(OBJS) $(TESTS)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
+
+%.o : $(yaml_srcdir)/%.cpp
+	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
+graphbuilder.o: $(yaml_srcdir)/contrib/graphbuilder.cpp
+	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
+graphbuilderadapter.o: $(yaml_srcdir)/contrib/graphbuilderadapter.cpp
+	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
 
 # Builds gtest.a and gtest_main.a.
 
@@ -71,7 +88,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 # function.
 
 All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
 
 Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Customer.cpp
@@ -80,7 +97,7 @@ Customer_unittest.o : Customer_unittest.cpp $(USER_DIR)/Customer.h $(GTEST_HEADE
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Customer_unittest.cpp
 
 Customer_unittest : Customer.o Customer_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
 	
 Date.o : $(USER_DIR)/Date.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Date.cpp
@@ -89,7 +106,7 @@ Date_unittest.o : Date_unittest.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Date_unittest.cpp
 
 Date_unittest : Date.o Date_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
 
 Order.o : $(USER_DIR)/Order.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Order.cpp
@@ -98,4 +115,4 @@ Order_unittest.o : Order_unittest.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Order_unittest.cpp
 
 Order_unittest : Order.o Date.o Order_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)

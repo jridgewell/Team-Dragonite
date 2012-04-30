@@ -5,10 +5,11 @@ OBJS=aliasmanager.o emitfromevents.o exp.o nodeownership.o regex.o \
 	scantag.o stream.o graphbuilder.o graphbuilderadapter.o
 yaml_srcdir = yaml-cpp_src
 yaml_incdir = yaml-cpp_include
-yaml_builddir = yaml-cpp_build
+yaml_builddir = build
+CCFLAGS = -I$(yaml_incdir)
 
 all: $(OBJS)
-	g++ -I $(yaml_incdir) -o main *.cpp $(wildcard $(yaml_builddir)/*.o)
+	g++ $(CCFLAGS) -o main *.cpp $(wildcard $(yaml_builddir)/*.o)
 clean:
 	rm -f $(yaml_builddir)/*.o	
 	rm -f main

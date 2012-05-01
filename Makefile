@@ -1,22 +1,22 @@
 yaml_srcdir = yaml-cpp/src
 yaml_incdir = yaml-cpp/include
 yaml_builddir = build
-OBJS=aliasmanager.o emitfromevents.o exp.o nodeownership.o regex.o \
-	scantoken.o tag.o binary.o emitter.o iterator.o null.o scanner.o \
-	simplekey.o conversion.o emitterstate.o node.o ostream.o scanscalar.o \
-	singledocparser.o directives.o emitterutils.o nodebuilder.o parser.o \
-	scantag.o stream.o graphbuilder.o graphbuilderadapter.o
-CCFLAGS += -I$(yaml_incdir)
+yaml_srcs = $(wildcard $(yaml_srcdir)/*.cpp)
+yaml_objs = $(addprefix $(yaml_builddir)/, $(notdir $(yaml_srcs:.cpp=.o)))
+CXXFLAGS += -I$(yaml_incdir)
 
-all: $(OBJS)
-	g++ $(CCFLAGS) -o main *.cpp $(wildcard $(yaml_builddir)/*.o)
+all: $(yaml_builddir)/yaml.a
+	$(CXX) $(CXXFLAGS) -o main *.cpp $^
 clean:
-	rm -f $(yaml_builddir)/*.o	
+	rm -f $(yaml_builddir)/*.o
+	rm -f $(yaml_builddir)/yaml.a
 	rm -f main
 
+$(yaml_builddir)/yaml.a: $(yaml_objs)
+	$(AR) $(ARFLAGS) $@ $^	
 %.o : $(yaml_srcdir)/%.cpp
-	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
-graphbuilder.o: $(yaml_srcdir)/contrib/graphbuilder.cpp
-	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
-graphbuilderadapter.o: $(yaml_srcdir)/contrib/graphbuilderadapter.cpp
-	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
+	$(CXX) $(CXXFLAGS) -c $< -o $(yaml_builddir)/$@
+$(yaml_builddir)/graphbuilder.o: $(yaml_srcdir)/contrib/graphbuilder.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $(yaml_builddir)/$@
+$(yaml_builddir)/graphbuilderadapter.o: $(yaml_srcdir)/contrib/graphbuilderadapter.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $(yaml_builddir)/$@

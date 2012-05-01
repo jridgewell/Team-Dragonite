@@ -1,5 +1,6 @@
 yaml-cpp/build
-build/*.o
+build/*
+!build/blank
 unittest/*
 !unittest/*.cpp
 !unittest/Makefile

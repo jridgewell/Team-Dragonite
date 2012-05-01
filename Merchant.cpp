@@ -15,21 +15,22 @@
  *
  * =====================================================================================
  */
+#include "Merchant.h"
 
 //TODO: javadocs
 
 Merchant::Merchant() {
-	this->setUserName(0);
-	this->setPassword(0);
+	this->setUsername("username");
+	this->setPassword("password");
 }
 
-Merchant::Merchant(string userName, string password) {
-	this->setUserName(userName);
-	this->setpassword(password);
+Merchant::Merchant(const std::string& username, const std::string& password) {
+	this->setUsername(username);
+	this->setPassword(password);
 }
 
 Merchant::Merchant(const Merchant& merchant) {
-	this->setUserName(merchant.myUserName);
+	this->setUsername(merchant.myUsername);
 	this->setPassword(merchant.myPassword);
 }
 
@@ -37,23 +38,23 @@ Merchant::Merchant(const YAML::Node& node) {
 	this->parseYaml(node);
 }
 
-string Merchant::getUserName() const {
-	return myUserName();
+const std::string& Merchant::getUsername() const {
+	return myUsername;
 }
 
-string Merchant::getPassword() const {
-	return myPassword();
+const std::string& Merchant::getPassword() const {
+	return myPassword;
 }
 
 void Merchant::parseYaml(const YAML::Node& node) {
-	node["myUserName"] >> this->myUserName;
+	node["myUsername"] >> this->myUsername;
 	node["myPassword"] >> this->myPassword;
 }
 
-void Merchant::setUserName(string username) {
-	myUserName = username;
+void Merchant::setUsername(const std::string& username) {
+	myUsername = username;
 }
 
-void Merchant::setPassword(string password) {
+void Merchant::setPassword(const std::string& password) {
 	myPassword = password;
 }

@@ -1,5 +1,5 @@
-#ifndef Merchant_H
-#define Merchant_H
+#ifndef MERCHANT_H
+#define MERCHANT_H
 /*
  * =====================================================================================
  *
@@ -20,25 +20,23 @@
 #include <iostream>
 #include <string>
 #include <yaml-cpp/yaml.h>
-#include "Merchant.h"
 
 //TODO javadocs
 
 class Merchant {
 	private:
-		string myUserName;
-		string myPassword;
+		std::string myUsername;
+		std::string myPassword;
 	public:
 		Merchant();
-		Merchant(string userName, string password);
+		Merchant(const std::string& username, const std::string& password);
 		Merchant(const Merchant& Merchant);
 		Merchant(const YAML::Node& node);
 		virtual ~Merchant() {}
-		string getUserName() const;
-		string getPassword() const;
-		const Merchant& getMerchant() const;
-		void parseYAML(const YAML::Node node);
-		void setUserName(string userName) const;
-		void setPassword(string password) const;
+		const std::string& getUsername() const;
+		const std::string& getPassword() const;
+		void parseYaml(const YAML::Node& node);
+		void setUsername(const std::string& username);
+		void setPassword(const std::string& password);
 };
 #endif

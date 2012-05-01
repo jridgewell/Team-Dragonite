@@ -14,9 +14,9 @@ clean:
 
 $(yaml_builddir)/yaml.a: $(yaml_objs)
 	$(AR) $(ARFLAGS) $@ $^	
-%.o : $(yaml_srcdir)/%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $(yaml_builddir)/$@
+$(yaml_builddir)/%.o : $(yaml_srcdir)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 $(yaml_builddir)/graphbuilder.o: $(yaml_srcdir)/contrib/graphbuilder.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $(yaml_builddir)/$@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 $(yaml_builddir)/graphbuilderadapter.o: $(yaml_srcdir)/contrib/graphbuilderadapter.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $(yaml_builddir)/$@
+	$(CXX) $(CXXFLAGS) -c $< -o $@

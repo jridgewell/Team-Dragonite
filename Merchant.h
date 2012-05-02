@@ -22,8 +22,10 @@
 #include <yaml-cpp/yaml.h>
 
 
+
 /*
-/Outlines the Merchant class and the features contained therein.
+/Outlines the Merchant class and the features contained therein. 
+/Merchants consist of a username and password
 /Creates merchants through one of the following:
 /1) A default constructor
 /2) A constructor with passed in values

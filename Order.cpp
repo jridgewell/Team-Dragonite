@@ -19,6 +19,11 @@
 
 //TODO: javadocs
 
+/*
+/Default constructor, creates a new order with the default values
+/Pre: None
+/Post: Order is created with default value
+*/
 Order::Order() {
 	this->setOrderID(0);
 	this->setCustomerID(0);
@@ -28,6 +33,11 @@ Order::Order() {
 	this->setDate(Date());
 }
 
+/*
+/Creates a new order with the input values
+/Pre: Values for the order id, customer id, SKY, quantity, price and date are input
+/Post: A new order is created with the passed in values
+*/
 Order::Order(int orderID, int customerID, int SKU, int quantity, int price, const Date& date) {
 	this->setOrderID(orderID);
 	this->setCustomerID(customerID);
@@ -37,6 +47,11 @@ Order::Order(int orderID, int customerID, int SKU, int quantity, int price, cons
 	this->setDate(date);
 }
 
+/*
+/Clones an order object
+/Pre: An order is passed in
+/Post: A new order is created with the same values as the passed in one
+*/
 Order::Order(const Order& order) {
 	this->setOrderID(order.myOrderID);
 	this->setCustomerID(order.myCustomerID);
@@ -46,34 +61,74 @@ Order::Order(const Order& order) {
 	this->setDate(order.myDate);
 }
 
+/*
+/Pushes an order's data on the YAML 
+/Pre: The node where the data will be stored is passed in
+/Post: The order's information is stored on the node
+*/
 Order::Order(const YAML::Node& node) {
 	this->parseYaml(node);
 }
 
+/*
+/Retrieves the order's ID number
+/Pre: None
+/Post: Returns the order's ID number
+*/
 int Order::getOrderID() const {
 	return myOrderID;
 }
 
+/*
+/Retrieves the customer's ID number
+/Pre: None
+/Post: Returns the customer's ID number
+*/
 int Order::getCustomerID() const {
 	return myCustomerID;
 }
 
+/*
+/Retrieves the SKU of the order
+/Pre: None
+/Post: Returns the SKU
+*/
 int Order::getSKU() const {
 	return mySKU;
 }
 
+/*
+/Retrieves the quantity of the ordered item
+/Pre: None
+/Post: Returns the quantity of the item
+*/
 int Order::getQuantity() const {
 	return myQuantity;
 }
 
+/*
+/Retrieves the price of the ordered item
+/Pre: None
+/Post: Returns the price of the item
+*/
 int Order::getPrice() const {
 	return myPrice;
 }
 
+/*
+/Retrieves the date the order was placed
+/Pre: None
+/Post: Returns the date of the order
+*/
 const Date& Order::getDate() const {
 	return myDate;
 }
 
+/*
+/Sets the data of an order to that of the information stored on a node in the YAML
+/Pre: A node is passed in with the order's information
+/Post: And order's values are set to the information passed in
+*/
 void Order::parseYaml(const YAML::Node& node) {
 	node["myOrderID"] >> this->myOrderID;
 	node["myCustomerID"] >> this->myCustomerID;
@@ -85,6 +140,11 @@ void Order::parseYaml(const YAML::Node& node) {
 	this->setDate(Date(temp));
 }
 
+/*
+/Sets an order's ID to the passed in integer
+/Pre: A 
+/Post:
+*/
 void Order::setOrderID(int orderID) {
 	myOrderID = orderID;
 }

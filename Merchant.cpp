@@ -88,7 +88,7 @@ void Merchant::parseYaml(const YAML::Node& node) {
 
 /*
 /Sets merchant's username to the input value
-/Pre: A usename string is passed in
+/Pre: A username string is passed in
 /Post: The merchant's username is changed to the new value
 */
 void Merchant::setUsername(const std::string& username) {

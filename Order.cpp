@@ -141,30 +141,55 @@ void Order::parseYaml(const YAML::Node& node) {
 }
 
 /*
-/Sets an order's ID to the passed in integer
-/Pre: A 
-/Post:
+/Sets an order's ID number to a passed in integer
+/Pre: An integer is passed in
+/Post: The Order's ID is set to the passed in value
 */
 void Order::setOrderID(int orderID) {
 	myOrderID = orderID;
 }
 
+/*
+/Sets the customer's ID number of an associated order to a passed in integer
+/Pre: An integer is passed in
+/Post: The Customer's ID is set to the passed in value
+*/
 void Order::setCustomerID(int customerID) {
 	myCustomerID = customerID;
 }
 
+/*
+/Sets the SKU of an order to a passed in value
+/Pre: An integer is passed in
+/Post: The SKU of the order is set to the passed in value
+*/
 void Order::setSKU(int SKU) {
 	mySKU = SKU;
 }
 
+/*
+/Sets the quantity of items ordered to a passed in value
+/Pre: An integer is passed in
+/Post: The quantity of items ordered is set to the passed in value
+*/
 void Order::setQuantity(int quantity) {
 	myQuantity = quantity;
 }
 
+/*
+/Sets the price of an item in an order to a passed in value
+/Pre: An integer is passed in
+/Post: The price of the item ordered is set to the passed in value
+*/
 void Order::setPrice(int price) {
 	myPrice = price;
 }
 
+/*
+/Sets the date of the order to a passed in date
+/Pre: A date object is passed in
+/Post: The date of the order is set to the values inherited from the date object
+*/
 void Order::setDate(const Date& date) {
 	myDate = date;
 }

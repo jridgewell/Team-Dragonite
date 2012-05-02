@@ -22,7 +22,16 @@
 #include <yaml-cpp/yaml.h>
 #include "Date.h"
 
-//TODO: javadocs
+/*
+/Outlines the Order class and the features contained therein
+/Orders consist of an order ID number, a customer ID number, a SKU, the quantity of an item sold, the price of the item, and the date the item is ordered
+/Creates orders through one of the following:
+/1) A default constructor
+/2) A constructor with passed in values
+/3) An existing order object, copying its values
+/4) Object data retrieved from a node on the YAML
+/In addition, the class is able to set/get the order's values
+*/
 
 class Order {
 	private:

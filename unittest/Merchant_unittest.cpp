@@ -19,6 +19,6 @@ TEST(Merchant, CopyConstructor)
 {
         const Merchant m;
         const Merchant m2 = m;
-        EXPECT_EQ(c.getUsername(), c2.getUsername());
-        EXPECT_EQ(c.getPassword(), c2.getPassword());
+        EXPECT_EQ(m.getUsername(), m2.getUsername());
+        EXPECT_EQ(m.getPassword(), m2.getPassword());
 }

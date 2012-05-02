@@ -87,7 +87,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
-All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o gtest_main.a
+All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o Merchant.o Merchant_unittest.o  gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
 
 Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)

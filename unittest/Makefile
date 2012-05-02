@@ -87,7 +87,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
-All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o gtest_main.a
+All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o Merchant.o Merchant_unittest.o  gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
 
 Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
@@ -116,3 +116,12 @@ Order_unittest.o : Order_unittest.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
 
 Order_unittest : Order.o Date.o Order_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
+
+Merchant.o : $(USER_DIR)/Merchant.cpp $(USER_DIR)/Merchant.h $(GTEST_HEADERS)
+        $(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Merchant.cpp
+
+Merchant_unittest.o : Merchant_unittest.cpp $(USER_DIR)/Merchant.h $(GTEST_HEADERS)
+        $(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Merchant_unittest.cpp
+
+Merchant_unittest : Merchant.o Merchant_unittest.o gtest_main.a
+        $(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)

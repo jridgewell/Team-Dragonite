@@ -33,17 +33,14 @@ CXXFLAGS += -g -Wall -Wextra
 yaml_srcdir = ../yaml-cpp/src
 yaml_incdir = ../yaml-cpp/include
 yaml_builddir = ../build
-OBJS=aliasmanager.o emitfromevents.o exp.o nodeownership.o regex.o \
-	scantoken.o tag.o binary.o emitter.o iterator.o null.o scanner.o \
-	simplekey.o conversion.o emitterstate.o node.o ostream.o scanscalar.o \
-	singledocparser.o directives.o emitterutils.o nodebuilder.o parser.o \
-	scantag.o stream.o graphbuilder.o graphbuilderadapter.o
+yaml_srcs = $(wildcard $(yaml_srcdir)/*.cpp)
+yaml_objs = $(addprefix $(yaml_builddir)/, $(notdir $(yaml_srcs:.cpp=.o)))
 CCFLAGS += -I$(yaml_incdir)
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
-                $(GTEST_DIR)/include/gtest/internal/*.h
+		$(GTEST_DIR)/include/gtest/internal/*.h
 
 # House-keeping build targets.
 
@@ -52,12 +49,14 @@ all : $(OBJS) $(TESTS)
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
 
-%.o : $(yaml_srcdir)/%.cpp
-	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
-graphbuilder.o: $(yaml_srcdir)/contrib/graphbuilder.cpp
-	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
-graphbuilderadapter.o: $(yaml_srcdir)/contrib/graphbuilderadapter.cpp
-	g++ $(CCFLAGS) -c $< -o $(yaml_builddir)/$@
+$(yaml_builddir)/yaml.a: $(yaml_objs)
+	$(AR) $(ARFLAGS) $@ $^	
+$(yaml_builddir)/%.o : $(yaml_srcdir)/%.cpp
+	$(CXX) $(CCFLAGS) -c $< -o $@
+$(yaml_builddir)/graphbuilder.o: $(yaml_srcdir)/contrib/graphbuilder.cpp
+	$(CXX) $(CCFLAGS) -c $< -o $@
+$(yaml_builddir)/graphbuilderadapter.o: $(yaml_srcdir)/contrib/graphbuilderadapter.cpp
+	$(CXX) $(CCFLAGS) -c $< -o $@
 
 # Builds gtest.a and gtest_main.a.
 
@@ -71,11 +70,11 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # compiles fast and for ordinary users its source rarely changes.
 gtest-all.o : $(GTEST_SRCS_)
 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest-all.cc
+	    $(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest_main.cc
+	    $(GTEST_DIR)/src/gtest_main.cc
 
 gtest.a : gtest-all.o
 	$(AR) $(ARFLAGS) $@ $^
@@ -87,17 +86,17 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
-All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o Merchant.o Merchant_unittest.o  gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
+All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o Merchant.o Merchant_unittest.o  gtest_main.a $(yaml_builddir)/yaml.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a
 
-Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
+Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS) 
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Customer.cpp
 
 Customer_unittest.o : Customer_unittest.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Customer_unittest.cpp
 
 Customer_unittest : Customer.o Customer_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a $(yaml_builddir)/yaml.a
 	
 Date.o : $(USER_DIR)/Date.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Date.cpp
@@ -105,8 +104,8 @@ Date.o : $(USER_DIR)/Date.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
 Date_unittest.o : Date_unittest.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Date_unittest.cpp
 
-Date_unittest : Date.o Date_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
+Date_unittest : Date.o Date_unittest.o gtest_main.a $(yaml_builddir)/yaml.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a
 
 Order.o : $(USER_DIR)/Order.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Order.cpp
@@ -114,14 +113,14 @@ Order.o : $(USER_DIR)/Order.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
 Order_unittest.o : Order_unittest.cpp $(USER_DIR)/Order.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Order_unittest.cpp
 
-Order_unittest : Order.o Date.o Order_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
+Order_unittest : Order.o Date.o Order_unittest.o gtest_main.a $(yaml_builddir)/yaml.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a
 
 Merchant.o : $(USER_DIR)/Merchant.cpp $(USER_DIR)/Merchant.h $(GTEST_HEADERS)
-        $(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Merchant.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Merchant.cpp
 
 Merchant_unittest.o : Merchant_unittest.cpp $(USER_DIR)/Merchant.h $(GTEST_HEADERS)
-        $(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Merchant_unittest.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Merchant_unittest.cpp
 
-Merchant_unittest : Merchant.o Merchant_unittest.o gtest_main.a
-        $(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(wildcard $(yaml_builddir)/*.o)
+Merchant_unittest : Merchant.o Merchant_unittest.o gtest_main.a $(yaml_builddir)/yaml.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a

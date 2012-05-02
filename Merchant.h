@@ -21,7 +21,16 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 
-//TODO javadocs
+
+/*
+/Outlines the Merchant class and the features contained therein.
+/Creates merchants through one of the following:
+/1) A default constructor
+/2) A constructor with passed in values
+/3) An existing merchant object, copying its values
+/4) Merchant data retrieved from a node on the YAML
+/In addition, the class is able to set/get the merchant's username and password
+*/
 
 class Merchant {
 	private:

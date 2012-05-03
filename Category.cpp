@@ -8,14 +8,30 @@
 #include <"Category.h">
 
 Category::Category()
+/**
+ * Purpose: Category constructor
+ * Post: Category object created
+ * 			Category ID = 0
+ * 			Category Name = "Category Name"
+ */
 {
 	this -> setCategoryID(0);
 	this -> setCategoryName("Category Name");
 }
 
 Category::Category(const int categoryID, const std::string& categoryName);
+/**
+ * Purpose: Parameter Category constructor
+ * Post: Category created with parameters
+ * 			Category ID = categoryID
+ * 			Category Name = categoryName
+ */
 
 Category::Category(Category category)
+/**
+ * Purpose: Copy Category constructor
+ * Post: Category object created as a copy of category
+ */
 {
 	this -> setCategoryID(category.myCategoryID);
 	this -> setCategoryName(category.myCategoryName);

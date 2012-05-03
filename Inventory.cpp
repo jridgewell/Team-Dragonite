@@ -7,6 +7,15 @@
 #include "Inventory.h"
 
 Inventory::Inventory()
+/**
+ * Purpose: Inventory constructor
+ * Post: Inventory object created
+ * 			SKU = 0
+ * 			Item Description = "Item Description"
+ * 			Category ID = 0
+ * 			Price = 0.0
+ * 			Quantity = 0
+ */
 {
 	this -> setSKU(0);
 	this -> setItemDesc("Item Description");
@@ -16,8 +25,21 @@ Inventory::Inventory()
 }
 
 Inventory::Inventory(const int sku, const std::string& itemDesc, const int categoryID, const float price, const int quantity);
+/**
+ * Purpose: Parameter Inventory constructor
+ * Post: Inventory object created with parameters
+ * 			SKU = sku
+ * 			Item Description = itemDesc
+ * 			Category ID = categoryID
+ * 			Price = price
+ * 			Quantity = quantity
+ */
 
 Inventory::Inventory(const Inventory & inventory)
+/**
+ * Purpose: Copy Inventory constructor
+ * Post: Inventory object created as a copy of inventory
+ */
 {
 	this -> setSKU(inventory.mySKU);
 	this -> setItemDesc(inventory.myItemDescr);

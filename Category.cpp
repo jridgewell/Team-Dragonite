@@ -19,6 +19,10 @@ Category::Category()
 	this -> setCategoryName("Category Name");
 }
 
+Category::Category(const int categoryID, const std::string& categoryName)
+{
+}
+
 Category::Category(const Category& category)
 /**
  * Purpose: Copy Category constructor

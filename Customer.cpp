@@ -18,12 +18,13 @@
 #include "Customer.h"
 
 
+Customer::Customer() 
 /*
 * Default constructor, creates a new customer with default values
 * Pre: None
 * Post: A new customer is created with the default values
 */
-Customer::Customer() {
+{
 	this->setCustomerID(0);
 	this->setUsername("username");
 	this->setPassword("password");

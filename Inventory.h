@@ -29,7 +29,7 @@ class Inventory
       	  : mySKU(sku), myItemDesc(itemDesc), myCategoryID(categoryID), myPrice(price), myQuantity(quantity) {}
       Inventory(const Inventory& inventory);
       Inventory(const YAML::Node& node);
-      virtual ~Inventory();
+      virtual ~Inventory() {}
       void parseYaml(const YAML::Node& node);
 
       int getSKU() const;

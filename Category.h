@@ -20,11 +20,10 @@ class Category
 
 	public:
 		Category();
-		Category(const int categoryID, const std::string& categoryName)
-			: myCategoryID(categoryID), myCategoryName(categoryName) {};
+		Category(const int categoryID, const std::string& categoryName);
 		Category(const Category& category);
 		Category(const YAML::Node& node);
-		virtual ~Category();
+		virtual ~Category() {}
 		void parseYaml(const YAML::Node& node);
 
 		int getCategoryID() const;

@@ -24,25 +24,14 @@ Inventory::Inventory()
 	this -> setQuantity(0);
 }
 
-Inventory::Inventory(const int sku, const std::string& itemDesc, const int categoryID, const float price, const int quantity);
-/**
- * Purpose: Parameter Inventory constructor
- * Post: Inventory object created with parameters
- * 			SKU = sku
- * 			Item Description = itemDesc
- * 			Category ID = categoryID
- * 			Price = price
- * 			Quantity = quantity
- */
-
-Inventory::Inventory(const Inventory & inventory)
+Inventory::Inventory(const Inventory& inventory)
 /**
  * Purpose: Copy Inventory constructor
  * Post: Inventory object created as a copy of inventory
  */
 {
 	this -> setSKU(inventory.mySKU);
-	this -> setItemDesc(inventory.myItemDescr);
+	this -> setItemDesc(inventory.myItemDesc);
 	this -> setCategoryID(inventory.myCategoryID);
 	this -> setPrice(inventory.myPrice);
 	this -> setQuantity(inventory.myQuantity);
@@ -92,17 +81,17 @@ int Inventory::getQuantity() const
    return myQuantity;
 }
 
-void setSKU(const int sku)
+void Inventory::setSKU(const int sku)
 {
 	mySKU = sku;
 }
 
-void setItemDesc(const string& itemDesc)
+void Inventory::setItemDesc(const std::string& itemDesc)
 {
 	myItemDesc = itemDesc;
 }
 
-void setCategoryID(int categoryID)
+void Inventory::setCategoryID(int categoryID)
 {
 	myCategoryID = categoryID;
 }

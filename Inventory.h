@@ -26,8 +26,8 @@ class Inventory
    public:
       Inventory();
       Inventory(const int sku, const std::string& itemDesc, const int categoryID, const float price, const int quantity)
-      	  : mySKU(sky), myItemDesc(itemDesc), myCategoryID(categoryID), myPrice(price), myQuantity(quantity) {}
-      Inventory(const Inventory & inventory);
+      	  : mySKU(sku), myItemDesc(itemDesc), myCategoryID(categoryID), myPrice(price), myQuantity(quantity) {}
+      Inventory(const Inventory& inventory);
       Inventory(const YAML::Node& node);
       virtual ~Inventory();
       void parseYaml(const YAML::Node& node);
@@ -39,7 +39,7 @@ class Inventory
       int getQuantity() const;
 
       void setSKU(const int sku);
-      void setItemDesc(const string& itemDesc);
+      void setItemDesc(const std::string& itemDesc);
       void setCategoryID(int categoryID);
       void setPrice(const float price);
       void setQuantity(const int quantity); 

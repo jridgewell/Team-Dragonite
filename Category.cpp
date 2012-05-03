@@ -5,7 +5,7 @@
  * @author Jure Jumalon
  */
 
-#include <"Category.h">
+#include "Category.h"
 
 Category::Category()
 /**
@@ -19,15 +19,7 @@ Category::Category()
 	this -> setCategoryName("Category Name");
 }
 
-Category::Category(const int categoryID, const std::string& categoryName);
-/**
- * Purpose: Parameter Category constructor
- * Post: Category created with parameters
- * 			Category ID = categoryID
- * 			Category Name = categoryName
- */
-
-Category::Category(Category category)
+Category::Category(const Category& category)
 /**
  * Purpose: Copy Category constructor
  * Post: Category object created as a copy of category
@@ -65,7 +57,7 @@ const std::string& Category::getCategoryName() const
 
 void Category::setCategoryID(const int categoryID)
 {
-	myCategory = categoryID;
+	myCategoryID = categoryID;
 }
 
 void Category::setCategoryName(const std::string& categoryName)

@@ -1,3 +1,6 @@
+#ifndef CATEGORY_H
+#define CATEGORY_H
+
 /**
  * Category
  *
@@ -19,7 +22,7 @@ class Category
 		Category();
 		Category(const int categoryID, const std::string& categoryName)
 			: myCategoryID(categoryID), myCategoryName(categoryName) {};
-		Category(Category category);
+		Category(const Category& category);
 		Category(const YAML::Node& node);
 		virtual ~Category();
 		void parseYaml(const YAML::Node& node);
@@ -30,3 +33,5 @@ class Category
 		void setCategoryID(const int categoryID);
 		void setCategoryName(const std::string& categoryName);
 };
+
+#endif

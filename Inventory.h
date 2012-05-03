@@ -30,6 +30,7 @@ class Inventory
       Inventory(const Inventory & inventory);
       Inventory(const YAML::Node& node);
       virtual ~Inventory();
+      void parseYaml(const YAML::Node& node);
 
       int getSKU() const;
       const std::string& getItemDesc() const;
@@ -37,6 +38,9 @@ class Inventory
       float getPrice() const;
       int getQuantity() const;
 
+      void setSKU(const int sku);
+      void setItemDesc(const string& itemDesc);
+      void setCategoryID(int categoryID);
       void setPrice(const float price);
       void setQuantity(const int quantity); 
 };

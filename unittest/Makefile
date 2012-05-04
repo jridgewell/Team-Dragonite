@@ -133,3 +133,12 @@ Inventory_unittest.o : Inventory_unittest.cpp $(USER_DIR)/Inventory.h $(GTEST_HE
 
 Inventory_unittest : Inventory.o Inventory_unittest.o gtest_main.a $(yaml_builddir)/yaml.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a
+
+Category.o : $(USER_DIR)/Category.cpp $(USER_DIR)/Category.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Category.cpp
+
+Category_unittest.o : Category_unittest.cpp $(USER_DIR)/Category.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Category_unittest.cpp
+
+Category_unittest : Category.o Category_unittest.o gtest_main.a $(yaml_builddir)/yaml.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a

@@ -6,11 +6,25 @@
  *
  * @date May 2, 2012
  * @author Jure Jumalon
+ * 
+ * Comments: Andrew Wagenheim
  */
 
 #include <iostream>
 #include <string>
 #include <yaml-cpp/yaml.h>
+
+
+/*
+* Outlines the Category class and the features contained therein.
+* Categories consist of a category ID and a category name
+* Creates Categories through one of the following:
+* 1) A default constructor
+* 2) A constructor with passed in values
+* 3) An existing category object, copying its values
+* 4) Category data retrieved from a node on the YAML
+* In addition, the class is able to set/get the category's values using accessor methods
+*/
 
 class Category
 {

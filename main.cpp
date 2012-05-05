@@ -116,11 +116,10 @@ void login() {
 				merchantLogin();
 				break;
 			default:
-			cont = true;
+			cin.get(c);
 			cout << "Please type either C or M." << endl;
 			cin.get(c);
-			//login();
-			//	break;
+			
 		}
 	}
 }

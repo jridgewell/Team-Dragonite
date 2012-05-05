@@ -22,7 +22,6 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 
-
 /*
 * Outlines the Customer class and the features contained therein.
 * Customers consist of a username, password, full name, address, city, state, zip code, and account balance
@@ -61,7 +60,7 @@ class Customer {
 		const std::string& getState() const;
 		int getZip() const;
 		int getMoney() const;
-		
+
 		void setCustomerID(const int customerID);
 		void setUsername(const std::string& username);
 		void setPassword(const std::string& password);
@@ -72,6 +71,7 @@ class Customer {
 		void setZip(const int zip);
 		void setMoney(const int money);
 
+		YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 		void parseYaml(const YAML::Node& node);
 };
 #endif

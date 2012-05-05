@@ -82,6 +82,32 @@ Customer::Customer(const YAML::Node& node) {
 	this->parseYaml(node);
 }
 
+YAML::Emitter& Customer::emitYaml(YAML::Emitter& out) const {
+	out << YAML::BeginSeq;
+	out << YAML::BeginMap;
+	out << YAML::Key << "myCustomerID";
+	out << YAML::Value << this->myCustomerID;
+	out << YAML::Key << "myUsername";
+	out << YAML::Value << this->myUsername;
+	out << YAML::Key << "myPassword";
+	out << YAML::Value << this->myPassword;
+	out << YAML::Key << "myFullName";
+	out << YAML::Value << this->myFullName;
+	out << YAML::Key << "myAddress";
+	out << YAML::Value << this->myAddress;
+	out << YAML::Key << "myCity";
+	out << YAML::Value << this->myCity;
+	out << YAML::Key << "myState";
+	out << YAML::Value << this->myState;
+	out << YAML::Key << "myZip";
+	out << YAML::Value << this->myZip;
+	out << YAML::Key << "myMoney";
+	out << YAML::Value << this->myMoney;
+	out << YAML::EndMap;
+	out << YAML::EndSeq;
+	return out;
+}
+
 /*
 * Gets the customer's ID
 * Pre: None

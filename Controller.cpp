@@ -12,6 +12,36 @@ void Controller::displayCustomerLogin() const
 {
 }
 
+void Controller::displayLogin()const
+{
+	string input;
+	bool cont = true;
+	cout << "Are you a CUStomer or a Merchant? [CM]" << endl;
+	cin >> input;
+	char c = input[0];
+	while(cont)
+	{
+		switch(c)
+		{
+			case 'c':
+			case 'C':
+				cont = false; 
+				customerLogin();
+				break;
+			case 'm':
+			case 'M':
+				cont = false; 
+				merchantLogin();
+				break;
+			default:
+				cout << "Please type either C or M." << endl;
+				cin >> input;
+				c = input[0];	
+				break;
+		}
+	}
+}
+
 Customer::Customer* Controller::customerLogin(const std::string& username, const std::string& password)
 {
 	if(this -> getCustomer(username) == NULL)

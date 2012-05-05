@@ -177,8 +177,8 @@ int main() {
 
 	categories["Testing"] = new Category();
 	customers.push_back(new Customer());
-	outputMapToFile("data/Category.yaml", categories);
-	outputVectorToFile("data/Customer.yaml", customers);
+	// outputMapToFile("data/Category.yaml", categories);
+	// outputVectorToFile("data/Customer.yaml", customers);
 
 	deleteMap(categories);
 	deleteMap(merchants);

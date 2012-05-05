@@ -187,6 +187,39 @@ void Controller::displayMerchantLogin()
 
         }
 }
+int Controller::purchase(int SKU, int quantity)
+{
+        Customer* customer = getCustomer(myUsername);
+        int funds = customer -> getMoney();
+        int price = 0;
+        for(int i = 0; i < myInventories.size(); i++)
+        {
+                if (SKU == myInventories[i] -> getSKU())
+                {
+                        price = myInventories[i] -> getPrice();
+                }
+                else
+                        price = -1;
+        }
+
+        //Returns -1 if SKU is not found
+        if(price = -1)
+                return -1;
+        else
+        {
+                if(funds > price * quantity)
+                {
+                funds -= price * quantity;
+                customer -> setMoney(funds);
+                return funds;
+                }
+                //Returns -2 if insufficient funds
+                else
+                {
+                return -2;
+                }
+        }
+}
 
 Merchant::Merchant* Controller::merchantLogin(const std::string& username, const std::string& password)
 {

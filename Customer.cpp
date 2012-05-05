@@ -11,6 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Justin Ridgewell
+ * 	 Comments:  Andrew Wagenheim
  *   Organization:  Team Dragonite
  *
  * =====================================================================================
@@ -84,7 +85,7 @@ Customer::Customer(const YAML::Node& node) {
 
 
 /*
-* Retrieves the customer's ID
+* Gets the customer's ID
 * Pre: None
 * Post: Returns the customer's ID
 */
@@ -94,9 +95,9 @@ int Customer::getCustomerID() const{
 
 
 /*
-* Gets the Merchant's username
+* Gets the customer's username
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customers's username
 */
 const std::string& Customer::getUsername() const{
 	return myUsername;
@@ -104,72 +105,72 @@ const std::string& Customer::getUsername() const{
 
 
 /*
-* Gets the Merchant's username
+* Gets the customer's password
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customers's password
 */
 const std::string& Customer::getPassword() const{
 	return myPassword;
 }
 
 /*
-* Gets the Merchant's username
+* Gets the customer's full name
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customer's full name
 */
 const std::string& Customer::getFullName() const{
 	return myFullName;
 }
 
 /*
-* Gets the Merchant's username
+* Gets the customer's address
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customer's address
 */
 const std::string& Customer::getAddress() const{
 	return myAddress;
 }
 
 /*
-* Gets the Merchant's username
+* Gets the customer's city
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customer's city
 */
 const std::string& Customer::getCity() const{
 	return myCity;
 }
 
 /*
-* Gets the Merchant's username
+* Gets the customer's state
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customer's state
 */
 const std::string& Customer::getState() const{
 	return myState;
 }
 
 /*
-* Gets the Merchant's username
+* Gets the customer's zip code
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customer's zip code
 */
 int Customer::getZip() const{
 	return myZip;
 }
 
 /*
-* Gets the Merchant's username
+* Gets the account balance
 * Pre: None
-* Post: Returns the merchant's username
+* Post: Returns the customer's account balance
 */
 int Customer::getMoney() const{
 	return myMoney;
 }
 
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Set's a customer's information to the information stored on the YAML
+* Pre: A node with customer data from the YAML is passed in
+* Post: The customer's values are set to the contained in the node
 */
 void Customer::parseYaml(const YAML::Node& node) {
 	node["myCustomerID"] >> this->myCustomerID;
@@ -184,81 +185,85 @@ void Customer::parseYaml(const YAML::Node& node) {
 }
 
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer id
+* Pre: A customer id value is passed in as an int
+* Post: The myCustomerID value becomes the input value
 */
 void Customer::setCustomerID(const int customerID){
 	myCustomerID = customerID;
 }
 
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's username
+* Pre: A customer username value is passed in as a string
+* Post: The myUsername value is set to the input value
 */
 void Customer::setUsername(const std::string& username){
 	myUsername = username;
 }
 
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's password
+* Pre: A customer password value is passed in as an int
+* Post: The myPassword value is set to the input value
 */
 void Customer::setPassword(const std::string& password){
 	myPassword = password;
 }
 
+
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's full name
+* Pre: A customer full name value is passed in as a string
+* Post: The myFullName value is set to the input value
 */
 void Customer::setFullName(const std::string& fullName){
 	myFullName = fullName;
 }
 
+
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's address
+* Pre: A customer address value is passed in as a string
+* Post: The myAddress value is set to the input value
 */
 void Customer::setAddress(const std::string& address){
 	myAddress = address;
 }
 
+
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's city
+* Pre: A customer city value is passed in as a string
+* Post: The myCity value is set to the input value
 */
 void Customer::setCity(const std::string& city){
 	myCity = city;
 }
 
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's state
+* Pre: A customer state value is passed in as a string
+* Post: The myState value is set to the input value
 */
 void Customer::setState(const std::string& state){
 	myState = state;
 }
 
+
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's zip code
+* Pre: A customer zip code value is passed in as an int
+* Post: The myZipCode value is set to the input value
 */
 void Customer::setZip(const int zip){
 	myZip = zip;
 }
 
 /*
-* Gets the Merchant's username
-* Pre: None
-* Post: Returns the merchant's username
+* Sets the customer's account balance
+* Pre: A customer account balnce  value is passed in as an int
+* Post: The myMoney value is set to the input value
 */
 void Customer::setMoney(const int money){
 	myMoney = money;

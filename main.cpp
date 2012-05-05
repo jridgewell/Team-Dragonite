@@ -127,34 +127,30 @@ void customerLogin() {
 }
 
 void login() {
-	char c;
+	//char c;
+	string input;
 	bool cont = true;
 	cout << "Are you a Customer or a Merchant? [CM]" << endl;
-	cin.get(c);
+	cin >> input;
+	//cin.get(c);
+	char c = input[0];
 	while (cont) {
-		//cin.get(c);
 		switch (c) {
 			case 'c':
-				cont = false;
-				customerLogin();
-				break;
 			case 'C':
 				cont = false;
 				customerLogin();
 				break;
 			case 'm':
-				cont = false;
-				merchantLogin();
-				break;
 			case 'M':
 				cont = false;
 				merchantLogin();
 				break;
 			default:
-			cin.get(c);
-			cout << "Please type either C or M." << endl;
-			cin.get(c);
-			
+				cout << "Please type either C or M." << endl;
+				cin >> input;
+				c = input[0];
+				break;
 		}
 	}
 }

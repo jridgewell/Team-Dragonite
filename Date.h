@@ -22,7 +22,17 @@
 #include <string>
 #include <sstream>
 
-//TODO: javadocs
+
+/*
+* Outlines the Date class and the features contained therein.
+* Dates consist of a day, month, and year
+* Creates dates through one of the following:
+* 1) A default constructor
+* 2) A constructor with passed in values
+* 3) An existing date object, copying its values
+* 4) Date data retrieved from a node on the YAML
+* In addition, the class is able to set/get the date's values using accessor methods
+*/
 
 struct Month {
 	std::string name;

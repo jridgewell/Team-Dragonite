@@ -148,12 +148,12 @@ Customer::Customer* Controller::createCustomer()
 	Input::getLine(state);
 	std::cout << "Zip code: ";
 	Input::getLine(zipStr);
-	std::cout << "Starting balance: ";
 	while(!Input::isNumeric(zipStr))
 	{
 		std::cout << "Invalid zip code. Please try again: ";
 		Input::getLine(zipStr);
 	}
+	std::cout << "Starting balance: ";
 	Input::getLine(moneyStr);
 	while(!Input::isNumeric(moneyStr))
 	{

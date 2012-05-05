@@ -26,11 +26,14 @@ public:
 	virtual ~Controller();
 
 	void displayCustomerLogin() const;
-	const Customer::Customer& customerLogin(const std::string& username, const std::string& password);
-	const Customer::Customer& createCustomer(const std::string& username, const std::string& password);
+	Customer::Customer& customerLogin(const std::string& username, const std::string& password);
+	Customer::Customer& createCustomer(const std::string& username, const std::string& password);
 
 	void displayMerchantLogin() const;
-	const Merchant::Merchant& merchantLogin(const std::string& username, const std::string& password) const;
+	Merchant::Merchant& merchantLogin(const std::string& username, const std::string& password);
+
+	Customer::Customer& getCustomer(int customerID);
+	Merchant::Merchant& getMerchant(int merchantID);
 
 	void setUserID(int id);
 	const int getUserID() const;

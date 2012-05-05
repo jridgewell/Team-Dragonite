@@ -6,9 +6,9 @@ yaml_objs = $(addprefix $(yaml_builddir)/, $(notdir $(yaml_srcs:.cpp=.o)))
 CXXFLAGS += -I$(yaml_incdir)
 
 all: $(yaml_builddir)/yaml.a
-	$(CXX) $(CXXFLAGS) -o main *.cpp $^
+	$(CXX) $(CXXFLAGS) -o main *.cpp utils/*.cpp $^
 debug: $(yaml_builddir)/yaml.a
-	$(CXX) $(CXXFLAGS) -g  -o main *.cpp $^
+	$(CXX) $(CXXFLAGS) -g  -o main *.cpp utils/*.cpp $^
 clean:
 	rm -f $(yaml_builddir)/*.o
 	rm -f $(yaml_builddir)/yaml.a

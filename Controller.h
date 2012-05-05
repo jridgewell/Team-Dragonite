@@ -2,29 +2,26 @@
 #define CONTROLLER_H
 
 #include <iostream>
+#include "Customer.h"
+#include "Merchant.h"
 
 class Controller
 {
 private:
 	int myUserID;
-	map<string, Category*> myCategories;
-	map<string, Merchant*> myMerchants;
-	vector<Customer*> myCustomers;
-	vector<inventory*> myInventories;
-	vector<Order*> myOrder;
 
 public:
 	Controller();
 	virtual ~Controller();
 
-	displayCustomerLogin() const;
-	const Customer::Customer& customer customerLogin(const std::string& username, const std::string& password);
-	const Customer::Customer& customer createCustomer(const std::string& username, const std::string& password);
+	void displayCustomerLogin() const;
+	const Customer::Customer& customerLogin(const std::string& username, const std::string& password);
+	const Customer::Customer& createCustomer(const std::string& username, const std::string& password);
 
-	displayMerchantLogin() const;
-	const Customer::Merchant& merchant merchantLogin(const std::string& username, const std::string& password) const;
+	void displayMerchantLogin() const;
+	const Merchant::Merchant& merchantLogin(const std::string& username, const std::string& password) const;
 
-	setUserID(int id);
+	void setUserID(int id);
 	const int getUserID() const;
 };
 

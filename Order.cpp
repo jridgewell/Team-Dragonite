@@ -139,6 +139,26 @@ void Order::parseYaml(const YAML::Node& node) {
 	this->setDate(Date(temp));
 }
 
+YAML::Emitter& Customer::emitYaml(YAML::Emitter& out) const {
+        out << YAML::BeginSeq;
+        out << YAML::BeginMap;
+        out << YAML::Key << "myOrderID";
+        out << YAML::Value << this->myOrderID;
+        out << YAML::Key << "myCustomreID";
+        out << YAML::Value << this->myCustomerID;
+        out << YAML::Key << "mySKU";
+        out << YAML::Value << this->mySKU;
+        out << YAML::Key << "myQuantity";
+        out << YAML::Value << this->myQuantity;
+        out << YAML::Key << "myPrice";
+        out << YAML::Value << this->myPrice;
+        out << YAML::Key << "myDate";
+        out << YAML::Value << this->myDate;
+        out << YAML::EndMap;
+        out << YAML::EndSeq;
+        return out;
+}
+
 /*
 * Sets an order's ID number to a passed in integer
 * Pre: An integer is passed in

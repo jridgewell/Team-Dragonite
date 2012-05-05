@@ -40,6 +40,7 @@ class Customer {
 		Customer(const Customer& customer);
 		Customer(const YAML::Node& node);
 		virtual ~Customer() {}
+		
 		int getCustomerID() const;
 		const std::string& getUsername() const;
 		const std::string& getPassword() const;
@@ -49,7 +50,7 @@ class Customer {
 		const std::string& getState() const;
 		int getZip() const;
 		int getMoney() const;
-		void parseYaml(const YAML::Node& node);
+		
 		void setCustomerID(const int customerID);
 		void setUsername(const std::string& username);
 		void setPassword(const std::string& password);
@@ -59,5 +60,7 @@ class Customer {
 		void setState(const std::string& state);
 		void setZip(const int zip);
 		void setMoney(const int money);
+
+		void parseYaml(const YAML::Node& node);
 };
 #endif

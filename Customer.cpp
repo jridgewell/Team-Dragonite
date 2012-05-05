@@ -17,7 +17,6 @@
  */
 #include "Customer.h"
 
-
 Customer::Customer() 
 /*
 * Default constructor, creates a new customer with default values
@@ -81,7 +80,6 @@ Customer::Customer(const Customer& customer) {
 Customer::Customer(const YAML::Node& node) {
 	this->parseYaml(node);
 }
-
 
 /*
 * Retrieves the customer's ID

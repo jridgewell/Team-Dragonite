@@ -32,6 +32,6 @@ struct File {
 	static void outputVectorToFile(const std::string& file, std::vector<object*>& vect);
 	template <typename object>
 	static void parseFileToVector(const std::string& file, std::vector<object*>& vect);
-}
+};
 
 #endif

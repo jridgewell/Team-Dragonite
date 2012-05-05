@@ -1,0 +1,70 @@
+- mySKU: 0
+  myItemDesc: Pokeball
+  myCategoryID: 0
+  myPrice: 10
+  myQuantity: 100
+- mySKU: 1
+  myItemDesc: Greatball
+  myCategoryID: 0
+  myPrice: 100
+  myQuantity: 10
+- mySKU: 2
+  myItemDesc: Ultraball
+  myCategoryID: 0
+  myPrice: 1000
+  myQuantity: 1
+- mySKU: 3
+  myItemDesc: Masterball
+  myCategoryID: 0
+  myPrice: 10000
+  myQuantity: 0
+- mySKU: 4
+  myItemDesc: Potion
+  myCategoryID: 1
+  myPrice: 50
+  myQuantity: 20
+- mySKU: 5
+  myItemDesc: Super Potion
+  myCategoryID: 1
+  myPrice: 100
+  myQuantity: 4
+- mySKU: 6
+  myItemDesc: Hyper Potion
+  myCategoryID: 1
+  myPrice: 250
+  myQuantity: 3
+- mySKU: 7
+  myItemDesc: Fire Stone
+  myCategoryID: 2
+  myPrice: 300
+  myQuantity: 1
+- mySKU: 8
+  myItemDesc: Water Stone
+  myCategoryID: 2
+  myPrice: 300
+  myQuantity: 1
+- mySKU: 9
+  myItemDesc: Thunder Stone
+  myCategoryID: 2
+  myPrice: 300
+  myQuantity: 1
+- mySKU: 10
+  myItemDesc: Bicycle
+  myCategoryID: 4
+  myPrice: 500
+  myQuantity: 1
+- mySKU: 11
+  myItemDesc: Lemonade
+  myCategoryID: 5
+  myPrice: 10
+  myQuantity: 8
+- mySKU: 12
+  myItemDesc: Iced Tea
+  myCategoryID: 5
+  myPrice: 10
+  myQuantity: 6
+- mySKU: 13
+  myItemDesc: Soda Pop
+  myCategoryID: 5
+  myPrice: 10
+  myQuantity: 9

@@ -2,20 +2,20 @@
 
 Controller::Controller()
 {
-	parseFileToMap<std::string, Category::Category, categoryKeyExtractor>("data/Category.yaml", myCategories);
-	parseFileToMap<std::string, Merchant::Merchant, merchantKeyExtractor>("data/Merchant.yaml", myMerchants);
-	parseFileToVector("data/Customer.yaml", myCustomers);
-	parseFileToVector("data/Inventory.yaml", myInventories);
-	parseFileToVector("data/Order.yaml", myOrders);
+	File::parseFileToMap<std::string, Category::Category, categoryKeyExtractor>("data/Category.yaml", myCategories);
+	File::parseFileToMap<std::string, Merchant::Merchant, merchantKeyExtractor>("data/Merchant.yaml", myMerchants);
+	File::parseFileToVector("data/Customer.yaml", myCustomers);
+	File::parseFileToVector("data/Inventory.yaml", myInventories);
+	File::parseFileToVector("data/Order.yaml", myOrders);
 }
 
 Controller::~Controller()
 {
-	deleteMap(myCategories);
-	deleteMap(myMerchants);
-	deleteVector(myCustomers);
-	deleteVector(myInventories);
-	deleteVector(myOrders);
+	File::deleteMap(myCategories);
+	File::deleteMap(myMerchants);
+	File::deleteVector(myCustomers);
+	File::deleteVector(myInventories);
+	File::deleteVector(myOrders);
 }
 
 void Controller::displayLogin()

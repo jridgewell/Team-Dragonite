@@ -27,7 +27,7 @@ public:
 
 	void displayCustomerLogin() const;
 	Customer::Customer* customerLogin(const std::string& username, const std::string& password);
-	Customer::Customer* createCustomer(const std::string& username, const std::string& password);
+	Customer::Customer* createCustomer();
 
 	void displayMerchantLogin() const;
 	Merchant::Merchant* merchantLogin(const std::string& username, const std::string& password);

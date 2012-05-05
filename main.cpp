@@ -178,7 +178,7 @@ int main() {
 	for (map<string, Merchant*>::const_iterator it = merchants.begin(); it != merchants.end(); ++it) {
 		cout << (*it).first << " => " << ((*it).second)->getPassword() << endl;
 	}
-
+	
 	login();
 
 	categories["Testing"] = new Category();

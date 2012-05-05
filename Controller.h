@@ -14,7 +14,7 @@
 class Controller
 {
 private:
-	int myUserID;
+	std::string myUsername;
 	std::map<std::string, Category::Category*> myCategories;
 	std::map<std::string, Merchant::Merchant*> myMerchants;
 	std::vector<Customer::Customer*> myCustomers;
@@ -26,17 +26,17 @@ public:
 	virtual ~Controller();
 
 	void displayCustomerLogin() const;
-	Customer::Customer& customerLogin(const std::string& username, const std::string& password);
-	Customer::Customer& createCustomer(const std::string& username, const std::string& password);
+	Customer::Customer* customerLogin(const std::string& username, const std::string& password);
+	Customer::Customer* createCustomer(const std::string& username, const std::string& password);
 
 	void displayMerchantLogin() const;
-	Merchant::Merchant& merchantLogin(const std::string& username, const std::string& password);
+	Merchant::Merchant* merchantLogin(const std::string& username, const std::string& password);
 
-	Customer::Customer& getCustomer(int customerID);
-	Merchant::Merchant& getMerchant(int merchantID);
+	Customer::Customer* getCustomer(const std::string& username);
+	Merchant::Merchant* getMerchant(const std::string& username);
 
-	void setUserID(int id);
-	const int getUserID() const;
+	void setUsername(const std::string& username);
+	const std::string& getUsername() const;
 };
 
 #endif

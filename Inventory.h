@@ -6,14 +6,25 @@
 * @date May 2, 2012
 * @author Jure Jumalon
 *
-* TODO: Javadocs
 *
+* Comments: Andrew Wagenheim
 */
 
 #include <iostream>
 #include <string>
 #include <yaml-cpp/yaml.h>
 
+
+/*
+* Outlines the Inventory class and the features contained therein.
+* Inventories consist of a SKU, Item Description, Category ID, Price and Quantity of item.
+* Creates inventories through one of the following:
+* 1) A default constructor
+* 2) A constructor with passed in values
+* 3) An existing inventory object, copying its values
+* 4) Inventory data retrieved from a node on the YAML
+* In addition, the class is able to set/get the inventories's values
+*/
 class Inventory
 {
    private:

@@ -22,12 +22,16 @@
 /*
 * Test the regular constructor for the Inventory class
 */
-/*TEST(Inventory, Constructor)
+TEST(Inventory, Constructor)
 {
-        const Inventory i("merchant", "pass");
-        EXPECT_EQ(i.getUsername(), "merchant");
-        EXPECT_EQ(i.getPassword(), "pass");
-}*/
+        const Inventory i(0, "Item Description", 0, 0.0, 0);
+        EXPECT_EQ(i.getSKU(), 0);
+        EXPECT_EQ(i.getItemDesc(), "Item Description");
+        EXPECT_EQ(i.getCategoryID(), 0);
+        EXPECT_EQ(i.getPrice(), 0.0);
+        EXPECT_EQ(i.getQuantity(), 0);
+        
+}
 
 /*
 * Test the default constructor 

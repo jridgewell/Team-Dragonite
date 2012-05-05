@@ -39,4 +39,10 @@ public:
 	const std::string& getUsername() const;
 };
 
+template <typename object>
+void parseFile(const string& file, vector<object*>& vect);
+
+template <typename key, typename val, typename keyExtractor>
+map<key, val*> parseFileToMap(const string& file, map<key, val*>& m);
+
 #endif

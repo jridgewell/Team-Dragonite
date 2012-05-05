@@ -88,6 +88,11 @@ template void deleteMap<std::string, Merchant>(std::map<std::string, Merchant*>&
 template void deleteVector<Customer>(std::vector<Customer*>& vect);
 template void deleteVector<Inventory>(std::vector<Inventory*>& vect);
 template void deleteVector<Order>(std::vector<Order*>& vect);
+template void outputMapToFile<std::string, Category>(const std::string& file, std::map<std::string, Category*>& m);
+template void outputMapToFile<std::string, Merchant>(const std::string& file, std::map<std::string, Merchant*>& m);
+template void outputVectorToFile<Customer>(const std::string& file, std::vector<Customer*>& vect);
+template void outputVectorToFile<Inventory>(const std::string& file, std::vector<Inventory*>& vect);
+template void outputVectorToFile<Order>(const std::string& file, std::vector<Order*>& vect);
 template void parseFileToMap<std::string, Category, categoryKeyExtractor>(const std::string& file, std::map<std::string, Category*>& m);
 template void parseFileToMap<std::string, Merchant, merchantKeyExtractor>(const std::string& file, std::map<std::string, Merchant*>& m);
 template void parseFileToVector<Customer>(const std::string& file, std::vector<Customer*>& vect);

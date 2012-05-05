@@ -15,7 +15,7 @@ bool Input::isNumeric(std::string& str, std::istream& in)
 {
 	for(int i = 0; i < str.length(); i++)
 	{
-		if( !(s[i] >= '0' && s[i] <= '9' || s[i] == ' '))
+		if( !(str[i] >= '0' && str[i] <= '9' || str[i] == ' '))
 			return false;
 	}
 	return true;

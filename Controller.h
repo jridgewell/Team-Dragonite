@@ -40,6 +40,8 @@ public:
 	void displayMerchantLogin();
 	Merchant::Merchant* merchantLogin(const std::string& username, const std::string& password);
 
+	int purchase(int SKU, int quantity);	
+
 	Customer::Customer* getCustomer(const std::string& username);
 	Merchant::Merchant* getMerchant(const std::string& username);
 

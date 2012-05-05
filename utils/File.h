@@ -18,7 +18,7 @@
 #include "../Order.h"
 
 struct File {
-	void outputToFile(const std::string& file, const std::string& str);
+	static void outputToFile(const std::string& file, const std::string& str);
 
 	template <typename key, typename val>
 	static void deleteMap(std::map<key, val*>& m);

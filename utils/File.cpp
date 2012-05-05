@@ -23,7 +23,7 @@ void File::outputMapToFile(const std::string& file, std::map<key, val*>& m) {
 	}
 	out << YAML::EndSeq;
 	std::string str = out.c_str();
-	outputToFile(file, str);
+	File::outputToFile(file, str);
 }
 
 template <typename key, typename val, typename keyExtractor>
@@ -56,7 +56,7 @@ void File::outputVectorToFile(const std::string& file, std::vector<object*>& vec
 	}
 	out << YAML::EndSeq;
 	std::string str = out.c_str();
-	outputToFile(file, str);
+	File::outputToFile(file, str);
 }
 
 template <typename object>
@@ -73,18 +73,18 @@ void File::parseFileToVector(const std::string& file, std::vector<object*>& vect
 }
 
 
-template void deleteMap<std::string, Category>(std::map<std::string, Category*>& m);
-template void deleteMap<std::string, Merchant>(std::map<std::string, Merchant*>& m);;
-template void deleteVector<Customer>(std::vector<Customer*>& vect);
-template void deleteVector<Inventory>(std::vector<Inventory*>& vect);
-template void deleteVector<Order>(std::vector<Order*>& vect);
-template void outputMapToFile<std::string, Category>(const std::string& file, std::map<std::string, Category*>& m);
-template void outputMapToFile<std::string, Merchant>(const std::string& file, std::map<std::string, Merchant*>& m);
-template void outputVectorToFile<Customer>(const std::string& file, std::vector<Customer*>& vect);
-template void outputVectorToFile<Inventory>(const std::string& file, std::vector<Inventory*>& vect);
-template void outputVectorToFile<Order>(const std::string& file, std::vector<Order*>& vect);
-template void parseFileToMap<std::string, Category, categoryKeyExtractor>(const std::string& file, std::map<std::string, Category*>& m);
-template void parseFileToMap<std::string, Merchant, merchantKeyExtractor>(const std::string& file, std::map<std::string, Merchant*>& m);
-template void parseFileToVector<Customer>(const std::string& file, std::vector<Customer*>& vect);
-template void parseFileToVector<Inventory>(const std::string& file, std::vector<Inventory*>& vect);
-template void parseFileToVector<Order>(const std::string& file, std::vector<Order*>& vect);
+template void File::deleteMap<std::string, Category>(std::map<std::string, Category*>& m);
+template void File::deleteMap<std::string, Merchant>(std::map<std::string, Merchant*>& m);
+template void File::deleteVector<Customer>(std::vector<Customer*>& vect);
+template void File::deleteVector<Inventory>(std::vector<Inventory*>& vect);
+template void File::deleteVector<Order>(std::vector<Order*>& vect);
+template void File::outputMapToFile<std::string, Category>(const std::string& file, std::map<std::string, Category*>& m);
+template void File::outputMapToFile<std::string, Merchant>(const std::string& file, std::map<std::string, Merchant*>& m);
+template void File::outputVectorToFile<Customer>(const std::string& file, std::vector<Customer*>& vect);
+template void File::outputVectorToFile<Inventory>(const std::string& file, std::vector<Inventory*>& vect);
+template void File::outputVectorToFile<Order>(const std::string& file, std::vector<Order*>& vect);
+template void File::parseFileToMap<std::string, Category, categoryKeyExtractor>(const std::string& file, std::map<std::string, Category*>& m);
+template void File::parseFileToMap<std::string, Merchant, merchantKeyExtractor>(const std::string& file, std::map<std::string, Merchant*>& m);
+template void File::parseFileToVector<Customer>(const std::string& file, std::vector<Customer*>& vect);
+template void File::parseFileToVector<Inventory>(const std::string& file, std::vector<Inventory*>& vect);
+template void File::parseFileToVector<Order>(const std::string& file, std::vector<Order*>& vect);

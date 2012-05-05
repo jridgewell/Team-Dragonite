@@ -63,7 +63,6 @@ void Controller::displayCustomerLogin()
 			case'r':
 			case'R':
 				cont = false;
-<<<<<<< Updated upstream
 				std::cout << "Enter your username: ";
 				Input::getLine(username);
 				std::cout << "Enter your password: ";
@@ -76,14 +75,11 @@ void Controller::displayCustomerLogin()
 					Input::getLine(input);
 					c = input[0]; 
 				}
-=======
-				std::cout << "Enter your Username" << std::endl;
-				std::cin >> username;
-				std::cout << "Enter your Password" << std::endl;
-				std::cin >> password; 
-				this -> customerLogin(username, password);
-				this -> displayInventory();
->>>>>>> Stashed changes
+				else
+				{
+					this -> customerLogin(username, password);
+					this -> displayInventory();
+				}
 				break;
 			case 'n':
 			case 'N':
@@ -155,14 +151,14 @@ Customer::Customer* Controller::createCustomer()
 	std::cout << "Starting balance: ";
 	while(!Input::isNumeric(zipStr))
 	{
-		std:cout << "Invalid zip code. Please try again: ";
+		std::cout << "Invalid zip code. Please try again: ";
 		Input::getLine(zipStr);
 	}
 	Input::getLine(moneyStr);
 	while(!Input::isNumeric(moneyStr))
 	{
-		std:cout << "Invalid sum. Please try again: ";
-		Input::getLine(monetStr);
+		std::cout << "Invalid sum. Please try again: ";
+		Input::getLine(moneyStr);
 	}
 
 	zip = atoi(zipStr.c_str());
@@ -196,6 +192,7 @@ void Controller::displayMerchantLogin()
 
         }
 }
+
 int Controller::purchase(int SKU, int quantity)
 {
         Customer* customer = getCustomer(myUsername);

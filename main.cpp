@@ -15,108 +15,20 @@
  *
  * =====================================================================================
  */
+
 #include "Category.h"
 #include "Customer.h"
 #include "Inventory.h"
 #include "Merchant.h"
 #include "Order.h"
+#include "utils/File.cpp" // I know I shouln't. But it won't work like I want.
+#include "utils/KeyExtractor.h"
 
 #include <iostream>
 #include <vector>
 #include <map>
 #include <fstream>
-#include <cstring>
 using namespace std;
-
-////////////////////////////////////////////////////////////////////////////////////////
-struct categoryKeyExtractor {
-	string operator()(const Category* c) {
-		return c->getCategoryName();
-	}
-};
-
-struct merchantKeyExtractor {
-	string operator()(const Merchant* m) {
-		return m->getUsername();
-	}
-};
-
-template <typename object>
-void parseFile(const string& file, vector<object*>& vect) {
-	std::ifstream fin(file.c_str());
-	YAML::Parser parser(fin);
-	fin.close();
-	YAML::Node doc;
-	parser.GetNextDocument(doc);
-	for(unsigned i = 0; i < doc.size(); ++i) {
-		object *o = new object(doc[i]);
-		vect.push_back(o);
-	}
-}
-
-template <typename key, typename val, typename keyExtractor>
-map<key, val*> parseFileToMap(const string& file, map<key, val*>& m) {
-	std::ifstream fin(file.c_str());
-	YAML::Parser parser(fin);
-	fin.close();
-	YAML::Node doc;
-	parser.GetNextDocument(doc);
-	keyExtractor keyExtract;
-	for(unsigned i = 0; i < doc.size(); ++i) {
-		val *o = new val(doc[i]);
-		m[keyExtract(o)] = o;
-	}
-	return m;
-}
-
-template <typename deleteObject>
-void deleteVector(vector<deleteObject*>& vect) {
-	for (unsigned i = 0; i < vect.size(); ++i) {
-		delete vect[i];
-	}
-}
-
-template <typename key, typename val>
-void deleteMap(map<key, val*>& m) {
-	for (typename map<key, val*>::iterator it = m.begin(); it != m.end(); ++it) {
-		delete (*it).second;
-		m.erase(it);
-	}
-}
-
-void outputToFile(const string& file, const string& str) {
-	ofstream of(file.c_str(), ios::out | ios::trunc);
-	of << str;
-	of.close();
-}
-
-template <typename object>
-void outputVectorToFile(const string& file, vector<object*>& vect) {
-	YAML::Emitter out;
-	out << YAML::BeginSeq;
-	for (unsigned i = 0; i < vect.size(); ++i) {
-		vect[i]->emitYaml(out);
-	}
-	out << YAML::EndSeq;
-	string str = out.c_str();
-	outputToFile(file, str);
-}
-
-template <typename key, typename val>
-void outputMapToFile(const string& file, map<key, val*>& m) {
-	YAML::Emitter out;
-	out << YAML::BeginSeq;
-	for (typename map<key, val*>::iterator it = m.begin(); it != m.end(); ++it) {
-		((*it).second)->emitYaml(out);
-	}
-	out << YAML::EndSeq;
-	string str = out.c_str();
-	outputToFile(file, str);
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////
 
 void merchantLogin() {
 	cout << endl;

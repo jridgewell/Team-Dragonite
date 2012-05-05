@@ -7,6 +7,7 @@
 #include <cstdlib>
 
 #include "utils/File.h"
+#include "utils/Input.h"
 #include "utils/KeyExtractor.h"
 #include "Category.h"
 #include "Customer.h"

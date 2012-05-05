@@ -2,6 +2,8 @@
 
 Controller::Controller()
 {
+	isCustomer = false;
+	isMerchant = false;
 	File::parseFileToMap<std::string, Category::Category, categoryKeyExtractor>("data/Category.yaml", myCategories);
 	File::parseFileToMap<std::string, Merchant::Merchant, merchantKeyExtractor>("data/Merchant.yaml", myMerchants);
 	File::parseFileToVector("data/Customer.yaml", myCustomers);
@@ -53,48 +55,39 @@ void Controller::displayCustomerLogin()
 	std::string input;
 	std::string username, password;
 	bool cont = true; 
-	std::cout << "New or Returning User? [NR]" << std::endl;
-	Input::getLine(input);
-	char c = input[0];
+	char c;
 	while(cont)
 	{
+		std::cout << "New or Returning User? [NR]" << std::endl;
+		Input::getLine(input);
+		c = input[0];
 		switch(c)
 		{
 			case'r':
 			case'R':
-				cont = false;
 				std::cout << "Enter your username: ";
 				Input::getLine(username);
 				std::cout << "Enter your password: ";
 				Input::getLine(password); 
-				if(this -> customerLogin(username, password) == NULL)
-				{
-					cont = true;
+				if(this->checkCustomerLogin(username, password)) {
+					cont = false;
+					myCustomer = this->getCustomer(username);
+					isCustomer = true;
+				} else {
 					std::cout << "Invalid username or password." << std::endl;
-					std::cout << "New or Returning User? [NR]" << std::endl;
-					Input::getLine(input);
-					c = input[0]; 
-				}
-				else
-				{
-					this -> customerLogin(username, password);
-					this -> displayInventory();
 				}
 				break;
 			case 'n':
 			case 'N':
-				cont = true;
 				this -> createCustomer();
-				std::cout << "New or Returning User? [NR]" << std::endl;
-				Input::getLine(input);
-				c = input[0];
 				break;
 			default:
 				std::cout << "Please type either N or R." << std::endl;
-				Input::getLine(input);
-				c = input[0];
 				break;
 		}
+	}
+	if (isCustomer) {
+		this->displayInventory();
 	}
 }
 
@@ -107,19 +100,15 @@ void Controller::displayInventory()
 	}
 }
 
-Customer::Customer* Controller::customerLogin(const std::string& username, const std::string& password)
+bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)
 {
 	Customer* customer = this -> getCustomer(username);
-
-	if(customer == NULL || customer -> getPassword() != password)
-	{
-		return NULL;
+	if (customer != NULL) {
+		if (customer->getPassword() == password) {
+			return true;
+		}
 	}
-	else
-	{
-		Customer* customer = this -> getCustomer(username);
-		this -> setUsername(customer -> getUsername());
-	}
+	return false;
 }
 
 Customer::Customer* Controller::createCustomer()

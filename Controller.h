@@ -21,6 +21,9 @@ class Controller
 {
 private:
 	std::string myUsername;
+	bool isCustomer;
+	bool isMerchant;
+	Customer* myCustomer;
 	std::map<std::string, Category::Category*> myCategories;
 	std::map<std::string, Merchant::Merchant*> myMerchants;
 	std::vector<Customer::Customer*> myCustomers;
@@ -34,7 +37,7 @@ public:
 	void displayCustomerLogin();
 	void displayLogin();
 	void displayInventory();
-	Customer::Customer* customerLogin(const std::string& username, const std::string& password);
+	bool checkCustomerLogin(const std::string& username, const std::string& password);
 	Customer::Customer* createCustomer();
 
 	void displayMerchantLogin();

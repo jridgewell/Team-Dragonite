@@ -42,7 +42,7 @@ class Inventory
       Inventory(const YAML::Node& node);
       virtual ~Inventory() {}
       void parseYaml(const YAML::Node& node);
-      YAML::Emitter& emitYaml(YAML:Emitter& out) const;
+      YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 
       int getSKU() const;
       const std::string& getItemDesc() const;

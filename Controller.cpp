@@ -19,9 +19,13 @@ public:
 
 	displayCustomerLogin() const;
 	const Customer::Customer& customer customerLogin(const std::string& username, const std::string& password) const;
+	const Customer::Customer& customer createCustomer(const std::string& username, const std::string& password) const;
 
 	displayMerchantLogin() const;
 	const Customer::Merchant& merchant merchantLogin(const std::string& username, const std::string& password) const;
+
+	setUserID(int id);
+	const int getUserID() const;
 };
 
 #endif

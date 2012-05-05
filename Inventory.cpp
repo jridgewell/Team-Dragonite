@@ -71,7 +71,7 @@ int Inventory::getCategoryID() const
    return myCategoryID;
 }
 
-float Inventory::getPrice() const
+double Inventory::getPrice() const
 {
    return myPrice;
 }
@@ -96,7 +96,7 @@ void Inventory::setCategoryID(int categoryID)
 	myCategoryID = categoryID;
 }
 
-void Inventory::setPrice(const float price)
+void Inventory::setPrice(const double price)
 {
    myPrice = price;
 }

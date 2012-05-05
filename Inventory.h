@@ -20,12 +20,12 @@ class Inventory
       int mySKU;
       std::string myItemDesc;
       int myCategoryID;
-      float myPrice;
+      double myPrice;
       int myQuantity;
 
    public:
       Inventory();
-      Inventory(const int sku, const std::string& itemDesc, const int categoryID, const float price, const int quantity)
+      Inventory(const int sku, const std::string& itemDesc, const int categoryID, const double price, const int quantity)
       	  : mySKU(sku), myItemDesc(itemDesc), myCategoryID(categoryID), myPrice(price), myQuantity(quantity) {}
       Inventory(const Inventory& inventory);
       Inventory(const YAML::Node& node);
@@ -35,13 +35,13 @@ class Inventory
       int getSKU() const;
       const std::string& getItemDesc() const;
       int getCategoryID() const;
-      float getPrice() const;
+      double getPrice() const;
       int getQuantity() const;
 
       void setSKU(const int sku);
       void setItemDesc(const std::string& itemDesc);
       void setCategoryID(int categoryID);
-      void setPrice(const float price);
+      void setPrice(const double price);
       void setQuantity(const int quantity); 
 };
 

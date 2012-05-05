@@ -20,6 +20,7 @@ Inventory::Inventory()
 	this -> setSKU(0);
 	this -> setItemDesc("Item Description");
 	this -> setCategoryID(0);
+	this -> setMerchantID(0);
 	this -> setPrice(0.0);
 	this -> setQuantity(0);
 }
@@ -33,6 +34,7 @@ Inventory::Inventory(const Inventory& inventory)
 	this -> setSKU(inventory.mySKU);
 	this -> setItemDesc(inventory.myItemDesc);
 	this -> setCategoryID(inventory.myCategoryID);
+	this -> setMerchantID(inventory.myMerchantID);
 	this -> setPrice(inventory.myPrice);
 	this -> setQuantity(inventory.myQuantity);
 }
@@ -47,6 +49,7 @@ void Inventory::parseYaml(const YAML::Node& node)
 	node["mySKU"] >> this->mySKU;
 	node["myItemDesc"] >> this->myItemDesc;
 	node["myCategoryID"] >> this->myCategoryID;
+	node["myMerchantID"] >> this->myMerchantID;
 	node["myPrice"] >> this->myPrice;
 	node["myQuantity"] >> this->myQuantity;
 }
@@ -60,6 +63,8 @@ YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
 	out << YAML::Value << this->myItemDesc;
 	out << YAML::Key << "myCategoryID";
 	out << YAML::Value << this->myCategoryID;
+	out << YAML::Key << "myMerchantID";
+	out << YAML::Value << this->myMerchantID;
 	out << YAML::Key << "myPrice";
 	out << YAML::Value << this->myPrice;
 	out << YAML::Key << "myQuantity";
@@ -87,6 +92,11 @@ int Inventory::getCategoryID() const
    return myCategoryID;
 }
 
+int Inventory::getMerchantID() const
+{
+   return myMerchantID;
+}
+
 double Inventory::getPrice() const
 {
    return myPrice;
@@ -112,6 +122,11 @@ void Inventory::setCategoryID(int categoryID)
 	myCategoryID = categoryID;
 }
 
+void Inventory::setMerchantID(int merchantID)
+{
+	myMerchantID = merchantID;
+}
+
 void Inventory::setPrice(const double price)
 {
    myPrice = price;
@@ -121,10 +136,3 @@ void Inventory::setQuantity(const int quantity)
 {
    myQuantity = quantity;
 }
-
-
-
-
-
-
-

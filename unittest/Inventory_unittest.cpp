@@ -24,10 +24,11 @@
 */
 TEST(Inventory, Constructor)
 {
-        const Inventory i(0, "Item Description", 0, 0.0, 0);
+        const Inventory i(0, "Item Description", 0, 0, 0.0, 0);
         EXPECT_EQ(i.getSKU(), 0);
         EXPECT_EQ(i.getItemDesc(), "Item Description");
         EXPECT_EQ(i.getCategoryID(), 0);
+        EXPECT_EQ(i.getMerchantID(), 0);
         EXPECT_EQ(i.getPrice(), 0.0);
         EXPECT_EQ(i.getQuantity(), 0);
         
@@ -42,6 +43,7 @@ TEST(Inventory, DefaultConstructor)
         EXPECT_EQ(i.getSKU(), 0);
         EXPECT_EQ(i.getItemDesc(), "Item Description");
         EXPECT_EQ(i.getCategoryID(), 0);
+        EXPECT_EQ(i.getMerchantID(), 0);
         EXPECT_EQ(i.getPrice(), 0.0);
         EXPECT_EQ(i.getQuantity(), 0);
 }
@@ -56,6 +58,7 @@ TEST(Inventory, CopyConstructor)
         EXPECT_EQ(i.getSKU(), i2.getSKU());
         EXPECT_EQ(i.getItemDesc(), i2.getItemDesc());
         EXPECT_EQ(i.getCategoryID(), i2.getCategoryID());
+        EXPECT_EQ(i.getMerchantID(), i2.getMerchantID());
         EXPECT_EQ(i.getPrice(), i2.getPrice());
         EXPECT_EQ(i.getQuantity(), i2.getQuantity());
 }

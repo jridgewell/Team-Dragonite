@@ -153,7 +153,7 @@ YAML::Emitter& Order::emitYaml(YAML::Emitter& out) const {
         out << YAML::Key << "myPrice";
         out << YAML::Value << this->myPrice;
         out << YAML::Key << "myDate";
-        out << YAML::Value << this->myDate;
+        out << YAML::Value << (this->myDate).serializeDate();
         out << YAML::EndMap;
         out << YAML::EndSeq;
         return out;

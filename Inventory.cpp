@@ -21,7 +21,7 @@ Inventory::Inventory()
 	this -> setItemDesc("Item Description");
 	this -> setCategoryID(0);
 	this -> setMerchantID(0);
-	this -> setPrice(0.0);
+	this -> setPrice(0);
 	this -> setQuantity(0);
 }
 
@@ -97,7 +97,7 @@ int Inventory::getMerchantID() const
    return myMerchantID;
 }
 
-double Inventory::getPrice() const
+int Inventory::getPrice() const
 {
    return myPrice;
 }
@@ -127,7 +127,7 @@ void Inventory::setMerchantID(int merchantID)
 	myMerchantID = merchantID;
 }
 
-void Inventory::setPrice(const double price)
+void Inventory::setPrice(const int price)
 {
    myPrice = price;
 }

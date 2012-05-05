@@ -18,8 +18,6 @@
  */
 #include "Order.h"
 
-//TODO: javadocs
-
 /*
 * Default constructor, creates a new order with the default values
 * Pre: None

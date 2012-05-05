@@ -133,6 +133,7 @@ Customer::Customer* Controller::createCustomer()
 	std::cout << "State: ";
 	Input::getLine(state);
 	std::cout << "Zip code: ";
+	
 	Input::getLine(zipStr);
 	std::cout << "Starting balance: ";
 	Input::getLine(moneyStr);

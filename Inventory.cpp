@@ -53,7 +53,6 @@ void Inventory::parseYaml(const YAML::Node& node)
 
 YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
 {
-	out << YAML::BeginSeq;
 	out << YAML::BeginMap;
 	out << YAML::Key << "mySKU";
 	out << YAML::Value << this->mySKU;
@@ -66,7 +65,6 @@ YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
 	out << YAML::Key << "myQuantity";
 	out << YAML::Value << this->myQuantity;
 	out << YAML::EndMap;
-	out << YAML::EndSeq;
 	return out;
 }
 

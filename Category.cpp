@@ -42,14 +42,12 @@ void Category::parseYaml(const YAML::Node& node)
 
 YAML::Emitter& Category::emitYaml(YAML::Emitter& out) const
 {
-	out << YAML::BeginSeq;
 	out << YAML::BeginMap;
 	out << YAML::Key << "myCategoryID";
 	out << YAML::Value << this->myCategoryID;
 	out << YAML::Key << "myCategoryName";
 	out << YAML::Value << this->myCategoryName;
 	out << YAML::EndMap;
-	out << YAML::EndSeq;
 	return out;
 }
 

@@ -83,7 +83,6 @@ Customer::Customer(const YAML::Node& node) {
 }
 
 YAML::Emitter& Customer::emitYaml(YAML::Emitter& out) const {
-	out << YAML::BeginSeq;
 	out << YAML::BeginMap;
 	out << YAML::Key << "myCustomerID";
 	out << YAML::Value << this->myCustomerID;
@@ -104,7 +103,6 @@ YAML::Emitter& Customer::emitYaml(YAML::Emitter& out) const {
 	out << YAML::Key << "myMoney";
 	out << YAML::Value << this->myMoney;
 	out << YAML::EndMap;
-	out << YAML::EndSeq;
 	return out;
 }
 

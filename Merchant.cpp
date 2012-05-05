@@ -59,14 +59,12 @@ Merchant::Merchant(const YAML::Node& node) {
 }
 
 YAML::Emitter& Merchant::emitYaml(YAML::Emitter& out) const {
-        out << YAML::BeginSeq;
         out << YAML::BeginMap;
         out << YAML::Key << "myUsername";
         out << YAML::Value << this->myUsername;
         out << YAML::Key << "myPassword";
         out << YAML::Value << this->myPassword;
         out << YAML::EndMap;
-        out << YAML::EndSeq;
         return out;
 }
 

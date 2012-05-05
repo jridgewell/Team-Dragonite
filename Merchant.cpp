@@ -25,6 +25,7 @@
 * Post: Merchant created with default values
 */
 Merchant::Merchant() {
+	this->setMerchantID(0);
 	this->setUsername("username");
 	this->setPassword("password");
 }
@@ -34,7 +35,8 @@ Merchant::Merchant() {
 * Pre: Values for username and password are passed in as strings
 * Post: Merchant created with input values
 */
-Merchant::Merchant(const std::string& username, const std::string& password) {
+Merchant::Merchant(const int merchantID, const std::string& username, const std::string& password) {
+	this->setMerchantID(merchantID);
 	this->setUsername(username);
 	this->setPassword(password);
 }
@@ -45,6 +47,7 @@ Merchant::Merchant(const std::string& username, const std::string& password) {
 * Post: A new merchant is made using the same values
 */
 Merchant::Merchant(const Merchant& merchant) {
+	this->setMerchantID(merchant.myMerchantID);
 	this->setUsername(merchant.myUsername);
 	this->setPassword(merchant.myPassword);
 }
@@ -60,12 +63,23 @@ Merchant::Merchant(const YAML::Node& node) {
 
 YAML::Emitter& Merchant::emitYaml(YAML::Emitter& out) const {
         out << YAML::BeginMap;
+        out << YAML::Key << "myMerchantID";
+        out << YAML::Value << this->myMerchantID;
         out << YAML::Key << "myUsername";
         out << YAML::Value << this->myUsername;
         out << YAML::Key << "myPassword";
         out << YAML::Value << this->myPassword;
         out << YAML::EndMap;
         return out;
+}
+
+/*
+* Gets the Merchant's ID
+* Pre: None
+* Post: Returns the merchant's ID
+*/
+int Merchant::getMerchantID() const {
+	return myMerchantID;
 }
 
 /*
@@ -92,8 +106,18 @@ const std::string& Merchant::getPassword() const {
 * Post: The merchant's values are set to that contained in the node
 */
 void Merchant::parseYaml(const YAML::Node& node) {
+	node["myMerchantID"] >> this->myMerchantID;
 	node["myUsername"] >> this->myUsername;
 	node["myPassword"] >> this->myPassword;
+}
+
+/*
+* Sets merchant's ID to the input value
+* Pre: A ID integer is passed in
+* Post: The merchant's ID is changed to the new value
+*/
+void Merchant::setMerchantID(const int merchantID) {
+	myMerchantID = merchantID;
 }
 
 /*

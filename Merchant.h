@@ -21,8 +21,6 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 
-
-
 /*
 * Outlines the Merchant class and the features contained therein. 
 * Merchants consist of a username and password
@@ -36,18 +34,21 @@
 
 class Merchant {
 	private:
+		int myMerchantID;
 		std::string myUsername;
 		std::string myPassword;
 	public:
 		Merchant();
-		Merchant(const std::string& username, const std::string& password);
+		Merchant(const int merchantID, const std::string& username, const std::string& password);
 		Merchant(const Merchant& Merchant);
 		Merchant(const YAML::Node& node);
 		virtual ~Merchant() {}
+		int getMerchantID() const;
 		const std::string& getUsername() const;
 		const std::string& getPassword() const;
 		YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 		void parseYaml(const YAML::Node& node);
+		void setMerchantID(const int merchantID);
 		void setUsername(const std::string& username);
 		void setPassword(const std::string& password);
 };

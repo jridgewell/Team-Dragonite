@@ -127,12 +127,10 @@ void customerLogin() {
 }
 
 void login() {
-	//char c;
 	string input;
 	bool cont = true;
 	cout << "Are you a Customer or a Merchant? [CM]" << endl;
 	cin >> input;
-	//cin.get(c);
 	char c = input[0];
 	while (cont) {
 		switch (c) {

@@ -2,13 +2,24 @@
 #define CONTROLLER_H
 
 #include <iostream>
+#include <map>
+#include <vector>
+
+#include "Category.h"
 #include "Customer.h"
+#include "Inventory.h"
 #include "Merchant.h"
+#include "Order.h"
 
 class Controller
 {
 private:
 	int myUserID;
+	std::map<std::string, Category::Category*> myCategories;
+	std::map<std::string, Merchant::Merchant*> myMerchants;
+	std::vector<Customer::Customer*> myCustomers;
+	std::vector<Inventory::Inventory*> myInventories;
+	std::vector<Order::Order*> myOrders;
 
 public:
 	Controller();

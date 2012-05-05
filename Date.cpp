@@ -180,7 +180,7 @@ bool Date::isLeapYear(int year) const {
 * Pre: None
 * Post: Returns a string in the format YYYY/MM/DD using the myYear, myMonth and myDay value
 */
-const std::string& Date::serializeDate() {
+std::string Date::serializeDate() const {
 	std::stringstream ss;
 	ss << ((myYear < 1000) ? "0" : "");
 	ss << ((myYear < 100) ? "0" : "");
@@ -190,8 +190,7 @@ const std::string& Date::serializeDate() {
 	ss << myMonth << "/";
 	ss << ((myDay < 10) ? "0" : "");
 	ss << myDay;
-	myString = ss.str();
-	return myString;
+	return ss.str();
 }
 
 /*

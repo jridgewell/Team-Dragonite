@@ -54,7 +54,6 @@ class Date {
 		int myDay;
 		int myMonth;
 		int myYear;
-		std::string myString;
 		void checkDays();
 		void createMonths();
 	public:
@@ -70,7 +69,7 @@ class Date {
 		int getYear() const;
 		bool isLeapYear() const;
 		bool isLeapYear(int year) const;
-		const std::string& serializeDate();
+		std::string serializeDate() const;
 		void setDay(int day);
 		void setMonth(int month);
 		void setYear(int year);

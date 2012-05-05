@@ -63,6 +63,7 @@ void Controller::displayCustomerLogin()
 			case'r':
 			case'R':
 				cont = false;
+<<<<<<< Updated upstream
 				std::cout << "Enter your username: ";
 				Input::getLine(username);
 				std::cout << "Enter your password: ";
@@ -75,6 +76,14 @@ void Controller::displayCustomerLogin()
 					Input::getLine(input);
 					c = input[0]; 
 				}
+=======
+				std::cout << "Enter your Username" << std::endl;
+				std::cin >> username;
+				std::cout << "Enter your Password" << std::endl;
+				std::cin >> password; 
+				this -> customerLogin(username, password);
+				this -> displayInventory();
+>>>>>>> Stashed changes
 				break;
 			case 'n':
 			case 'N':
@@ -90,6 +99,15 @@ void Controller::displayCustomerLogin()
 				c = input[0];
 				break;
 		}
+	}
+}
+
+void Controller::displayInventory()
+{
+	std::cout << std::left << std::setw(10) << "SKU" << std::left << std::setw(20) << "Item Description" << std::right << std::setw(10) << "Price" << std::endl;
+	for(int i = 0; i < myInventories.size(); i++)
+	{
+		std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU() << std::left << std::setw(20) << myInventories[i] -> getItemDesc()<< std::right <<  std::setw(10) << myInventories[i] -> getPrice() << std::endl;
 	}
 }
 
@@ -176,6 +194,39 @@ void Controller::displayMerchantLogin()
                         std::cout << "Invalid Password" << std::endl;
                 }
 
+        }
+}
+int Controller::purchase(int SKU, int quantity)
+{
+        Customer* customer = getCustomer(myUsername);
+        int funds = customer -> getMoney();
+        int price = 0;
+        for(int i = 0; i < myInventories.size(); i++)
+        {
+                if (SKU == myInventories[i] -> getSKU())
+                {
+                        price = myInventories[i] -> getPrice();
+                }
+                else
+                        price = -1;
+        }
+
+        //Returns -1 if SKU is not found
+        if(price = -1)
+                return -1;
+        else
+        {
+                if(funds > price * quantity)
+                {
+                funds -= price * quantity;
+                customer -> setMoney(funds);
+                return funds;
+                }
+                //Returns -2 if insufficient funds
+                else
+                {
+                return -2;
+                }
         }
 }
 

@@ -15,10 +15,15 @@
  *
  * =====================================================================================
  */
+#include "Category.h"
 #include "Customer.h"
+#include "Inventory.h"
+#include "Merchant.h"
+#include "Order.h"
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include <fstream>
 #include <cstring>
 using namespace std;
@@ -35,6 +40,29 @@ void parseFile(const string& file, vector<parseObject*>& obj) {
 		obj.push_back(o);
 	}
 }
+
+template <typename key, typename obj, typename keyExtractor>
+map<key, obj> convertToMap(const vector<obj>& v) {
+	map<key, obj> m;
+	typename vector<obj>::const_iterator it;
+	keyExtractor ke;
+	for (it = v.begin(); it < v.end(); ++it) {
+		m[ke(*it)] = *it;
+	}
+	return m;
+}
+
+struct categoryKeyExtractor {
+	string operator()(const Category* c) {
+		return c->getCategoryName();
+	}
+};
+
+struct merchantKeyExtractor {
+	string operator()(const Merchant* m) {
+		return m->getUsername();
+	}
+};
 
 template <typename deleteObject>
 void deleteVector(vector<deleteObject*>& obj) {
@@ -80,13 +108,34 @@ void login() {
 				break;
 		}
 	}
-	// cout << c << endl;
 }
 
 int main() {
-	vector<Customer*> Customers;
+	vector<Category*> categories;
+	vector<Customer*> customers;
+	vector<Inventory*> invetories;
+	vector<Merchant*> merchants;
+	vector<Order*> orders;
+	parseFile("data/Category.yaml", categories);
+	parseFile("data/Customer.yaml", customers);
+	parseFile("data/Inventory.yaml", invetories);
+	parseFile("data/Merchant.yaml", merchants);
+	parseFile("data/Order.yaml", orders);
 
-	parseFile("data/Customer.yaml", Customers);
-	deleteVector(Customers);
+	map<string, Category*> categoriesMap = convertToMap<string, Category*, categoryKeyExtractor>(categories);
+	for (map<string, Category*>::const_iterator it = categoriesMap.begin(); it != categoriesMap.end(); ++it) {
+		cout << (*it).first << " => " << ((*it).second)->getCategoryID() << endl;
+	}
+	map<string, Merchant*> merchantsMap = convertToMap<string, Merchant*, merchantKeyExtractor>(merchants);
+	for (map<string, Merchant*>::const_iterator it = merchantsMap.begin(); it != merchantsMap.end(); ++it) {
+		cout << (*it).first << " => " << ((*it).second)->getPassword() << endl;
+	}
+
 	login();
+
+	deleteVector(categories);
+	deleteVector(customers);
+	deleteVector(invetories);
+	deleteVector(merchants);
+	deleteVector(orders);
 }

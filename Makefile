@@ -7,6 +7,8 @@ CXXFLAGS += -I$(yaml_incdir)
 
 all: $(yaml_builddir)/yaml.a
 	$(CXX) $(CXXFLAGS) -o main *.cpp $^
+debug: $(yaml_builddir)/yaml.a
+	$(CXX) $(CXXFLAGS) -g  -o main *.cpp $^
 clean:
 	rm -f $(yaml_builddir)/*.o
 	rm -f $(yaml_builddir)/yaml.a

@@ -28,34 +28,7 @@
 #include <cstring>
 using namespace std;
 
-template <typename parseObject>
-void parseFile(const string& file, vector<parseObject*>& obj) {
-	std::ifstream fin(file.c_str());
-	YAML::Parser parser(fin);
-	fin.close();
-	YAML::Node doc;
-	parser.GetNextDocument(doc);
-	for(unsigned i = 0; i < doc.size(); ++i) {
-		parseObject *o = new parseObject(doc[i]);
-		obj.push_back(o);
-	}
-}
-
-template <typename key, typename obj, typename keyExtractor>
-map<key, obj*> parseFileToMap(const string& file, map<key, obj*>& m) {
-	std::ifstream fin(file.c_str());
-	YAML::Parser parser(fin);
-	fin.close();
-	YAML::Node doc;
-	parser.GetNextDocument(doc);
-	keyExtractor keyExtract;
-	for(unsigned i = 0; i < doc.size(); ++i) {
-		obj *o = new obj(doc[i]);
-		m[keyExtract(o)] = o;
-	}
-	return m;
-}
-
+////////////////////////////////////////////////////////////////////////////////////////
 struct categoryKeyExtractor {
 	string operator()(const Category* c) {
 		return c->getCategoryName();
@@ -68,20 +41,82 @@ struct merchantKeyExtractor {
 	}
 };
 
-template <typename deleteObject>
-void deleteVector(vector<deleteObject*>& obj) {
-	for (unsigned i = 0; i < obj.size(); ++i) {
-		delete obj[i];
+template <typename object>
+void parseFile(const string& file, vector<object*>& vect) {
+	std::ifstream fin(file.c_str());
+	YAML::Parser parser(fin);
+	fin.close();
+	YAML::Node doc;
+	parser.GetNextDocument(doc);
+	for(unsigned i = 0; i < doc.size(); ++i) {
+		object *o = new object(doc[i]);
+		vect.push_back(o);
 	}
 }
 
-template <typename key, typename deleteObject>
-void deleteMap(map<key, deleteObject*>& obj) {
-	for (typename map<key, deleteObject*>::iterator it = obj.begin(); it != obj.end(); ++it) {
-		delete (*it).second;
-		obj.erase(it);
+template <typename key, typename val, typename keyExtractor>
+map<key, val*> parseFileToMap(const string& file, map<key, val*>& m) {
+	std::ifstream fin(file.c_str());
+	YAML::Parser parser(fin);
+	fin.close();
+	YAML::Node doc;
+	parser.GetNextDocument(doc);
+	keyExtractor keyExtract;
+	for(unsigned i = 0; i < doc.size(); ++i) {
+		val *o = new val(doc[i]);
+		m[keyExtract(o)] = o;
+	}
+	return m;
+}
+
+template <typename deleteObject>
+void deleteVector(vector<deleteObject*>& vect) {
+	for (unsigned i = 0; i < vect.size(); ++i) {
+		delete vect[i];
 	}
 }
+
+template <typename key, typename val>
+void deleteMap(map<key, val*>& m) {
+	for (typename map<key, val*>::iterator it = m.begin(); it != m.end(); ++it) {
+		delete (*it).second;
+		m.erase(it);
+	}
+}
+
+void outputToFile(const string& file, const string& str) {
+	ofstream of(file.c_str(), ios::out | ios::trunc);
+	of << str;
+	of.close();
+}
+
+template <typename object>
+void outputVectorToFile(const string& file, vector<object*>& vect) {
+	YAML::Emitter out;
+	out << YAML::BeginSeq;
+	for (unsigned i = 0; i < vect.size(); ++i) {
+		vect[i]->emitYaml(out);
+	}
+	out << YAML::EndSeq;
+	string str = out.c_str();
+	outputToFile(file, str);
+}
+
+template <typename key, typename val>
+void outputMapToFile(const string& file, map<key, val*>& m) {
+	YAML::Emitter out;
+	out << YAML::BeginSeq;
+	for (typename map<key, val*>::iterator it = m.begin(); it != m.end(); ++it) {
+		((*it).second)->emitYaml(out);
+	}
+	out << YAML::EndSeq;
+	string str = out.c_str();
+	outputToFile(file, str);
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 void merchantLogin() {
 	cout << endl;
@@ -145,6 +180,11 @@ int main() {
 	}
 
 	login();
+
+	categories["Testing"] = new Category();
+	customers.push_back(new Customer());
+	outputMapToFile("data/Category.yaml", categories);
+	outputVectorToFile("data/Customer.yaml", customers);
 
 	deleteMap(categories);
 	deleteMap(merchants);

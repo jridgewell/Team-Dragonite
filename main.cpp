@@ -77,7 +77,7 @@ int main() {
 	parseFile("data/Customer.yaml", customers);
 	parseFile("data/Inventory.yaml", invetories);
 	parseFile("data/Order.yaml", orders);
-
+	
 	for (map<string, Category*>::const_iterator it = categories.begin(); it != categories.end(); ++it) {
 		cout << (*it).first << " => " << ((*it).second)->getCategoryID() << endl;
 	}

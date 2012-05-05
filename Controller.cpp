@@ -2,18 +2,28 @@
 
 Controller::Controller()
 {
+	parseFileToMap<std::string, Category::Category, categoryKeyExtractor>("data/Category.yaml", myCategories);
+	parseFileToMap<std::string, Merchant::Merchant, merchantKeyExtractor>("data/Merchant.yaml", myMerchants);
+	parseFile("data/Customer.yaml", myCustomers);
+	parseFile("data/Inventory.yaml", myInventories);
+	parseFile("data/Order.yaml", myOrders);
 }
 
 Controller::~Controller()
 {
+	deleteMap(myCategories);
+	deleteMap(myMerchants);
+	deleteVector(myCustomers);
+	deleteVector(myInventories);
+	deleteVector(myOrders);
 }
 
-void Controller::displayLogin()const
+void Controller::displayLogin()
 {
-	string input;
+	std::string input;
 	bool cont = true;
-	cout << "Are you a CUStomer or a Merchant? [CM]" << endl;
-	cin >> input;
+	std::cout << "Are you a Customer or a Merchant? [CM]" << std::endl;
+	std::cin >> input;
 	char c = input[0];
 	while(cont)
 	{
@@ -22,28 +32,29 @@ void Controller::displayLogin()const
 			case 'c':
 			case 'C':
 				cont = false; 
-				customerLogin();
+				this -> displayCustomerLogin();
 				break;
 			case 'm':
 			case 'M':
 				cont = false; 
-				merchantLogin();
+				this -> displayMerchantLogin();
 				break;
 			default:
-				cout << "Please type either C or M." << endl;
-				cin >> input;
+				std::cout << "Please type either C or M." << std::endl;
+				std::cin >> input;
 				c = input[0];	
 				break;
 		}
 	}
 }
 
-void Controller::displayCustomerLogin() const
+void Controller::displayCustomerLogin()
 {
-	string input;
+	std::string input;
+	std::string username, password;
 	bool cont = true; 
-	cout << "New or Returning User? [NR]" << endl;
-	cin >> input;
+	std::cout << "New or Returning User? [NR]" << std::endl;
+	std::cin >> input;
 	char c = input[0];
 	while(cont)
 	{
@@ -52,11 +63,10 @@ void Controller::displayCustomerLogin() const
 			case'r':
 			case'R':
 				cont = false;
-				string username, password;
-				cout << "Enter your Username" << endl;
-				cin >> username;
-				cout << "Enter your Password" << endl;
-				cin >> password; 
+				std::cout << "Enter your Username" << std::endl;
+				std::cin >> username;
+				std::cout << "Enter your Password" << std::endl;
+				std::cin >> password; 
 				this -> customerLogin(username, password);
 				break;
 			case 'n':
@@ -65,8 +75,8 @@ void Controller::displayCustomerLogin() const
 				this -> createCustomer();
 				break;
 			default:
-				cout << "Please type either N or R." << endl;
-				cin >> input;
+				std::cout << "Please type either N or R." << std::endl;
+				std::cin >> input;
 				c = input[0];
 				break;
 		}
@@ -114,31 +124,34 @@ Customer::Customer* Controller::createCustomer()
 	myCustomers.push_back(customer);
 }
 
-void Controller::merchantLogin() const
+void Controller::displayMerchantLogin()
 {
-        string input;
+        std::string input;
         bool cont = true;
-        cout << "Enter Username" << endl;
-        cin >> input;
-        map<string, Merchant*>::const_iterator itr;
-        itr = merchants.find(input);
-        if (itr == merchants.end()) {
-                cout << "Invalid Username" << endl;
+        std::cout << "Enter Username" << std::endl;
+        std::cin >> input;
+        std::map<std::string, Merchant*>::const_iterator itr;
+        itr = myMerchants.find(input);
+        if (itr == myMerchants.end()) {
+                std::cout << "Invalid Username" << std::endl;
         } else {
-                string input2;
-                Merchant m = *(itr->second);
-                string password = m.getPassword();
-                cout << "Enter Password" << endl;
-                cin >> input2
+                std::string input2;
+                Merchant::Merchant m = *(itr->second);
+                std::string password = m.getPassword();
+                std::cout << "Enter Password" << std::endl;
+                std::cin >> input2;
                 if( input2 == password) {
-                        cout << "Welcome back, " << input << "You can Add/change inventory price, List inventory, Remover inventory, Display orders by customer ID, or show inventory Categories.[ALRDC]" << endl;;
+                        std::cout << "Welcome back, " << input << "You can Add/change inventory price, List inventory, Remover inventory, Display orders by customer ID, or show inventory Categories.[ALRDC]" << std::endl;
                 } else {
-                        cout << "Invalid Password" << endl;
+                        std::cout << "Invalid Password" << std::endl;
                 }
 
         }
 }
 
+Merchant::Merchant* Controller::merchantLogin(const std::string& username, const std::string& password)
+{
+}
 
 Customer::Customer* Controller::getCustomer(const std::string& username)
 {

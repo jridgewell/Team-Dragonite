@@ -5,6 +5,8 @@
 #include <map>
 #include <vector>
 
+#include "utils/File.cpp"
+#include "utils/KeyExtractor.h"
 #include "Category.h"
 #include "Customer.h"
 #include "Inventory.h"
@@ -25,12 +27,12 @@ public:
 	Controller();
 	virtual ~Controller();
 
-	void displayCustomerLogin() const;
-	void displayLogin() const;
+	void displayCustomerLogin();
+	void displayLogin();
 	Customer::Customer* customerLogin(const std::string& username, const std::string& password);
 	Customer::Customer* createCustomer();
 
-	void displayMerchantLogin() const;
+	void displayMerchantLogin();
 	Merchant::Merchant* merchantLogin(const std::string& username, const std::string& password);
 
 	Customer::Customer* getCustomer(const std::string& username);
@@ -39,11 +41,5 @@ public:
 	void setUsername(const std::string& username);
 	const std::string& getUsername() const;
 };
-
-template <typename object>
-void parseFile(const string& file, vector<object*>& vect);
-
-template <typename key, typename val, typename keyExtractor>
-map<key, val*> parseFileToMap(const string& file, map<key, val*>& m);
 
 #endif

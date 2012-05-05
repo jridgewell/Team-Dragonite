@@ -22,12 +22,12 @@
 /*
 * Test the regular constructor for the merchant class
 */
-/*TEST(Category, Constructor)
+TEST(Category, Constructor)
 {
-        const Category c("Category", "pass");
-        EXPECT_EQ(c.getUsername(), "merchant");
-        EXPECT_EQ(c.getPassword(), "pass");
-}*/
+        const Category c(0, "Category Name");
+        EXPECT_EQ(c.getCategoryID(), 0);
+        EXPECT_EQ(c.getCategoryName(), "Category Name");
+}
 
 /*
 * Test the default constructor

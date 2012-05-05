@@ -11,14 +11,18 @@
  *       Compiler:  gcc
  *
  *         Author:  Justin Ridgewell
+ *	 Comments:  Andrew Wagenheim
  *   Organization:  Team Dragonite
  *
  * =====================================================================================
  */
 #include "Date.h"
 
-//TODO: javadocs
-
+/*
+* Default constructor, creates a new date with default values
+* Pre: None
+* Post: Date created with default values
+*/
 Date::Date() {
 	this->createMonths();
 	this->setMonth(1);
@@ -26,6 +30,11 @@ Date::Date() {
 	this->setDay(1);
 }
 
+/*
+* Creates a new date passed in values
+* Pre: Values for the year, month and day are passed in as ints
+* Post: Date created with input values
+*/
 Date::Date(int year, int month, int day) {
 	this->createMonths();
 	this->setMonth(month);
@@ -33,6 +42,11 @@ Date::Date(int year, int month, int day) {
 	this->setDay(day);
 }
 
+/*
+* Clones an existing date
+* Pre: An existing date object is passed in
+* Post: A new date is made using the same values
+*/
 Date::Date(const Date& date) {
 	this->createMonths();
 	this->setMonth(date.myMonth);
@@ -40,6 +54,11 @@ Date::Date(const Date& date) {
 	this->setDay(date.myDay);
 }
 
+/*
+* Creates a new date out of one input in YYYY/MM/DD format
+* Pre: A date string is passed in the format YYYY/MM/DD
+* Post: The values for the date are extracted and made into a new date object
+*/
 Date::Date(std::string date) {
 	this->createMonths();
 	char* string = &date[0];
@@ -52,12 +71,23 @@ Date::Date(std::string date) {
 	this->setDay(atoi(split));
 }
 
+/*
+* Checks the validity of the current myDay value
+* Pre: None
+* Post: If the day is found to be invalid, it is rounded down to the highest possible day
+ct
+*/
 void Date::checkDays() {
 	if (myDay > months[myMonth].days) {
 		this->setDay(months[myMonth].days);
 	}
 }
 
+/*
+* Creates an array of months and their corresponding number of days
+* Pre: None
+* Post: An array is made with each month and its number of days assigned to a spot in the array
+*/
 void Date::createMonths() {
 	this->months[0] = Month("", 31);
 	this->months[1] = Month("January", 31);
@@ -75,31 +105,66 @@ void Date::createMonths() {
 	this->months[13] = Month("", 31);
 }
 
-
+/*
+* Gets the day of the date
+* Pre: None
+* Post: Returns the date's day value
+*/
 int Date::getDay() const {
 	return myDay;
 }
 
+/*
+* Gets the number of days in the month of the date
+* Pre: None
+* Post: Returns the number of days in the month of the date
+*/
 int Date::getDaysInMonth() const {
 	return months[myMonth].days;
 }
 
+/*
+* Gets the number month of the date
+* Pre: None
+* Post: Returns the date's month's number value
+*/
 int Date::getMonth() const {
 	return myMonth;
 }
 
+/*
+* Gets the name of the month of the date
+* Pre: None
+* Post: Returns the date's month's name
+*/
 const std::string& Date::getMonthName() const {
 	return months[myMonth].name;
 }
 
+/*
+* Gets the year of the date
+* Pre: None
+* Post: Returns the date's year
+*/
 int Date::getYear() const {
 	return myYear;
 }
 
+
+/*
+* Checks to see if the myYear value is a leap year
+* Pre: None
+* Post: Runs the isLeapYear method using the myYear value. Returns true if it is a leap year, returns false if it is not.
+*/
 bool Date::isLeapYear() const {
 	return this->isLeapYear(myYear);
 }
 
+/*
+* Computes if the input year is a leap year
+* Pre: A year is input at an int
+* Post: Returns true if the input year is a leap year, returns false if it is not
+*/
 bool Date::isLeapYear(int year) const {
 	if (year % 4 == 0) {
 		if ((year % 100 == 0) && (year % 400 != 0)) {
@@ -110,6 +175,11 @@ bool Date::isLeapYear(int year) const {
 	return false;
 }
 
+/*
+* Converts int values of a date into a string with the format YYYY/MM/DD
+* Pre: None
+* Post: Returns a string in the format YYYY/MM/DD using the myYear, myMonth and myDay value
+*/
 const std::string& Date::serializeDate() {
 	std::stringstream ss;
 	ss << ((myYear < 1000) ? "0" : "");
@@ -124,6 +194,11 @@ const std::string& Date::serializeDate() {
 	return myString;
 }
 
+/*
+* Sets the myDay value to the input, checking to make sure the input value is valid
+* Pre: A value is input as an int for the new myDay
+* Post: The myDay value is set to the input value, where a value less than 1 or greater than the maximum number of days wraps around and sets the month accordingly
+*/
 void Date::setDay(int day) {
 	int daysInMonth = months[myMonth].days;
 	while (day > daysInMonth) {
@@ -137,6 +212,11 @@ void Date::setDay(int day) {
 	myDay = day;
 }
 
+/*
+* Sets the myMonth value to the input, checking to make sure the value is valid
+* Pre: A value is input as an int for the new myMonth
+* Post: The myMonth value is set to the input value, where a value less than 1 or greater than 12 wraps around and decrements or increments the year respectively
+*/
 void Date::setMonth(int month) {
 	while (month > 12) {
 		month -= 12;
@@ -150,6 +230,11 @@ void Date::setMonth(int month) {
 	this->checkDays();
 }
 
+/*
+* Sets the myYear value to the input, checking to make sure the value is valid
+* Pre: A value is input as an int for the new myYear
+* Post: The myYear value is set to the input value, where the year is checked to be a leap year, and changes the maximum number of days in February accordingly
+*/
 void Date::setYear(int year) {
 	if (this->isLeapYear(year)) {
 		months[2] = Month("February", 29);

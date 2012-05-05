@@ -144,7 +144,7 @@ YAML::Emitter& Order::emitYaml(YAML::Emitter& out) const {
         out << YAML::BeginMap;
         out << YAML::Key << "myOrderID";
         out << YAML::Value << this->myOrderID;
-        out << YAML::Key << "myCustomreID";
+        out << YAML::Key << "myCustomerID";
         out << YAML::Value << this->myCustomerID;
         out << YAML::Key << "mySKU";
         out << YAML::Value << this->mySKU;

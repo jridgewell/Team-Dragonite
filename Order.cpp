@@ -139,7 +139,7 @@ void Order::parseYaml(const YAML::Node& node) {
 	this->setDate(Date(temp));
 }
 
-YAML::Emitter& Customer::emitYaml(YAML::Emitter& out) const {
+YAML::Emitter& Order::emitYaml(YAML::Emitter& out) const {
         out << YAML::BeginSeq;
         out << YAML::BeginMap;
         out << YAML::Key << "myOrderID";

@@ -46,6 +46,7 @@ class Order {
 		Order(int orderID, int customerID, int SKU, int quantity, int price, const Date& date);
 		Order(const Order& Order);
 		Order(const YAML::Node& node);
+		YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 		virtual ~Order() {}
 		int getOrderID() const;
 		int getCustomerID() const;

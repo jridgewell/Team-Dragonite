@@ -63,11 +63,18 @@ void Controller::displayCustomerLogin()
 			case'r':
 			case'R':
 				cont = false;
-				std::cout << "Enter your Username" << std::endl;
+				std::cout << "Enter your username: ";
 				Input::getLine(username);
-				std::cout << "Enter your Password" << std::endl;
+				std::cout << "Enter your password: ";
 				Input::getLine(password); 
-				this -> customerLogin(username, password);
+				if(this -> customerLogin(username, password) == NULL)
+				{
+					cont = true;
+					std::cout << "Invalid username or password." << std::endl;
+					std::cout << "New or Returning User? [NR]" << std::endl;
+					Input::getLine(input);
+					c = input[0]; 
+				}
 				break;
 			case 'n':
 			case 'N':
@@ -88,7 +95,9 @@ void Controller::displayCustomerLogin()
 
 Customer::Customer* Controller::customerLogin(const std::string& username, const std::string& password)
 {
-	if(this -> getCustomer(username) == NULL)
+	Customer* customer = this -> getCustomer(username);
+
+	if(customer == NULL || customer -> getPassword() != password)
 	{
 		return NULL;
 	}

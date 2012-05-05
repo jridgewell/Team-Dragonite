@@ -23,7 +23,7 @@ void Controller::displayLogin()
 	std::string input;
 	bool cont = true;
 	std::cout << "Are you a Customer or a Merchant? [CM]" << std::endl;
-	std::cin >> input;
+	Input::getLine(input);
 	char c = input[0];
 	while(cont)
 	{
@@ -41,7 +41,7 @@ void Controller::displayLogin()
 				break;
 			default:
 				std::cout << "Please type either C or M." << std::endl;
-				std::cin >> input;
+				Input::getLine(input);
 				c = input[0];	
 				break;
 		}
@@ -54,7 +54,7 @@ void Controller::displayCustomerLogin()
 	std::string username, password;
 	bool cont = true; 
 	std::cout << "New or Returning User? [NR]" << std::endl;
-	std::cin >> input;
+	Input::getLine(input);
 	char c = input[0];
 	while(cont)
 	{
@@ -64,9 +64,9 @@ void Controller::displayCustomerLogin()
 			case'R':
 				cont = false;
 				std::cout << "Enter your Username" << std::endl;
-				std::cin >> username;
+				Input::getLine(username);
 				std::cout << "Enter your Password" << std::endl;
-				std::cin >> password; 
+				Input::getLine(password); 
 				this -> customerLogin(username, password);
 				break;
 			case 'n':
@@ -74,12 +74,12 @@ void Controller::displayCustomerLogin()
 				cont = true;
 				this -> createCustomer();
 				std::cout << "New or Returning User? [NR]" << std::endl;
-				std::cin >> input;
+				Input::getLine(input);
 				c = input[0];
 				break;
 			default:
 				std::cout << "Please type either N or R." << std::endl;
-				std::cin >> input;
+				Input::getLine(input);
 				c = input[0];
 				break;
 		}
@@ -107,21 +107,21 @@ Customer::Customer* Controller::createCustomer()
 	id = myCustomers.size();
 
 	std::cout << "Username: ";
-	std::cin >> username;
+	Input::getLine(username);
 	std::cout << "Password: ";
-	std::cin >> password;
+	Input::getLine(password);
 	std::cout << "Full name: ";
-	std::cin >> fullName;
+	Input::getLine(fullName);
 	std::cout << "Address: ";
-	std::cin >> address;
+	Input::getLine(address);
 	std::cout << "City: ";
-	std::cin >> city;
+	Input::getLine(city);
 	std::cout << "State: ";
-	std::cin >> state;
+	Input::getLine(state);
 	std::cout << "Zip code: ";
-	std::cin >> zipStr;
+	Input::getLine(zipStr);
 	std::cout << "Starting balance: ";
-	std::cin >> moneyStr;
+	Input::getLine(moneyStr);
 
 	zip = atoi(zipStr.c_str());
 	money = atoi(moneyStr.c_str());

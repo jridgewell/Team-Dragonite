@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 
+#include "Controller.h"
 #include "Category.h"
 #include "Customer.h"
 #include "Inventory.h"
@@ -31,4 +32,5 @@ using namespace std;
 
 
 int main() {
+	Controller c = Controller();
 }

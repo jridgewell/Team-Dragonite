@@ -1,3 +1,9 @@
+#ifndef FILE_H
+#define FILE_H
+/*
+ *
+ */
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -98,3 +104,5 @@ template void parseFileToMap<std::string, Merchant, merchantKeyExtractor>(const 
 template void parseFileToVector<Customer>(const std::string& file, std::vector<Customer*>& vect);
 template void parseFileToVector<Inventory>(const std::string& file, std::vector<Inventory*>& vect);
 template void parseFileToVector<Order>(const std::string& file, std::vector<Order*>& vect);
+
+#endif

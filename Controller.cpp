@@ -114,13 +114,31 @@ Customer::Customer* Controller::createCustomer()
 	myCustomers.push_back(customer);
 }
 
-void Controller::displayMerchantLogin() const
+void Controller::merchantLogin() const
 {
+        string input;
+        bool cont = true;
+        cout << "Enter Username" << endl;
+        cin >> input;
+        map<string, Merchant*>::const_iterator itr;
+        itr = merchants.find(input);
+        if (itr == merchants.end()) {
+                cout << "Invalid Username" << endl;
+        } else {
+                string input2;
+                Merchant m = *(itr->second);
+                string password = m.getPassword();
+                cout << "Enter Password" << endl;
+                cin >> input2
+                if( input2 == password) {
+                        cout << "Welcome back, " << input << "You can Add/change inventory price, List inventory, Remover inventory, Display orders by customer ID, or show inventory Categories.[ALRDC]" << endl;;
+                } else {
+                        cout << "Invalid Password" << endl;
+                }
+
+        }
 }
 
-Merchant::Merchant* Controller::merchantLogin(const std::string& username, const std::string& password)
-{
-}
 
 Customer::Customer* Controller::getCustomer(const std::string& username)
 {

@@ -133,10 +133,19 @@ Customer::Customer* Controller::createCustomer()
 	std::cout << "State: ";
 	Input::getLine(state);
 	std::cout << "Zip code: ";
-	
 	Input::getLine(zipStr);
 	std::cout << "Starting balance: ";
+	while(!Input::isNumeric(zipStr))
+	{
+		std:cout << "Invalid zip code. Please try again: ";
+		Input::getLine(zipStr);
+	}
 	Input::getLine(moneyStr);
+	while(!Input::isNumeric(moneyStr))
+	{
+		std:cout << "Invalid sum. Please try again: ";
+		Input::getLine(monetStr);
+	}
 
 	zip = atoi(zipStr.c_str());
 	money = atoi(moneyStr.c_str());

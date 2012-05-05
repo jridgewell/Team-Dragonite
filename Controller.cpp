@@ -4,9 +4,9 @@ Controller::Controller()
 {
 	parseFileToMap<std::string, Category::Category, categoryKeyExtractor>("data/Category.yaml", myCategories);
 	parseFileToMap<std::string, Merchant::Merchant, merchantKeyExtractor>("data/Merchant.yaml", myMerchants);
-	parseFile("data/Customer.yaml", myCustomers);
-	parseFile("data/Inventory.yaml", myInventories);
-	parseFile("data/Order.yaml", myOrders);
+	parseFileToVector("data/Customer.yaml", myCustomers);
+	parseFileToVector("data/Inventory.yaml", myInventories);
+	parseFileToVector("data/Order.yaml", myOrders);
 }
 
 Controller::~Controller()

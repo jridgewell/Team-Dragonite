@@ -5,6 +5,8 @@
 #include <map>
 #include <vector>
 #include <cstdlib>
+#include <ios>
+#include <iomanip>
 
 #include "utils/File.h"
 #include "utils/Input.h"
@@ -31,6 +33,7 @@ public:
 
 	void displayCustomerLogin();
 	void displayLogin();
+	void displayInventory();
 	Customer::Customer* customerLogin(const std::string& username, const std::string& password);
 	Customer::Customer* createCustomer();
 

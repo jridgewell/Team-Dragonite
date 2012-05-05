@@ -117,6 +117,11 @@ Customer::Customer* Controller::createCustomer()
 
 	std::cout << "Username: ";
 	Input::getLine(username);
+	while(this -> getCustomer(username) != NULL)
+	{
+		std::cout << "Username already in use. Please enter another username: ";
+		Input::getLine(username);
+	}
 	std::cout << "Password: ";
 	Input::getLine(password);
 	std::cout << "Full name: ";

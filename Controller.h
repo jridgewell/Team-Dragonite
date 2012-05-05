@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <cstdlib>
 
 #include "utils/File.h"
 #include "utils/KeyExtractor.h"

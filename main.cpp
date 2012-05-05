@@ -33,4 +33,5 @@ using namespace std;
 
 int main() {
 	Controller c = Controller();
+	c.displayLogin();
 }

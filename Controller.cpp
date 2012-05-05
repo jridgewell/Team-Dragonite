@@ -73,6 +73,9 @@ void Controller::displayCustomerLogin()
 			case 'N':
 				cont = true;
 				this -> createCustomer();
+				std::cout << "New or Returning User? [NR]" << std::endl;
+				std::cin >> input;
+				c = input[0];
 				break;
 			default:
 				std::cout << "Please type either N or R." << std::endl;
@@ -99,9 +102,9 @@ Customer::Customer* Controller::customerLogin(const std::string& username, const
 Customer::Customer* Controller::createCustomer()
 {
 	int id, zip, money;
-	std::string username, password, fullName, address, city, state;
+	std::string username, password, fullName, address, city, state, zipStr, moneyStr;
 
-	id = myCustomers.size() + 1;
+	id = myCustomers.size();
 
 	std::cout << "Username: ";
 	std::cin >> username;
@@ -116,9 +119,12 @@ Customer::Customer* Controller::createCustomer()
 	std::cout << "State: ";
 	std::cin >> state;
 	std::cout << "Zip code: ";
-	std::cin >> zip;
+	std::cin >> zipStr;
 	std::cout << "Starting balance: ";
-	std::cin >> money;
+	std::cin >> moneyStr;
+
+	zip = atoi(zipStr.c_str());
+	money = atoi(moneyStr.c_str());
 
 	Customer::Customer* customer = new Customer(id, username, password, fullName, address, city, state, zip, money);
 	myCustomers.push_back(customer);

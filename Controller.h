@@ -26,6 +26,7 @@ public:
 	virtual ~Controller();
 
 	void displayCustomerLogin() const;
+	void displayLogin() const;
 	Customer::Customer* customerLogin(const std::string& username, const std::string& password);
 	Customer::Customer* createCustomer();
 

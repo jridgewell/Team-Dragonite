@@ -58,6 +58,18 @@ Merchant::Merchant(const YAML::Node& node) {
 	this->parseYaml(node);
 }
 
+YAML::Emitter& Merchant::emitYaml(YAML::Emitter& out) const {
+        out << YAML::BeginSeq;
+        out << YAML::BeginMap;
+        out << YAML::Key << "myUsername";
+        out << YAML::Value << this->myUsername;
+        out << YAML::Key << "myPassword";
+        out << YAML::Value << this->myPassword;
+        out << YAML::EndMap;
+        out << YAML::EndSeq;
+        return out;
+}
+
 /*
 * Gets the Merchant's username
 * Pre: None

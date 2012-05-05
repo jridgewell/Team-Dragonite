@@ -40,6 +40,7 @@ class Category
 		Category(const YAML::Node& node);
 		virtual ~Category() {}
 		void parseYaml(const YAML::Node& node);
+		YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 
 		int getCategoryID() const;
 		const std::string& getCategoryName() const;

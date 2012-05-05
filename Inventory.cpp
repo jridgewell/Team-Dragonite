@@ -51,6 +51,24 @@ void Inventory::parseYaml(const YAML::Node& node)
 	node["myQuantity"] >> this->myQuantity;
 }
 
+YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
+{
+	out << YAML::BeginSeq;
+	out << YAML::BeginMap;
+	out << YAML::Key << "mySKU";
+	out << YAML::Value << this->mySKU;
+	out << YAML::Key << "myItemDesc";
+	out << YAML::Value << this->myItemDesc;
+	out << YAML::Key << "myCategoryID";
+	out << YAML::Value << this->myCategoryID;
+	out << YAML::Key << "myPrice";
+	out << YAML::Value << this->myPrice;
+	out << YAML::Key << "myQuantity";
+	out << YAML::Value << this->myQuantity;
+	out << YAML::EndMap;
+	out << YAML::EndSeq;
+	return out;
+}
 
 /*
  * Accessors and Mutators

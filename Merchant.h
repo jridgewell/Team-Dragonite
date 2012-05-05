@@ -46,6 +46,7 @@ class Merchant {
 		virtual ~Merchant() {}
 		const std::string& getUsername() const;
 		const std::string& getPassword() const;
+		YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 		void parseYaml(const YAML::Node& node);
 		void setUsername(const std::string& username);
 		void setPassword(const std::string& password);

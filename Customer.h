@@ -13,6 +13,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Justin Ridgewell
+ *	 Comments:  Andrew Wagenheim
  *   Organization:  Team Dragonite
  *
  * =====================================================================================
@@ -21,7 +22,17 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 
-//TODO: javadocs
+
+/*
+* Outlines the Customer class and the features contained therein.
+* Customers consist of a username, password, full name, address, city, state, zip code, and account balance
+* Creates customers through one of the following:
+* 1) A default constructor
+* 2) A constructor with passed in values
+* 3) An existing customer object, copying its values
+* 4) Customer data retrieved from a node on the YAML
+* In addition, the class is able to set/get the merchant's username and password
+*/
 
 class Customer {
 	private:

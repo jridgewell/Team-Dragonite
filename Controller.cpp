@@ -10,6 +10,32 @@ Controller::~Controller()
 
 void Controller::displayCustomerLogin() const
 {
+	string input;
+	bool cont = true; 
+	cout << "New or Returning User? [NR]" << endl;
+	cin >> input;
+	char c = input[0];
+	while(cont)
+	{
+		switch(c)
+		{
+			case'r':
+			case'R':
+				cont = false;
+				returningCustomer();
+				break;
+			case 'n':
+			case 'N':
+				cont = false;
+				createCustomer();
+				break;
+			default:
+				cout << "Please type either N or R." << endl;
+				cin >> input;
+				c = input[0];
+				break;
+		}
+	}
 }
 
 void Controller::displayLogin()const

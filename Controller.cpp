@@ -196,27 +196,32 @@ void Controller::displayMerchantLogin()
 int Controller::purchase(int SKU, int quantity)
 {
         Customer* customer = getCustomer(myUsername);
-        int funds = customer -> getMoney();
+        Inventory* inventory = NULL;
+	int funds = customer -> getMoney();
         int price = 0;
+	int invQuantity = 0;
         for(int i = 0; i < myInventories.size(); i++)
         {
                 if (SKU == myInventories[i] -> getSKU())
                 {
-                        price = myInventories[i] -> getPrice();
+			inventory = myInventories[i];
                 }
-                else
-                        price = -1;
         }
 
         //Returns -1 if SKU is not found
-        if(price = -1)
+        if(inventory = NULL)
                 return -1;
         else
         {
-                if(funds > price * quantity)
+		price = inventory -> getPrice();		
+		invQuantity = inventory -> getQuantity();
+
+                if(funds > price * quantity && invQuantity >= quantity)
                 {
                 funds -= price * quantity;
                 customer -> setMoney(funds);
+		inventory -> setQuantity(invQuantity - quantity);
+
                 return funds;
                 }
                 //Returns -2 if insufficient funds

@@ -7,6 +7,9 @@
 * @author Justin Ridgewell
 */
 #include <string>
+#include "../Category.h"
+#include "../Merchant.h"
+#include <string>
 
 struct categoryKeyExtractor {
 	std::string operator()(const Category* c) {

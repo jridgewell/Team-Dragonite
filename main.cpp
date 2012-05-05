@@ -97,7 +97,7 @@ void login() {
 	cout << "Are you a Customer or a Merchant? [CM]" << endl;
 	cin.get(c);
 	while (cont) {
-		cin.get(c);
+		//cin.get(c);
 		switch (c) {
 			case 'c':
 				cont = false;
@@ -116,8 +116,11 @@ void login() {
 				merchantLogin();
 				break;
 			default:
-				cout << "Please type either C or M." << endl;
-				break;
+			cont = true;
+			cout << "Please type either C or M." << endl;
+			cin.get(c);
+			//login();
+			//	break;
 		}
 	}
 }

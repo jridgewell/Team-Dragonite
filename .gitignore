@@ -1,3 +1,4 @@
+main
 yaml-cpp/build
 build/*
 !build/blank

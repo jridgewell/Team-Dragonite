@@ -136,3 +136,4 @@ void Inventory::setQuantity(const int quantity)
 {
    myQuantity = quantity;
 }
+

@@ -4,11 +4,11 @@
  *
  */
 
-#include <istream>
+#include <iostream>
 #include <string>
 
 struct Input {
-	static std::istream& getLine(std::istream& in, std::string& str, char delim = '\n');
+	static std::istream& getLine(std::string& str, std::istream& in = std::cin, char delim = '\n');
 };
 
 #endif

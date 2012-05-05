@@ -1,6 +1,6 @@
 #include "Input.h"
 
-std::istream& Input::getLine(std::istream& in, std::string& str, char delim) {
+std::istream& Input::getLine(std::string& str, std::istream& in, char delim) {
 	char ch;
 	str = "";
 

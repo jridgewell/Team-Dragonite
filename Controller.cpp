@@ -39,7 +39,7 @@ void Controller::displayLogin()
 			case 'm':
 			case 'M':
 				cont = false; 
-				this -> displayMerchantLogin();
+				this -> merchantLogin();
 				break;
 			default:
 				std::cout << "Please type either C or M." << std::endl;
@@ -161,9 +161,15 @@ void Controller::customerInterface()
 void Controller::displayInventory()
 {
 	std::cout << std::left << std::setw(10) << "SKU" << std::left << std::setw(20) << "Item Description" << std::right << std::setw(10) << "Price" << std::right << std::setw(10) << "Quantity" << std::endl;
-	for(int i = 0; i < myInventories.size(); i++)
-	{
-		std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU() << std::left << std::setw(20) << myInventories[i] -> getItemDesc()<< std::right <<  std::setw(10) << myInventories[i] -> getPrice() << std::right << std::setw(10) << myInventories[i] -> getQuantity() << std::endl;
+	for(int i = 0; i < myInventories.size(); i++) {
+		if (!isMerchant) {
+			std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU() << std::left << std::setw(20) << myInventories[i] -> getItemDesc()<< std::right <<  std::setw(10) << myInventories[i] -> getPrice() << std::right << std::setw(10) << myInventories[i] -> getQuantity() << std::endl;
+		} else if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
+			std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU() << std::left << std::setw(20) << myInventories[i] -> getItemDesc()<< std::right <<  std::setw(10) << myInventories[i] -> getPrice() << std::right << std::setw(10) << myInventories[i] -> getQuantity() << std::endl;
+		}
+	}
+	if (isMerchant) {
+		this->displayMerchantInterface();
 	}
 }
 
@@ -238,29 +244,45 @@ Customer::Customer* Controller::createCustomer()
 	myCustomers.push_back(customer);
 }
 
-void Controller::displayMerchantLogin()
-{
-        std::string input;
-        bool cont = true;
-        std::cout << "Enter Username" << std::endl;
-        std::cin >> input;
-        std::map<std::string, Merchant*>::const_iterator itr;
-        itr = myMerchants.find(input);
-        if (itr == myMerchants.end()) {
-                std::cout << "Invalid Username" << std::endl;
-        } else {
-                std::string input2;
-                Merchant::Merchant m = *(itr->second);
-                std::string password = m.getPassword();
-                std::cout << "Enter Password" << std::endl;
-                std::cin >> input2;
-                if( input2 == password) {
-                        std::cout << "Welcome back, " << input << "You can Add/change inventory price, List inventory, Remover inventory, Display orders by customer ID, or show inventory Categories.[ALRDC]" << std::endl;
-                } else {
-                        std::cout << "Invalid Password" << std::endl;
-                }
-
-        }
+void Controller::displayMerchantInterface() {
+	bool cont = true;
+	std::string input;
+	char c;
+	while (cont) {
+		std::cout << "What would you like to do?"<< std::endl;
+		std::cout << "1. List current inventory" << std::endl;
+		std::cout << "2. Add an inventory item" << std::endl;
+		std::cout << "3. Modify current inventory" << std::endl;
+		std::cout << "4. Remove an inventory item" << std::endl;
+		std::cout << "5. Display past orders" << std::endl;
+		Input::getLine(input);
+		c = input[0];
+		switch (c) {
+			case '1':
+				this->displayInventory();
+				cont = false;
+				break;
+			case '2':
+				// this->addInventory();
+				cont = false;
+				break;
+			case '3':
+				// this->modifyInventory();
+				cont = false;
+				break;
+			case '4':
+				this->displayInventory();
+				cont = false;
+				break;
+			case '5':
+				this->displayInventory();
+				cont = false;
+				break;
+			default:
+				std::cout << "Invalid input, please enter 1, 2, 3, 4, or 5." << std::endl << std::endl;
+				break;
+		}
+	}
 }
 
 int Controller::purchase(int sku, int quantity)
@@ -298,8 +320,37 @@ int Controller::inInventory(int sku)
 		return it;
 }
 
-Merchant::Merchant* Controller::merchantLogin(const std::string& username, const std::string& password)
-{
+void Controller::merchantLogin() {
+    std::string username;
+    std::string password;
+	bool cont = true;
+	while (cont) {
+		std::cout << "Enter Username" << std::endl;
+		Input::getLine(username);
+		std::cout << "Enter Password" << std::endl;
+		Input::getLine(password);
+		if (this->checkMerchantLogin(username, password)) {
+			myMerchant = (myMerchants.find(username)->second);
+			isMerchant = true;
+			break;
+		} else {
+			std::cout << "Wrong Username/Password" << std::endl << std::endl;
+		}
+	}
+	if (isMerchant) {
+		this->displayMerchantInterface();
+	}
+}
+
+bool Controller::checkMerchantLogin(const std::string& username, const std::string& password) {
+	std::map<std::string, Merchant*>::const_iterator itr;
+    itr = myMerchants.find(username);
+    if (itr != myMerchants.end()) {
+		if (password == (itr->second)->getPassword()) {
+			return true;
+		}
+	}
+	return false;
 }
 
 Customer::Customer* Controller::getCustomer(const std::string& username)

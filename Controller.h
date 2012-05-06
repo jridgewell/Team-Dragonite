@@ -23,6 +23,7 @@ private:
 	std::string myUsername;
 	bool isCustomer;
 	bool isMerchant;
+	Merchant* myMerchant;
 	Customer* myCustomer;
 	std::map<std::string, Category::Category*> myCategories;
 	std::map<std::string, Merchant::Merchant*> myMerchants;
@@ -42,8 +43,9 @@ public:
 	bool checkCustomerLogin(const std::string& username, const std::string& password);
 	Customer::Customer* createCustomer();
 
-	void displayMerchantLogin();
-	Merchant::Merchant* merchantLogin(const std::string& username, const std::string& password);
+	void merchantLogin();
+	void displayMerchantInterface();
+	bool checkMerchantLogin(const std::string& username, const std::string& password);
 
 	int purchase(int sku, int quantity);
 	int inInventory(int sku);	

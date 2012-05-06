@@ -116,7 +116,7 @@ void Controller::customerInterface()
 		c = input[0];
 		if(c == '1')
 		{
-			std::cout << "SKU: ";
+			std::cout << "Stock Keeping Unit: ";
 			Input::getLine(sku);
 			skuInt = atoi(sku.c_str());
 
@@ -467,18 +467,15 @@ void Controller::modifyInventoryItem(const int sku) {
 
 int Controller::purchase(int sku, int quantity)
 {
-//	std::cout << "Purchase: " << std::endl;
-//	std::cout << "Username: " << myUsername << std::endl;
         Customer* customer = this -> getCustomer(myUsername);
 	
 	if(this -> inInventory(sku) == -1)
 	{
-//		std::cout << "Inventory item does not exist" << std::endl;
+		std::cout << "Inventory item does not exist." << std::endl;
 		return -1;
 	}
 	else
 	{
-//		std::cout << "Inventory item does exist" << std::endl;
 		Inventory* inventory = myInventories.at(this -> inInventory(sku));
 	
 		std::cout << "Purchasing " << quantity << " " << inventory -> getItemDesc() << "." << std::endl; 
@@ -511,10 +508,9 @@ int Controller::inInventory(int sku)
 {
 	int it = 0;
 
-	while((myInventories.at(it) -> getSKU() != sku) && it < myInventories.size())
-	//while(it < myInventories.size())
+//	while((myInventories.at(it) -> getSKU() != sku) && it < myInventories.size())
+	while(it < myInventories.size() && (myInventories.at(it) -> getSKU() != sku))
 	{
-		std::cout << (myInventories.at(it) -> getSKU() != sku) << " ";
 		it++;
 	}
 

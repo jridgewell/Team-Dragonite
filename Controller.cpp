@@ -99,7 +99,6 @@ void Controller::customerInterface()
 {
 	Customer* customer = this -> getCustomer(myUsername);
 	char c;
-	char * skuChar;
 	int skuInt, quantityInt, changeInt;
 	bool cont = true;
 	std::string input;
@@ -113,8 +112,7 @@ void Controller::customerInterface()
 		{
 			std::cout << "Enter the SKU for your purchase." << std::endl;
 			Input::getLine(sku);
-			skuChar = &sku[0]; 
-			skuInt = atoi(skuChar);
+			skuInt = atoi(sku.c_str());
 
 			std::cout << "Enter the quantity for your purchase." << std::endl;
 			Input::getLine(quantity);
@@ -124,6 +122,7 @@ void Controller::customerInterface()
 				Input::getLine(quantity);
 			}
 			quantityInt = atoi(quantity.c_str());
+			std::cout << "SKU: " << skuInt << "   Quantity: " << quantityInt << std::endl;
 			this -> purchase(skuInt, quantityInt);	
 		}
 
@@ -265,13 +264,17 @@ void Controller::displayMerchantLogin()
 
 int Controller::purchase(int sku, int quantity)
 {
+	std::cout << "Purchase: ";
         Customer* customer = getCustomer(myUsername);
 	
 	if(this -> inInventory(sku) == -1)
+	{
+		std::cout << "Inventory item does not exist" << std::endl;
 		return -1;
+	}
 	else
 	{
-		Inventory* inventory = myInventories.at(this -> inInventory(sku));
+	/*	Inventory* inventory = myInventories.at(this -> inInventory(sku));
 		
 		if(inventory -> getQuantity() < quantity)
 			return -2;
@@ -281,7 +284,9 @@ int Controller::purchase(int sku, int quantity)
 		{
 			customer -> balance(-(inventory -> getPrice() * quantity));	
 			return inventory -> purchase(quantity);
-		}
+		}*/
+
+		return 0;
 	}
 }
 
@@ -289,8 +294,12 @@ int Controller::inInventory(int sku)
 {
 	int it = 0;
 
-	while(myInventories.at(it) -> getSKU() != sku || it < myInventories.size())
+	while((myInventories.at(it) -> getSKU() != sku) && it < myInventories.size())
+	//while(it < myInventories.size())
+	{
+		std::cout << (myInventories.at(it) -> getSKU() != sku) << " ";
 		it++;
+	}
 
 	if (it == myInventories.size())
 		return -1;

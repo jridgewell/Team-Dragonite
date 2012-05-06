@@ -252,7 +252,7 @@ int Controller::purchase(int sku, int quantity)
 			return -3;
 		else
 		{
-			customer -> purchase(inventory -> getPrice() * quantity);	
+			customer -> balance(-(inventory -> getPrice() * quantity));	
 			return inventory -> purchase(quantity);
 		}
 	}

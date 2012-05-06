@@ -106,7 +106,12 @@ void Controller::customerInterface()
 	std::string sku, quantity, change;
 	while(cont)
 	{
-		std::cout << "Enter 1 to place an order. Enter 2 to view past orders. Enter 3 to change amount in account. Enter 4 to display inventory. Enter 5 to exit" << std::endl;
+		std::cout << "What would you like to do?" << std::endl;
+		std::cout << "1. Place an order." << std::endl;
+		std::cout << "2. View order history." << std::endl;
+		std::cout << "3. Change balance." << std::endl;
+		std::cout << "4. Display inventory." << std::endl;
+		std::cout << "5. Exit." << std::endl;
 		Input::getLine(input);
 		c = input[0];
 		if(c == '1')
@@ -123,17 +128,20 @@ void Controller::customerInterface()
 				Input::getLine(quantity);
 			}
 			quantityInt = atoi(quantity.c_str());
-			this -> purchase(skuInt, quantityInt);	
+			this -> purchase(skuInt, quantityInt);
+			Input::wait();
 		}
 
 		else if(c == '2')
 		{
 			this -> displayCustomerOrders();
+			Input::wait();
 		}
 	
 		else if(c == '3')
 		{
-			std::cout << "Enter amount to change account balance by" << std::endl;
+			std::cout << "Current balance: " << customer -> getMoney() << std::endl;
+			std::cout << "Increase/decrease balance by: ";
 			Input::getLine(change);
 			while(!Input::isNumeric(change))
 			{
@@ -142,6 +150,7 @@ void Controller::customerInterface()
 			}
 			changeInt = atoi(change.c_str());
 			customer -> balance(changeInt);
+			Input::wait();
 		}
 		
 		else if(c == '4')

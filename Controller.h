@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <cstdlib>
+#include <ctime>
 #include <ios>
 #include <iomanip>
 
@@ -13,6 +14,7 @@
 #include "utils/KeyExtractor.h"
 #include "Category.h"
 #include "Customer.h"
+#include "Date.h"
 #include "Inventory.h"
 #include "Merchant.h"
 #include "Order.h"
@@ -51,9 +53,12 @@ public:
 	void modifyInventory();
 	void modifyInventoryItem(const int sku);
 
-	int purchase(int sku, int quantity);
+	int placePurchase();
+	int placeOrder(int sku, int quantity);
 	int inInventory(int sku);	
 	void displayCustomerOrders();
+
+	Date::Date getDate();
 
 	Customer::Customer* getCustomer(const std::string& username);
 	Merchant::Merchant* getMerchant(const std::string& username);

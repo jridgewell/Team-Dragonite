@@ -24,7 +24,7 @@ void Controller::displayLogin()
 {
 	std::string input;
 	bool cont = true;
-	std::cout << "Are you a Customer or a Merchant? [CM]" << std::endl;
+	std::cout << "Are you a [C]ustomer or a [M]erchant? ";
 	Input::getLine(input);
 	char c = input[0];
 	while(cont)
@@ -42,7 +42,7 @@ void Controller::displayLogin()
 				this -> merchantLogin();
 				break;
 			default:
-				std::cout << "Please type either C or M." << std::endl;
+				std::cout << "Please type either [C] or [M]." << std::endl;
 				Input::getLine(input);
 				c = input[0];	
 				break;
@@ -58,21 +58,22 @@ void Controller::displayCustomerLogin()
 	char c;
 	while(cont)
 	{
-		std::cout << "New or Returning User? [NR]" << std::endl;
+		std::cout << "Are you a [N]ew or [R]eturning User? ";
 		Input::getLine(input);
 		c = input[0];
 		switch(c)
 		{
 			case'r':
 			case'R':
-				std::cout << "Enter your username: ";
+				std::cout << "Username: ";
 				Input::getLine(username);
-				std::cout << "Enter your password: ";
+				std::cout << "Password: ";
 				Input::getLine(password); 
 				if(this->checkCustomerLogin(username, password)) 
 				{
 					cont = false;
-					myCustomer = this->getCustomer(username);
+//					myCustomer = this->getCustomer(username);
+					this -> setUsername(username);
 					isCustomer = true;
 				} 
 				else 
@@ -86,7 +87,7 @@ void Controller::displayCustomerLogin()
 				this -> createCustomer();
 				break;
 			default:
-				std::cout << "Please type either N or R." << std::endl;
+				std::cout << "Please type either [N] or [R]." << std::endl;
 				break;
 		}
 	}
@@ -110,11 +111,11 @@ void Controller::customerInterface()
 		c = input[0];
 		if(c == '1')
 		{
-			std::cout << "Enter the SKU for your purchase." << std::endl;
+			std::cout << "SKU: ";
 			Input::getLine(sku);
 			skuInt = atoi(sku.c_str());
 
-			std::cout << "Enter the quantity for your purchase." << std::endl;
+			std::cout << "Quantity: ";
 			Input::getLine(quantity);
 			while(!Input::isNumeric(quantity))
 			{
@@ -122,7 +123,6 @@ void Controller::customerInterface()
 				Input::getLine(quantity);
 			}
 			quantityInt = atoi(quantity.c_str());
-			std::cout << "SKU: " << skuInt << "   Quantity: " << quantityInt << std::endl;
 			this -> purchase(skuInt, quantityInt);	
 		}
 
@@ -458,29 +458,43 @@ void Controller::modifyInventoryItem(const int sku) {
 
 int Controller::purchase(int sku, int quantity)
 {
-	std::cout << "Purchase: ";
-        Customer* customer = getCustomer(myUsername);
+//	std::cout << "Purchase: " << std::endl;
+//	std::cout << "Username: " << myUsername << std::endl;
+        Customer* customer = this -> getCustomer(myUsername);
 	
 	if(this -> inInventory(sku) == -1)
 	{
-		std::cout << "Inventory item does not exist" << std::endl;
+//		std::cout << "Inventory item does not exist" << std::endl;
 		return -1;
 	}
 	else
 	{
-	/*	Inventory* inventory = myInventories.at(this -> inInventory(sku));
-		
+//		std::cout << "Inventory item does exist" << std::endl;
+		Inventory* inventory = myInventories.at(this -> inInventory(sku));
+	
+		std::cout << "Purchasing " << quantity << " " << inventory -> getItemDesc() << "." << std::endl; 
+	
 		if(inventory -> getQuantity() < quantity)
-			return -2;
-		else if(customer -> getMoney() < (inventory -> getPrice() * quantity))
-			return -3;
+		{
+			std::cout << "Purchase could not be completed: \n   Not enough " << inventory -> getItemDesc() << " in stock." << std::endl;
+			return -1;
+		}
+		else if((customer -> getMoney()) < (inventory -> getPrice() * quantity))
+		{
+			std::cout << "Purchase could not be completed: \n   " << customer -> getUsername() << " does not have enoguh money." << std::endl;
+			return -1;
+		}
 		else
 		{
 			customer -> balance(-(inventory -> getPrice() * quantity));	
-			return inventory -> purchase(quantity);
-		}*/
+			inventory -> purchase(quantity);
 
-		return 0;
+			std::cout << "Purchase completed: \n   " << customer -> getUsername() << "'s money: " << customer -> getMoney() << std::endl;
+			return customer -> getMoney();
+		}
+
+//		std::cout << "Customer getMoney: " << customer << std::endl;
+
 	}
 }
 
@@ -530,7 +544,7 @@ bool Controller::checkMerchantLogin(const std::string& username, const std::stri
 			return true;
 		}
 	}
-	return NULL;
+	return false;
 }
 
 Customer::Customer* Controller::getCustomer(const std::string& username)

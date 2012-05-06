@@ -95,7 +95,7 @@ void Controller::displayCustomerLogin()
 	}
 }
 
-void Controller::customerInterface()
+/**void Controller::customerInterface()
 {
 	char c, skuChar;
 	int skuInt, quantityInt;
@@ -128,7 +128,7 @@ void Controller::customerInterface()
 	{
 		
 	}
-}
+}*/
 	
 
 void Controller::displayInventory()
@@ -143,6 +143,15 @@ void Controller::displayInventory()
 void Controller::displayCustomerOrders()
 {
 	std::cout << std::left << std::setw(10) << "Order ID" << std::left << std::setw(10) << "SKU" << std::left << std::setw(20) << "Item Description" << std::left << std::setw(10) << "Quantity" << std::left << std::setw(10) << "Price" << std::right << std::setw(10) << "Date" << std::endl;
+
+ for(int i = 0; i < myOrders.size(); i++)
+        {
+                const int orderSKU = myOrders[i] -> getSKU();
+                Date orderDate = myOrders[i] -> getDate();
+                 std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID() << std::left << std::setw(10) << myOrders[i] -> getSKU() << std::left << std::setw(10) << myInventories[orderSKU] -> getItemDesc() << std::left << std::setw(10) << myOrders[i] -> getQuantity() << std::left << std::setw(10) << myOrders[i] -> getPrice() << std::right << std::setw(10) << (myOrders[i]->getDate()).serializeDate() << std::endl;
+
+
+}
 }
 
 bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)

@@ -46,6 +46,7 @@ public:
 
 	int purchase(int sku, int quantity);
 	int inInventory(int sku);	
+	void displayCustomerOrders();
 
 	Customer::Customer* getCustomer(const std::string& username);
 	Merchant::Merchant* getMerchant(const std::string& username);

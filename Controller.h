@@ -46,6 +46,10 @@ public:
 	void merchantLogin();
 	void displayMerchantInterface();
 	bool checkMerchantLogin(const std::string& username, const std::string& password);
+	void addInventory();
+	void removeInventory();
+	void modifyInventory();
+	void modifyInventoryItem(const int sku);
 
 	int purchase(int sku, int quantity);
 	int inInventory(int sku);	

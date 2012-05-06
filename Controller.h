@@ -34,8 +34,9 @@ public:
 	Controller();
 	virtual ~Controller();
 
-	void displayCustomerLogin();
 	void displayLogin();
+	
+	void displayCustomerLogin();
 	void displayInventory();
 	bool checkCustomerLogin(const std::string& username, const std::string& password);
 	Customer::Customer* createCustomer();
@@ -43,7 +44,8 @@ public:
 	void displayMerchantLogin();
 	Merchant::Merchant* merchantLogin(const std::string& username, const std::string& password);
 
-	int purchase(int SKU, int quantity);	
+	int purchase(int sku, int quantity);
+	int inInventory(int sku);	
 
 	Customer::Customer* getCustomer(const std::string& username);
 	Merchant::Merchant* getMerchant(const std::string& username);

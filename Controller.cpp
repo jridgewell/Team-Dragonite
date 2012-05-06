@@ -182,43 +182,39 @@ void Controller::displayMerchantLogin()
         }
 }
 
-int Controller::purchase(int SKU, int quantity)
+int Controller::purchase(int sku, int quantity)
 {
         Customer* customer = getCustomer(myUsername);
-        Inventory* inventory = NULL;
-	int funds = customer -> getMoney();
-        int price = 0;
-	int invQuantity = 0;
-        for(int i = 0; i < myInventories.size(); i++)
-        {
-                if (SKU == myInventories[i] -> getSKU())
-                {
-			inventory = myInventories[i];
-                }
-        }
+	
+	if(this -> inInventory(sku) == -1)
+		return -1;
+	else
+	{
+		Inventory* inventory = myInventories.at(this -> inInventory(sku));
+		
+		if(inventory -> getQuantity() < quantity)
+			return -2;
+		else if(customer -> getMoney() < (inventory -> getPrice() * quantity))
+			return -3;
+		else
+		{
+			customer -> purchase(inventory -> getPrice() * quantity);	
+			return inventory -> purchase(quantity);
+		}
+	}
+}
 
-        //Returns -1 if SKU is not found
-        if(inventory = NULL)
-                return -1;
-        else
-        {
-		price = inventory -> getPrice();		
-		invQuantity = inventory -> getQuantity();
+int Controller::inInventory(int sku)
+{
+	int it = 0;
 
-                if(funds > price * quantity && invQuantity >= quantity)
-                {
-                funds -= price * quantity;
-                customer -> setMoney(funds);
-		inventory -> setQuantity(invQuantity - quantity);
+	while(myInventories.at(it) -> getSKU() != sku || it < myInventories.size())
+		it++;
 
-                return funds;
-                }
-                //Returns -2 if insufficient funds
-                else
-                {
-                return -2;
-                }
-        }
+	if (it == myInventories.size())
+		return -1;
+	else
+		return it;
 }
 
 Merchant::Merchant* Controller::merchantLogin(const std::string& username, const std::string& password)

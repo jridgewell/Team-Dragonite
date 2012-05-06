@@ -73,6 +73,12 @@ YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
 	return out;
 }
 
+int Inventory::purchase(int quantity)
+{
+	this -> setQuantity(this -> getQuantity() - quantity);
+	return this->getQuantity();
+}
+
 /*
  * Accessors and Mutators
  */

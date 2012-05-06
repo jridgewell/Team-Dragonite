@@ -206,6 +206,12 @@ void Customer::parseYaml(const YAML::Node& node) {
 	node["myMoney"] >> this->myMoney;
 }
 
+int Customer::purchase(int money)
+{
+	this -> setMoney(this -> getMoney() - money);
+	return this -> getMoney();
+}
+
 /*
 * Sets the customer id
 * Pre: A customer id value is passed in as an int

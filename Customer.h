@@ -51,6 +51,8 @@ class Customer {
 		Customer(const YAML::Node& node);
 		virtual ~Customer() {}
 		
+		int purchase(int money);
+
 		int getCustomerID() const;
 		const std::string& getUsername() const;
 		const std::string& getPassword() const;

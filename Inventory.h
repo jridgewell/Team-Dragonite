@@ -45,6 +45,8 @@ class Inventory
       void parseYaml(const YAML::Node& node);
       YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 
+      int purchase(int quantity);
+
       int getSKU() const;
       const std::string& getItemDesc() const;
       int getCategoryID() const;

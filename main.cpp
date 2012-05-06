@@ -32,6 +32,8 @@ using namespace std;
 
 
 int main() {
-	Controller c = Controller();
-	c.displayLogin();
+	Controller* c = new Controller();
+	c -> displayLogin();
+//	c -> saveFiles();
+	delete(c);
 }

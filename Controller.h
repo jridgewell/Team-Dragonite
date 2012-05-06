@@ -59,6 +59,7 @@ public:
 	void displayCustomerOrders();
 
 	Date::Date getDate();
+	void saveFiles();
 
 	Customer::Customer* getCustomer(const std::string& username);
 	Merchant::Merchant* getMerchant(const std::string& username);

@@ -20,6 +20,15 @@ Controller::~Controller()
 	File::deleteVector(myOrders);
 }
 
+void Controller::saveFiles()
+{
+	File::outputMapToFile("data/Category.yaml", myCategories);
+	File::outputMapToFile("data/Merchant.yaml", myMerchants);
+	File::outputVectorToFile("data/Customer.yaml", myCustomers);
+	File::outputVectorToFile("data/Inventory.yaml", myInventories);
+	File::outputVectorToFile("data/Order.yaml", myOrders);
+}
+
 void Controller::displayLogin()
 {
 	std::string input;
@@ -158,12 +167,6 @@ void Controller::displayInventory()
 {
 	int categoryID;
 	std::map<std::string, Category::Category*>::iterator it;	
-
-	std::cout << "Categories: " << std::endl;
-	for(it = myCategories.begin(); it != myCategories.end(); it++)
-	{
-		std::cout << it->second->getCategoryID() << ". " << it -> second -> getCategoryName()<< std:: endl;
-	}
 
 	std::cout << std::left << std::setw(10) << "SKU" 
 		  << std::left << std::setw(20) << "Item Description" 

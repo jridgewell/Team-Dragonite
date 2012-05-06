@@ -104,9 +104,6 @@ void Controller::customerInterface()
 	bool cont = true;
 	std::string input;
 	std::string sku, quantity, change;
-	std::cout << "Enter 1 to place an order. Enter 2 to view past orders. Enter 3 to change amount in account. Enter 4 to display inventory. Enter 5 to exit" << std::endl;
-	Input::getLine(input);
-	c = input[0];
 	while(cont)
 	{
 		std::cout << "Enter 1 to place an order. Enter 2 to view past orders. Enter 3 to change amount in account. Enter 4 to display inventory. Enter 5 to exit" << std::endl;

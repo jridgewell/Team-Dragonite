@@ -52,6 +52,7 @@ class Customer {
 		virtual ~Customer() {}
 		
 		int purchase(int money);
+		int balance(int money);
 
 		int getCustomerID() const;
 		const std::string& getUsername() const;

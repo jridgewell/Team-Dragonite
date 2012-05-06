@@ -212,6 +212,12 @@ int Customer::purchase(int money)
 	return this -> getMoney();
 }
 
+int Customer::balance(int money)
+{
+	this -> setMoney(this -> getMoney() + money);
+	return this -> getMoney();
+}
+
 /*
 * Sets the customer id
 * Pre: A customer id value is passed in as an int

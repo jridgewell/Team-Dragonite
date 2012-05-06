@@ -169,13 +169,13 @@ void Controller::displayInventory()
 
 void Controller::displayCustomerOrders()
 {
-	std::cout << std::left << std::setw(10) << "Order ID" << std::left << std::setw(10) << "SKU" << std::left << std::setw(20) << "Item Description" << std::left << std::setw(10) << "Quantity" << std::left << std::setw(10) << "Price" << std::right << std::setw(10) << "Date" << std::endl;
+	std::cout << std::left << std::setw(10) << "Order ID" << std::left << std::setw(10) << "SKU" << std::left << std::setw(20) << "Item Description" << std::right << std::setw(10) << "Quantity" << std::right << std::setw(10) << "Price" << std::right << std::setw(10) << "Date" << std::endl;
 
  for(int i = 0; i < myOrders.size(); i++)
         {
                 const int orderSKU = myOrders[i] -> getSKU();
                 Date orderDate = myOrders[i] -> getDate();
-                 std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID() << std::left << std::setw(10) << myOrders[i] -> getSKU() << std::left << std::setw(10) << myInventories[orderSKU] -> getItemDesc() << std::left << std::setw(10) << myOrders[i] -> getQuantity() << std::left << std::setw(10) << myOrders[i] -> getPrice() << std::right << std::setw(10) << (myOrders[i]->getDate()).serializeDate() << std::endl;
+                 std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID() << std::left << std::setw(10) << myOrders[i] -> getSKU() << std::left << std::setw(20) << myInventories[orderSKU] -> getItemDesc() << std::right << std::setw(10) << myOrders[i] -> getQuantity() << std::right << std::setw(10) << myOrders[i] -> getPrice() << std::right << std::setw(15) << (myOrders[i]->getDate()).serializeDate() << std::endl;
 
 
 }

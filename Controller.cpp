@@ -69,13 +69,17 @@ void Controller::displayCustomerLogin()
 				Input::getLine(username);
 				std::cout << "Enter your password: ";
 				Input::getLine(password); 
-				if(this->checkCustomerLogin(username, password)) {
+				if(this->checkCustomerLogin(username, password)) 
+				{
 					cont = false;
 					myCustomer = this->getCustomer(username);
 					isCustomer = true;
-				} else {
+				} 
+				else 
+				{
 					std::cout << "Invalid username or password." << std::endl;
 				}
+				
 				break;
 			case 'n':
 			case 'N':
@@ -90,6 +94,42 @@ void Controller::displayCustomerLogin()
 		this->displayInventory();
 	}
 }
+
+void Controller::customerInterface()
+{
+	char c, skuChar;
+	int skuInt, quantityInt;
+	std::string input;
+	std::string sku, quantity;
+	std::cout << "Enter 1 to place an order. Enter 2 to view past orders. Enter 3 to change amount in account." << std::endl;
+	Input::getLine(input);
+	c = input[0];
+	if(c == '1')
+	{
+		std::cout << "Enter the SKU for your purchase." << std::endl;
+		Input::getLine(sku);
+		skuChar = sku[0]; 
+		skuInt = atoi(skuChar);
+
+		std::cout << "Enter the quantity for your purchase." << std::endl;
+		Input::getLine(quantity);
+		quantityInt = atoi(quantity);
+		this -> purchase(skuInt, quantityInt);
+
+		
+	}
+
+	else if(c == '2')
+	{
+		this -> displayCustomerOrders();
+	}
+	
+	else if(c == '3')
+	{
+		
+	}
+}
+	
 
 void Controller::displayInventory()
 {

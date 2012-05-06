@@ -100,6 +100,11 @@ void Controller::displayInventory()
 	}
 }
 
+void Controller::displayCustomerOrders()
+{
+	std::cout << std::left << std::setw(10) << "Order ID" << std::left << std::setw(10) << "SKU" << std::left << std::setw(20) << "Item Description" << std::left << std::setw(10) << "Quantity" << std::left << std::setw(10) << "Price" << std::right << std::setw(10) << "Date" << std::endl;
+}
+
 bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)
 {
 	Customer* customer = this -> getCustomer(username);

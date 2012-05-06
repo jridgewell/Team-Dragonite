@@ -91,44 +91,74 @@ void Controller::displayCustomerLogin()
 		}
 	}
 	if (isCustomer) {
-		this->displayInventory();
+		this->customerInterface();
 	}
 }
 
-/**void Controller::customerInterface()
+void Controller::customerInterface()
 {
-	char c, skuChar;
-	int skuInt, quantityInt;
+	Customer* customer = this -> getCustomer(myUsername);
+	char c;
+	char * skuChar;
+	int skuInt, quantityInt, changeInt;
+	bool cont = true;
 	std::string input;
-	std::string sku, quantity;
-	std::cout << "Enter 1 to place an order. Enter 2 to view past orders. Enter 3 to change amount in account." << std::endl;
+	std::string sku, quantity, change;
+	std::cout << "Enter 1 to place an order. Enter 2 to view past orders. Enter 3 to change amount in account. Enter 4 to display inventory. Enter 5 to exit" << std::endl;
 	Input::getLine(input);
 	c = input[0];
-	if(c == '1')
+	while(cont)
 	{
-		std::cout << "Enter the SKU for your purchase." << std::endl;
-		Input::getLine(sku);
-		skuChar = sku[0]; 
-		skuInt = atoi(skuChar);
+		std::cout << "Enter 1 to place an order. Enter 2 to view past orders. Enter 3 to change amount in account. Enter 4 to display inventory. Enter 5 to exit" << std::endl;
+		Input::getLine(input);
+		c = input[0];
+		if(c == '1')
+		{
+			std::cout << "Enter the SKU for your purchase." << std::endl;
+			Input::getLine(sku);
+			skuChar = &sku[0]; 
+			skuInt = atoi(skuChar);
 
-		std::cout << "Enter the quantity for your purchase." << std::endl;
-		Input::getLine(quantity);
-		quantityInt = atoi(quantity);
-		this -> purchase(skuInt, quantityInt);
+			std::cout << "Enter the quantity for your purchase." << std::endl;
+			Input::getLine(quantity);
+			while(!Input::isNumeric(quantity))
+			{
+				std::cout << "Invalid quantity. Please try again: ";
+				Input::getLine(quantity);
+			}
+			quantityInt = atoi(quantity.c_str());
+			this -> purchase(skuInt, quantityInt);	
+		}
 
-		
-	}
-
-	else if(c == '2')
-	{
-		this -> displayCustomerOrders();
-	}
+		else if(c == '2')
+		{
+			this -> displayCustomerOrders();
+		}
 	
-	else if(c == '3')
-	{
+		else if(c == '3')
+		{
+			std::cout << "Enter amount to change account balance by" << std::endl;
+			Input::getLine(change);
+			while(!Input::isNumeric(change))
+			{
+				std::cout << "Invalid amount. Please try again: ";
+				Input::getLine(change);
+			}
+			changeInt = atoi(change.c_str());
+			customer -> balance(changeInt);
+		}
 		
+		else if(c == '4')
+		{
+			this -> displayInventory();
+		}
+		
+		else if(c == '5')
+		{
+			cont = false;
+		}
 	}
-}*/
+}
 	
 
 void Controller::displayInventory()

@@ -35,6 +35,7 @@ public:
 	virtual ~Controller();
 
 	void displayLogin();
+	void customerInterface();
 	
 	void displayCustomerLogin();
 	void displayInventory();

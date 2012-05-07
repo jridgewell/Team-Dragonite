@@ -38,14 +38,14 @@ class Inventory
    public:
       Inventory();
       Inventory(const int sku, const std::string& itemDesc, const int categoryID, const int merchantID, const int price, const int quantity)
-	  : mySKU(sku), myItemDesc(itemDesc), myCategoryID(categoryID), myMerchantID(merchantID), myPrice(price), myQuantity(quantity) {}
+		: mySKU(sku), myItemDesc(itemDesc), myCategoryID(categoryID), myMerchantID(merchantID), myPrice(price), myQuantity(quantity) {}
       Inventory(const Inventory& inventory);
       Inventory(const YAML::Node& node);
       virtual ~Inventory() {}
       void parseYaml(const YAML::Node& node);
       YAML::Emitter& emitYaml(YAML::Emitter& out) const;
 
-      int purchase(int quantity);
+      int purchase(const int quantity);
 
       int getSKU() const;
       const std::string& getItemDesc() const;
@@ -56,8 +56,8 @@ class Inventory
 
       void setSKU(const int sku);
       void setItemDesc(const std::string& itemDesc);
-      void setCategoryID(int categoryID);
-      void setMerchantID(int merchantID);
+      void setCategoryID(const int categoryID);
+      void setMerchantID(const int merchantID);
       void setPrice(const int price);
       void setQuantity(const int quantity); 
 };

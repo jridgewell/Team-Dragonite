@@ -37,7 +37,7 @@ Order::Order() {
 * Pre: Values for the order id, customer id, SKY, quantity, price and date are input
 * Post: A new order is created with the passed in values
 */
-Order::Order(int orderID, int customerID, int SKU, int quantity, int price, const Date& date) {
+Order::Order(const int orderID, const int customerID, const int SKU, const int quantity, const int price, const Date& date) {
 	this->setOrderID(orderID);
 	this->setCustomerID(customerID);
 	this->setSKU(SKU);
@@ -164,7 +164,7 @@ YAML::Emitter& Order::emitYaml(YAML::Emitter& out) const {
 * Pre: An integer is passed in
 * Post: The Order's ID is set to the passed in value
 */
-void Order::setOrderID(int orderID) {
+void Order::setOrderID(const int orderID) {
 	myOrderID = orderID;
 }
 
@@ -173,7 +173,7 @@ void Order::setOrderID(int orderID) {
 * Pre: An integer is passed in
 * Post: The Customer's ID is set to the passed in value
 */
-void Order::setCustomerID(int customerID) {
+void Order::setCustomerID(const int customerID) {
 	myCustomerID = customerID;
 }
 
@@ -182,7 +182,7 @@ void Order::setCustomerID(int customerID) {
 * Pre: An integer is passed in
 * Post: The SKU of the order is set to the passed in value
 */
-void Order::setSKU(int SKU) {
+void Order::setSKU(const int SKU) {
 	mySKU = SKU;
 }
 
@@ -191,7 +191,7 @@ void Order::setSKU(int SKU) {
 * Pre: An integer is passed in
 * Post: The quantity of items ordered is set to the passed in value
 */
-void Order::setQuantity(int quantity) {
+void Order::setQuantity(const int quantity) {
 	myQuantity = quantity;
 }
 
@@ -200,7 +200,7 @@ void Order::setQuantity(int quantity) {
 * Pre: An integer is passed in
 * Post: The price of the item ordered is set to the passed in value
 */
-void Order::setPrice(int price) {
+void Order::setPrice(const int price) {
 	myPrice = price;
 }
 

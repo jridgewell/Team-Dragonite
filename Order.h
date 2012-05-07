@@ -43,7 +43,7 @@ class Order {
 		Date myDate;
 	public:
 		Order();
-		Order(int orderID, int customerID, int SKU, int quantity, int price, const Date& date);
+		Order(const int orderID, const int customerID, const int SKU, const int quantity, const int price, const Date& date);
 		Order(const Order& Order);
 		Order(const YAML::Node& node);
 		YAML::Emitter& emitYaml(YAML::Emitter& out) const;
@@ -55,11 +55,11 @@ class Order {
 		int getPrice() const;
 		const Date& getDate() const;
 		void parseYaml(const YAML::Node& node);
-		void setOrderID(int orderID);
-		void setCustomerID(int customerID);
-		void setSKU(int SKU);
-		void setQuantity(int quantity);
-		void setPrice(int price);
+		void setOrderID(const int orderID);
+		void setCustomerID(const int customerID);
+		void setSKU(const int SKU);
+		void setQuantity(const int quantity);
+		void setPrice(const int price);
 		void setDate(const Date& date);
 };
 #endif

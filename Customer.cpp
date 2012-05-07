@@ -206,7 +206,7 @@ void Customer::parseYaml(const YAML::Node& node) {
 	node["myMoney"] >> this->myMoney;
 }
 
-int Customer::purchase(int money)
+int Customer::purchase(const int money)
 {
 	this -> setMoney(this -> getMoney() - money);
 	return this -> getMoney();

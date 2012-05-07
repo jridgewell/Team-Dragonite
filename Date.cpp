@@ -35,7 +35,7 @@ Date::Date() {
 * Pre: Values for the year, month and day are passed in as ints
 * Post: Date created with input values
 */
-Date::Date(int year, int month, int day) {
+Date::Date(const int year, const int month, const int day) {
 	this->createMonths();
 	this->setMonth(month);
 	this->setYear(year);

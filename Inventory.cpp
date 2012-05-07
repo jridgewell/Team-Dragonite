@@ -73,7 +73,7 @@ YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
 	return out;
 }
 
-int Inventory::purchase(int quantity)
+int Inventory::purchase(const int quantity)
 {
 	this -> setQuantity(this -> getQuantity() - quantity);
 	return this->getQuantity();
@@ -123,12 +123,12 @@ void Inventory::setItemDesc(const std::string& itemDesc)
 	myItemDesc = itemDesc;
 }
 
-void Inventory::setCategoryID(int categoryID)
+void Inventory::setCategoryID(const int categoryID)
 {
 	myCategoryID = categoryID;
 }
 
-void Inventory::setMerchantID(int merchantID)
+void Inventory::setMerchantID(const int merchantID)
 {
 	myMerchantID = merchantID;
 }

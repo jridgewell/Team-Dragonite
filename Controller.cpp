@@ -422,13 +422,13 @@ void Controller::removeInventory() {
 			}
 		}
 		if (Input::getPositiveInteger(sel)) {
+			--sel;
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				break;
 			}
 		}
 		std::cout << "Invalid SKU, please try again." << std::endl;
 	}
-	--sel; //Because vectors start counting at 0
 
 	myInventories[sel]->setQuantity(-1);
 	std::cout << "Item removed." << std::endl;
@@ -463,13 +463,13 @@ void Controller::modifyInventory() {
 			<< std::endl;
 		}
 		if (Input::getPositiveInteger(sel)) {
+			--sel;
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				break;
 			}
 		}
 		std::cout << "Invalid SKU, please try again." << std::endl;
 	}
-	--sel; //Because vectors start counting at 0
 	this->modifyInventoryItem(sel);
 
 	Input::wait();

@@ -167,41 +167,24 @@ void Controller::customerInterface()
 		std::cout << "5. Exit." << std::endl;
 		Input::getLine(input);
 		c = input[0];
-		if(c == '1')
-		{
-			this -> placePurchase();
-			Input::wait();
-		}
-
-		else if(c == '2')
-		{
-			this -> displayCustomerOrders();
-			Input::wait();
-		}
-
-		else if(c == '3')
-		{
-			std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
-			std::cout << "Change balance by: ";
-			Input::getLine(change);
-			while(!Input::isNumeric(change))
-			{
-				std::cout << "Invalid amount. Please try again: ";
-				Input::getLine(change);
-			}
-			changeInt = atoi(change.c_str());
-			myCustomer -> updateBalance(changeInt);
-			Input::wait();
-		}
-
-		else if(c == '4')
-		{
-			this -> displayInventory();
-		}
-
-		else if(c == '5')
-		{
-			cont = false;
+		switch (c) {
+			case '1':
+				cont = false;
+				this->placePurchase();
+				break;
+			case '2':
+				cont = false;
+				this->displayCustomerOrders();
+				break;
+			case '3':
+				cont = false;
+				this->changeCustomerBalance();
+				break;
+			case '4':
+				cont = false;
+				this->displayInventory();
+			case '5':
+				cont = false;
 		}
 	}
 }
@@ -299,6 +282,22 @@ Customer* Controller::createCustomer()
 	myCustomers.push_back(customer);
 }
 
+void Controller::changeCustomerBalance() {
+	int change;
+	std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
+	std::cout << "Change balance by: ";
+	while (!Input::getInteger(change)) {
+		std::cout << "Invalid amount. Please try again: ";
+	}
+	myCustomer -> updateBalance(change);
+	std::cout << "Balance updated." << std::endl;
+	
+	Input::wait();
+	if (isCustomer) {
+		this->customerInterface();
+	}
+}
+
 void Controller::displayInventory()
 {
 	int categoryID;
@@ -325,9 +324,12 @@ void Controller::displayInventory()
 			}
 		}
 	}
+	
 	Input::wait();
 	if (isMerchant) {
 		this->merchantInterface();
+	} else if (isCustomer) {
+		this->customerInterface();
 	}
 }
 
@@ -343,6 +345,10 @@ void Controller::displayCustomerOrders()
 
 
 }
+	Input::wait();
+	if (isCustomer) {
+		this->customerInterface();
+	}
 }
 
 int Controller::placePurchase()
@@ -402,6 +408,11 @@ int Controller::placePurchase()
 		this -> placeOrder(sku, quantity);
 		return myCustomer -> getMoney();
 	}
+	
+	Input::wait();
+	if (isCustomer) {
+		this->customerInterface();
+	}
 }
 
 #pragma mark -----------------------------------------------------------------
@@ -447,8 +458,8 @@ void Controller::addInventory() {
 	myInventories.push_back(i);
 
 	std::cout << "Item has been added." << std::endl;
-	Input::wait();
 
+	Input::wait();
 	if (isMerchant) {
 		this->merchantInterface();
 	}
@@ -478,9 +489,10 @@ void Controller::removeInventory() {
 		}
 		std::cout << "Invalid SKU, please try again." << std::endl;
 	}
-	myInventories[sel]->setQuantity(-1);
 
+	myInventories[sel]->setQuantity(-1);
 	std::cout << "Item removed." << std::endl;
+
 	Input::wait();
 	if (isMerchant) {
 		this->merchantInterface();
@@ -520,8 +532,8 @@ void Controller::modifyInventory() {
 	}
 
 	this->modifyInventoryItem(sel);
-	Input::wait();
 
+	Input::wait();
 	if (isMerchant) {
 		this->merchantInterface();
 	}

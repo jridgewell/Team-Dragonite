@@ -53,6 +53,7 @@ public:
 	void displayInventory();
 	int placePurchase();
 	void displayCustomerOrders();
+	void changeCustomerBalance();
 	
 	/* Merchant Actions */
 	void addInventory();

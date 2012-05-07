@@ -1,12 +1,9 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <iostream>
 #include <map>
 #include <vector>
 #include <cstdlib>
-#include <ctime>
-#include <ios>
 #include <iomanip>
 
 #include "utils/File.h"

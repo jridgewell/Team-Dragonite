@@ -434,20 +434,13 @@ void Controller::addInventory() {
 		std::cout << "Invalid Input. Please enter an integer between 1 and " << myCategories.size() << std::endl;
 	}
 	std::cout << "Price (cents): ";
-	Input::getLine(priceStr);
-	while(!Input::isNumeric(priceStr)) {
+	while (!Input::getInteger(price)) {
 		std::cout << "Invalid price. Please try again: ";
-		Input::getLine(priceStr);
 	}
 	std::cout << "Quanity: ";
-	Input::getLine(quantityStr);
-	while(!Input::isNumeric(quantityStr)) {
+	while (!Input::getInteger(price)) {
 		std::cout << "Invalid quantity. Please try again: ";
-		Input::getLine(quantityStr);
 	}
-	// categoryID = atoi(categoryIDStr);
-	price = atoi(priceStr.c_str());
-	quantity = atoi(quantityStr.c_str());
 	Inventory* i = new Inventory(sku, description, categoryID, merchantID, price, quantity);
 	myInventories.push_back(i);
 

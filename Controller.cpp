@@ -327,7 +327,7 @@ void Controller::displayCustomerOrders()
 		<< std::right << std::setw(10) << "Date"
 	<< std::endl;
 	for(unsigned i = 0; i < myOrders.size(); i++) {
-		if (myOrders[i]->getCustomerID() == myCustomer->getCustomerID()) {
+		if ((isCustomer && myOrders[i]->getCustomerID() == myCustomer->getCustomerID())) {
 			int orderSKU = myOrders[i] -> getSKU();
 			std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID()
 				<< std::left << std::setw(10) << myOrders[i] -> getSKU()
@@ -431,9 +431,9 @@ void Controller::addInventory() {
 			<< std::endl;
 		}
 		Input::getLine(categoryIDStr);
-		if (Input::isNumeric(categoryIDStr)) {
+		if (Input::isNumericPositive(categoryIDStr)) {
 			categoryID = atoi(categoryIDStr.c_str());
-			if (categoryID > 0 && categoryID <= myCategories.size()) {
+			if (categoryID <= myCategories.size()) {
 				cont = false;
 				break;
 			}
@@ -474,7 +474,7 @@ void Controller::removeInventory() {
 			}
 		}
 		Input::getLine(selection);
-		if (Input::isNumeric(selection)) {
+		if (Input::isNumericPositive(selection)) {
 			sel = atoi(selection.c_str());
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				cont = false;
@@ -515,7 +515,7 @@ void Controller::modifyInventory() {
 			std::cout << old[i] -> getSKU() << ". " << old[i] -> getItemDesc() << std::endl;
 		}
 		Input::getLine(selection);
-		if (Input::isNumeric(selection)) {
+		if (Input::isNumericPositive(selection)) {
 			sel = atoi(selection.c_str());
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				cont = false;
@@ -547,7 +547,7 @@ void Controller::modifyInventoryItem(const int sku) {
 	std::cout << std::left << std::setw(10) << myInventories[sku] -> getSKU()
 		<< std::left << std::setw(20) << myInventories[sku] -> getItemDesc()
 		<< std::right <<  std::setw(10) << myInventories[sku] -> getPrice()
-		<< std::right << std::setw(10) << myInventories[sku] -> getQuantity()
+		<< std::right << std::setw(10) << ((myInventories[sku] -> getQuantity() > -1) ? myInventories[sku] -> getQuantity() : 0)
 	<< std::endl;
 	while(cont) {
 		std::cout << "What would you like to edit about " << myInventories[sku]->getItemDesc() << "?" << std::endl;
@@ -559,7 +559,7 @@ void Controller::modifyInventoryItem(const int sku) {
 			case '1':
 				std::cout << "New price: " << std::endl;
 				Input::getLine(newValue);
-				if (Input::isNumeric(newValue)) {
+				if (Input::isNumericPositive(newValue)) {
 					cont = false;
 					myInventories[sku]->setPrice(atoi(newValue.c_str()));
 					std::cout << "Price updated." << std::endl;
@@ -568,7 +568,7 @@ void Controller::modifyInventoryItem(const int sku) {
 			case '2':
 				std::cout << "New quantity: " << std::endl;
 				Input::getLine(newValue);
-				if (Input::isNumeric(newValue)) {
+				if (Input::isNumericPositive(newValue)) {
 					cont = false;
 					myInventories[sku]->setQuantity(atoi(newValue.c_str()));
 					std::cout << "Quantity updated." << std::endl;

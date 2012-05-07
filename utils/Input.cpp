@@ -34,6 +34,14 @@ bool Input::isNumeric(const std::string& str) {
 	return true;
 }
 
+bool Input::isNumericPositive(const std::string& str) {
+	bool b = Input::isNumeric(str);
+	if (b) {
+		b = (str[0] != '-');
+	}
+	return b;
+}
+
 void Input::wait(const std::string str, std::ostream& out, std::istream& in, const char delim) {
 	out << str << std::endl;
 	char ch;

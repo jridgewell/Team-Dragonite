@@ -1,6 +1,6 @@
 #include "Input.h"
 
-std::istream& Input::getLine(std::string& str, std::istream& in, char delim) {
+std::istream& Input::getLine(std::string& str, std::istream& in, const char delim) {
 	char ch;
 	str = "";
 
@@ -11,7 +11,17 @@ std::istream& Input::getLine(std::string& str, std::istream& in, char delim) {
 	return in;
 }
 
-bool Input::isNumeric(std::string& str) {
+bool Input::getInteger(int& i, std::istream& in, const char delim) {
+	std::string str;
+	Input::getLine(str);
+	if (Input::isNumeric(str)) {
+		i = atoi(str.c_str());
+		return true;
+	}
+	return false;
+}
+
+bool Input::isNumeric(const std::string& str) {
 	unsigned i = 0;
 	if (str[0] == '-') {
 		i = 1;
@@ -24,7 +34,7 @@ bool Input::isNumeric(std::string& str) {
 	return true;
 }
 
-void Input::wait(std::string str, std::ostream& out, std::istream& in, char delim) {
+void Input::wait(const std::string str, std::ostream& out, std::istream& in, const char delim) {
 	out << str << std::endl;
 	char ch;
 

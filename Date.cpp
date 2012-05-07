@@ -24,6 +24,7 @@
 * Post: Date created with default values
 */
 Date::Date() {
+	myNull = false;
 	this->createMonths();
 	this->setMonth(1);
 	this->setYear(2012);
@@ -36,6 +37,7 @@ Date::Date() {
 * Post: Date created with input values
 */
 Date::Date(const int year, const int month, const int day) {
+	myNull = false;
 	this->createMonths();
 	this->setMonth(month);
 	this->setYear(year);
@@ -52,6 +54,7 @@ Date::Date(const Date& date) {
 	this->setMonth(date.myMonth);
 	this->setYear(date.myYear);
 	this->setDay(date.myDay);
+	myNull = date.myNull;
 }
 
 /*
@@ -208,6 +211,7 @@ void Date::setDay(int day) {
 		day += months[myMonth - 1].days;
 		this->setMonth(myMonth - 1);
 	}
+	myNull = false;
 	myDay = day;
 }
 
@@ -225,6 +229,7 @@ void Date::setMonth(int month) {
 		month += 12;
 		this->setYear(myYear - 1);
 	}
+	myNull = false;
 	myMonth = month;
 	this->checkDays();
 }
@@ -240,5 +245,23 @@ void Date::setYear(int year) {
 	} else {
 		months[2] = Month("February", 28);
 	}
+	myNull = false;
 	myYear = year;
+}
+
+void Date::setNull() {
+	myNull = true;
+}
+
+bool Date::isNull() const {
+	return myNull;
+}
+
+bool Date::operator==(const Date& date) const {
+	bool b = false;
+	if (myYear == date.myYear && myMonth == date.myMonth && myDay == date.myDay) {
+		b = true;
+	}
+	
+	return b;
 }

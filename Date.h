@@ -51,6 +51,7 @@ struct Month {
 class Date {
 	private:
 		Month months[14];
+		bool myNull;
 		int myDay;
 		int myMonth;
 		int myYear;
@@ -73,5 +74,8 @@ class Date {
 		void setDay(const int day);
 		void setMonth(const int month);
 		void setYear(const int year);
+		void setNull();
+		bool isNull() const;
+		bool operator==(const Date& date) const;
 };
 #endif

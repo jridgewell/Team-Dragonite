@@ -54,7 +54,6 @@ void Controller::displayLogin()
 				std::cout << "Please type either [C] or [M]." << std::endl;
 				Input::getLine(input);
 				c = input[0];
-				break;
 		}
 	}
 }
@@ -97,7 +96,6 @@ void Controller::displayCustomerLogin()
 				break;
 			default:
 				std::cout << "Please type either [N] or [R]." << std::endl;
-				break;
 		}
 	}
 	if (isCustomer) {
@@ -306,7 +304,6 @@ void Controller::displayMerchantInterface() {
 				break;
 			default:
 				std::cout << "Invalid input, please enter 1, 2, 3, 4, 5, or 6." << std::endl << std::endl;
-				break;
 		}
 	}
 }
@@ -471,7 +468,6 @@ void Controller::modifyInventoryItem(const int sku) {
 				break;
 			default:
 				std::cout << "Invalid input." << std::endl;
-				break;
 		}
 	}
 }

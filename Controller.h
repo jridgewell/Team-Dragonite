@@ -22,7 +22,6 @@
 class Controller
 {
 private:
-	std::string myUsername;
 	bool isCustomer;
 	bool isMerchant;
 	Merchant* myMerchant;
@@ -63,9 +62,6 @@ public:
 
 	Customer* getCustomer(const std::string& username);
 	Merchant* getMerchant(const std::string& username);
-
-	void setUsername(const std::string& username);
-	const std::string& getUsername() const;
 };
 
 #endif

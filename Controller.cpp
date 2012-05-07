@@ -79,8 +79,7 @@ void Controller::displayCustomerLogin()
 				if(this->checkCustomerLogin(username, password))
 				{
 					cont = false;
-//					myCustomer = this->getCustomer(username);
-					this -> setUsername(username);
+					myCustomer = this->getCustomer(username);
 					isCustomer = true;
 				}
 				else
@@ -104,7 +103,6 @@ void Controller::displayCustomerLogin()
 
 void Controller::customerInterface()
 {
-	Customer* customer = this -> getCustomer(myUsername);
 	char c;
 	int skuInt, quantityInt, changeInt;
 	bool cont = true;
@@ -134,7 +132,7 @@ void Controller::customerInterface()
 
 		else if(c == '3')
 		{
-			std::cout << "Current balance: " << customer -> getMoney() << std::endl;
+			std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
 			std::cout << "Change balance by: ";
 			Input::getLine(change);
 			while(!Input::isNumeric(change))
@@ -143,7 +141,7 @@ void Controller::customerInterface()
 				Input::getLine(change);
 			}
 			changeInt = atoi(change.c_str());
-			customer -> updateBalance(changeInt);
+			myCustomer -> updateBalance(changeInt);
 			Input::wait();
 		}
 
@@ -473,7 +471,6 @@ void Controller::modifyInventoryItem(const int sku) {
 
 int Controller::placePurchase()
 {
-		Customer* customer = this -> getCustomer(myUsername);
 	std::string skuStr, quantityStr;
 	int sku, quantity;
 
@@ -514,20 +511,20 @@ int Controller::placePurchase()
 		std::cout << "Purchase could not be completed: \n   Not enough " << inventory -> getItemDesc() << " in stock." << std::endl;
 		return -1;
 	}
-	else if((customer -> getMoney()) < (inventory -> getPrice() * quantity))
+	else if((myCustomer -> getMoney()) < (inventory -> getPrice() * quantity))
 	{
-		std::cout << "Purchase could not be completed: \n   " << customer -> getUsername() << " does not have enough money." << std::endl;
+		std::cout << "Purchase could not be completed: \n   " << myCustomer -> getUsername() << " does not have enough money." << std::endl;
 		return -1;
 	}
 	else
 	{
-		customer -> updateBalance(-(inventory -> getPrice() * quantity));
+		myCustomer -> updateBalance(-(inventory -> getPrice() * quantity));
 		inventory -> purchase(quantity);
 
-		std::cout << "Purchase completed: \n   " << customer -> getUsername() << "'s current balance: " << customer -> getMoney() << std::endl;
+		std::cout << "Purchase completed: \n   " << myCustomer -> getUsername() << "'s current balance: " << myCustomer -> getMoney() << std::endl;
 
 		this -> placeOrder(sku, quantity);
-		return customer -> getMoney();
+		return myCustomer -> getMoney();
 	}
 }
 
@@ -549,8 +546,6 @@ int Controller::inInventory(int sku)
 
 int Controller::placeOrder(int sku, int quantity)
 {
-	Customer* customer = this -> getCustomer(myUsername);
-
 	if(this -> inInventory(sku) == -1)
 		return -1;
 	else
@@ -561,7 +556,7 @@ int Controller::placeOrder(int sku, int quantity)
 		Date date;
 
 		orderID = myOrders.size();
-		customerID = customer -> getCustomerID();
+		customerID = myCustomer -> getCustomerID();
 		price = inventory -> getPrice();
 		date = this -> getDate();
 
@@ -636,14 +631,4 @@ Merchant* Controller::getMerchant(const std::string& username)
 		return itr->second;
 	}
 	return NULL;
-}
-
-void Controller::setUsername(const std::string& username)
-{
-	myUsername = username;
-}
-
-const std::string& Controller::getUsername() const
-{
-	return myUsername;
 }

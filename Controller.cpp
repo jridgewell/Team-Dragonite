@@ -387,7 +387,7 @@ void Controller::addInventory() {
 	while (!Input::getPositiveInteger(price)) {
 		std::cout << "Invalid price. Please try again: ";
 	}
-	std::cout << "Quanity: ";
+	std::cout << "Quantity: ";
 	while (!Input::getPositiveInteger(quantity)) {
 		std::cout << "Invalid quantity. Please try again: ";
 	}
@@ -628,7 +628,7 @@ void Controller::displayOrders()
 		bool cont = true;
 		std::string input;
 		char c;
-		std::cout << "What orders would you like to dispaly?" << std::endl;
+		std::cout << "What orders would you like to display?" << std::endl;
 		std::cout << "1. All orders." << std::endl;
 		std::cout << "2. Orders on date..." << std::endl;
 		std::cout << "3. Orders made by customer ID..." << std::endl;

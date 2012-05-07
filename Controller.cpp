@@ -157,29 +157,29 @@ void Controller::customerInterface()
 	while(cont)
 	{
 		std::cout << "What would you like to do?" << std::endl;
-		std::cout << "1. Place an order." << std::endl;
-		std::cout << "2. View order history." << std::endl;
-		std::cout << "3. Change balance." << std::endl;
-		std::cout << "4. Display inventory." << std::endl;
+		std::cout << "1. Display inventory." << std::endl;
+		std::cout << "2. Place an order." << std::endl;
+		std::cout << "3. View order history." << std::endl;
+		std::cout << "4. Change balance." << std::endl;
 		std::cout << "5. Exit." << std::endl;
 		Input::getLine(input);
 		c = input[0];
 		switch (c) {
 			case '1':
 				cont = false;
-				this->makePurchase();
+				this->displayInventory();
 				break;
 			case '2':
 				cont = false;
-				this->displayOrders();
+				this->makePurchase();
 				break;
 			case '3':
 				cont = false;
-				this->changeCustomerBalance();
+				this->displayOrders();
 				break;
 			case '4':
 				cont = false;
-				this->displayInventory();
+				this->changeCustomerBalance();
 				break;
 			case '5':
 				cont = false;

@@ -10,7 +10,7 @@
 #include <fstream>
 #include <string>
 #include <yaml-cpp/yaml.h>
-#include "KeyExtractor.h"
+#include "MapHelpers.h"
 #include "../Category.h"
 #include "../Customer.h"
 #include "../Merchant.h"

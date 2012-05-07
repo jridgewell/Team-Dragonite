@@ -421,7 +421,7 @@ void Controller::removeInventory() {
 				}
 			}
 		}
-		if (Input::getPositiveInteger(sel)) {
+		if (Input::getIntegerInRange(sel, myInventories.size(), 1)) {
 			--sel;
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				break;
@@ -458,11 +458,11 @@ void Controller::modifyInventory() {
 		}
 		std::cout << "Old Items -------------------" << std::endl;
 		for(unsigned i = 0; i < old.size(); ++i) {
-			std::cout << std::left << std::setw(5) << myInventories[i] -> getSKU()
-				  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
+			std::cout << std::left << std::setw(5) << old[i] -> getSKU()
+				  << std::left << std::setw(20) << old[i] -> getItemDesc()
 			<< std::endl;
 		}
-		if (Input::getPositiveInteger(sel)) {
+		if (Input::getIntegerInRange(sel, myInventories.size(), 1)) {
 			--sel;
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				break;

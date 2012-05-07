@@ -58,7 +58,7 @@ public:
 	int inInventory(int sku);
 	void displayCustomerOrders();
 
-	Date::Date getDate();
+	Date getDate();
 	void saveFiles();
 
 	Customer* getCustomer(const std::string& username);

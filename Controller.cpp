@@ -573,7 +573,7 @@ int Controller::placeOrder(int sku, int quantity)
 	}
 }
 
-Date::Date Controller::getDate()
+Date Controller::getDate()
 {
 	time_t nowTime = time(0);
 	std::tm* localTime = localtime(&nowTime);

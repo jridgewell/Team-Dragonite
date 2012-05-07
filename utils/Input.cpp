@@ -13,7 +13,7 @@ std::istream& Input::getLine(std::string& str, std::istream& in, const char deli
 
 bool Input::getInteger(int& i, std::istream& in, const char delim) {
 	std::string str;
-	Input::getLine(str);
+	Input::getLine(str, in, delim);
 	if (Input::isNumeric(str)) {
 		i = atoi(str.c_str());
 		return true;
@@ -23,7 +23,7 @@ bool Input::getInteger(int& i, std::istream& in, const char delim) {
 
 bool Input::getPositiveInteger(int& i, std::istream& in, const char delim) {
 	std::string str;
-	Input::getLine(str);
+	Input::getLine(str, in, delim);
 	if (Input::isNumericPositive(str)) {
 		i = atoi(str.c_str());
 		return true;

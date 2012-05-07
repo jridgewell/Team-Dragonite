@@ -31,7 +31,7 @@ TEST(Merchant, Constructor)
 }
 
 /*
-* Test the default constructor 
+* Test the default constructor
 */
 TEST(Merchant, DefaultConstructor)
 {

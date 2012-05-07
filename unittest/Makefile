@@ -22,7 +22,7 @@ USER_DIR = ..
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
 TESTS = $(patsubst %.cpp, %, $(wildcard *.cpp)) All
-# TESTS = 
+# TESTS =
 
 # Flags passed to the preprocessor.
 CPPFLAGS += -I$(GTEST_DIR)/include -I$(yaml_incdir)
@@ -32,7 +32,7 @@ CXXFLAGS += -g -Wall -Wextra
 
 yaml_srcdir = ../yaml-cpp/src
 yaml_incdir = ../yaml-cpp/include
-yaml_builddir = ../build
+yaml_builddir = ../yaml-cpp/build
 yaml_srcs = $(wildcard $(yaml_srcdir)/*.cpp)
 yaml_objs = $(addprefix $(yaml_builddir)/, $(notdir $(yaml_srcs:.cpp=.o)))
 CCFLAGS += -I$(yaml_incdir)
@@ -50,7 +50,7 @@ clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
 
 $(yaml_builddir)/yaml.a: $(yaml_objs)
-	$(AR) $(ARFLAGS) $@ $^	
+	$(AR) $(ARFLAGS) $@ $^
 $(yaml_builddir)/%.o : $(yaml_srcdir)/%.cpp
 	$(CXX) $(CCFLAGS) -c $< -o $@
 $(yaml_builddir)/graphbuilder.o: $(yaml_srcdir)/contrib/graphbuilder.cpp
@@ -69,12 +69,10 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # conservative and not optimized.  This is fine as Google Test
 # compiles fast and for ordinary users its source rarely changes.
 gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-	    $(GTEST_DIR)/src/gtest-all.cc
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-	    $(GTEST_DIR)/src/gtest_main.cc
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c $(GTEST_DIR)/src/gtest_main.cc
 
 gtest.a : gtest-all.o
 	$(AR) $(ARFLAGS) $@ $^
@@ -89,7 +87,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o Merchant.o Merchant_unittest.o Inventory.o Inventory_unittest.o  gtest_main.a $(yaml_builddir)/yaml.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a
 
-Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS) 
+Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Customer.cpp
 
 Customer_unittest.o : Customer_unittest.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
@@ -97,7 +95,7 @@ Customer_unittest.o : Customer_unittest.cpp $(USER_DIR)/Customer.h $(GTEST_HEADE
 
 Customer_unittest : Customer.o Customer_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a $(yaml_builddir)/yaml.a
-	
+
 Date.o : $(USER_DIR)/Date.cpp $(USER_DIR)/Date.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Date.cpp
 

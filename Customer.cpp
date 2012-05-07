@@ -18,7 +18,7 @@
  */
 #include "Customer.h"
 
-Customer::Customer() 
+Customer::Customer()
 /*
 * Default constructor, creates a new customer with default values
 * Pre: None

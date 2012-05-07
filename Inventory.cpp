@@ -90,7 +90,7 @@ int Inventory::getSKU() const
 
 const std::string& Inventory::getItemDesc() const
 {
-   return myItemDesc; 
+   return myItemDesc;
 }
 
 int Inventory::getCategoryID() const

@@ -6,7 +6,7 @@
  *
  * @date May 2, 2012
  * @author Jure Jumalon
- * 
+ *
  * Comments: Andrew Wagenheim
  */
 
@@ -35,7 +35,7 @@ class Category
 	public:
 		Category();
 		Category(const int categoryID, const std::string& categoryName)
-			: myCategoryID(categoryID), myCategoryName(categoryName) {}		
+			: myCategoryID(categoryID), myCategoryName(categoryName) {}
 		Category(const Category& category);
 		Category(const YAML::Node& node);
 		virtual ~Category() {}

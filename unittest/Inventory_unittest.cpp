@@ -31,11 +31,11 @@ TEST(Inventory, Constructor)
         EXPECT_EQ(i.getMerchantID(), 0);
         EXPECT_EQ(i.getPrice(), 0.0);
         EXPECT_EQ(i.getQuantity(), 0);
-        
+
 }
 
 /*
-* Test the default constructor 
+* Test the default constructor
 */
 TEST(Inventory, DefaultConstructor)
 {

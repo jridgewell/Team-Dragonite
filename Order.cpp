@@ -61,7 +61,7 @@ Order::Order(const Order& order) {
 }
 
 /*
-* Pushes an order's data on the YAML 
+* Pushes an order's data on the YAML
 * Pre: The node where the data will be stored is passed in
 * Post: The order's information is stored on the node
 */

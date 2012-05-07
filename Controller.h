@@ -39,7 +39,7 @@ public:
 
 	void displayLogin();
 	void customerInterface();
-	
+
 	void displayCustomerLogin();
 	void displayInventory();
 	bool checkCustomerLogin(const std::string& username, const std::string& password);
@@ -55,7 +55,7 @@ public:
 
 	int placePurchase();
 	int placeOrder(int sku, int quantity);
-	int inInventory(int sku);	
+	int inInventory(int sku);
 	void displayCustomerOrders();
 
 	Date::Date getDate();

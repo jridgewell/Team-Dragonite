@@ -59,7 +59,7 @@ class Inventory
       void setCategoryID(const int categoryID);
       void setMerchantID(const int merchantID);
       void setPrice(const int price);
-      void setQuantity(const int quantity); 
+      void setQuantity(const int quantity);
 };
 
 #endif

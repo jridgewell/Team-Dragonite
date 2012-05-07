@@ -50,7 +50,7 @@ class Customer {
 		Customer(const Customer& customer);
 		Customer(const YAML::Node& node);
 		virtual ~Customer() {}
-		
+
 		int purchase(const int money);
 		int updateBalance(const int money);
 

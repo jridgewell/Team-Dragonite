@@ -118,7 +118,7 @@ void Controller::merchantLogin() {
 			myMerchant = this->getMerchant(username);
 			isMerchant = true;
 		} else {
-			std::cout << "Wrong Username/Password" << std::endl << std::endl;
+			std::cout << "Wrong Username/Password" << std::endl;
 		}
 	}
 	if (isMerchant) {
@@ -227,7 +227,7 @@ void Controller::merchantInterface() {
 				cont = false;
 				break;
 			default:
-				std::cout << "Invalid input, please enter 1, 2, 3, 4, 5, or 6." << std::endl << std::endl;
+				std::cout << "Invalid input, please enter 1, 2, 3, 4, 5, or 6." << std::endl;
 		}
 	}
 }

@@ -11,6 +11,11 @@ std::istream& Input::getLine(std::string& str, std::istream& in, const char deli
 	return in;
 }
 
+bool Input::getNonEmptyLine(std::string& str, std::istream& in, const char delim) {
+	Input::getLine(str, in, delim);
+	return (str != "");
+}
+
 bool Input::getInteger(int& i, std::istream& in, const char delim) {
 	std::string str;
 	Input::getLine(str, in, delim);

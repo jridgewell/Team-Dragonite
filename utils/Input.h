@@ -10,6 +10,7 @@
 
 struct Input {
 	static std::istream& getLine(std::string& str, std::istream& in = std::cin, const char delim = '\n');
+	static bool getNonEmptyLine(std::string& str, std::istream& in = std::cin, const char delim = '\n');
 	static bool getInteger(int& i, std::istream& in = std::cin, const char delim = '\n');
 	static bool getPositiveInteger(int& i, std::istream& in = std::cin, const char delim = '\n');
 	static bool getIntegerInRange(int& i, const int high = std::numeric_limits<int>::max(), const int low = std::numeric_limits<int>::min(), std::istream& in = std::cin, const char delim = '\n');

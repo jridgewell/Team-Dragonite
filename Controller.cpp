@@ -327,11 +327,13 @@ void Controller::makePurchase()
 			}
 		}
 		if (Input::getIntegerInRange(sku, myInventories.size(), 1)) {
-			break;
+			--sku;
+			if (myInventories[sku].getQuantity() > -1) {
+				break;
+			}
 		}
 		std::cout << "Invalid SKU. Please try again." << std::endl;
 	}
-	--sku; // Because vectors start counting at 0
 
 	if (myInventories[sku]->getQuantity() > 0) {
 		while (true) {

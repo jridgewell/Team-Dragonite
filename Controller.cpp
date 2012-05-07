@@ -130,7 +130,7 @@ bool Controller::checkCustomerLogin(const std::string& username, const std::stri
 {
 	Customer* customer = this -> getCustomer(username);
 	if (customer != NULL) {
-		if (customer->getPassword() == password) {
+		if (password == customer->getPassword()) {
 			return true;
 		}
 	}
@@ -421,7 +421,9 @@ void Controller::addInventory() {
 	while (cont) {
 		std::cout << "Please select a category:" << std::endl;
 		for (it = myCategories.begin(); it != myCategories.end(); ++it) {
-			std::cout << (it->second)->getCategoryID() << ". " << (it->second)->getCategoryName() << std::endl;
+			std::cout << std::left << std::setw(5) << (it->second)->getCategoryID()
+				  << std::left << std::setw(15) << (it->second)->getCategoryName()
+			<< std::endl;
 		}
 		Input::getLine(categoryIDStr);
 		if (Input::isNumeric(categoryIDStr)) {
@@ -531,8 +533,16 @@ void Controller::modifyInventoryItem(const int sku) {
 	std::string newValue;
 	char c;
 
-	std::cout << std::left << std::setw(10) << "SKU" << std::left << std::setw(20) << "Item Description" << std::right << std::setw(10) << "Price" << std::right << std::setw(10) << "Quantity" << std::endl;
-	std::cout << std::left << std::setw(10) << myInventories[sku] -> getSKU() << std::left << std::setw(20) << myInventories[sku] -> getItemDesc()<< std::right <<  std::setw(10) << myInventories[sku] -> getPrice() << std::right << std::setw(10) << myInventories[sku] -> getQuantity() << std::endl;
+	std::cout << std::left << std::setw(10) << "SKU" 
+		<< std::left << std::setw(20) << "Item Description"
+		<< std::right << std::setw(10) << "Price"
+		<< std::right << std::setw(10) << "Quantity"
+	<< std::endl;
+	std::cout << std::left << std::setw(10) << myInventories[sku] -> getSKU()
+		<< std::left << std::setw(20) << myInventories[sku] -> getItemDesc()
+		<< std::right <<  std::setw(10) << myInventories[sku] -> getPrice()
+		<< std::right << std::setw(10) << myInventories[sku] -> getQuantity()
+	<< std::endl;
 	while(cont) {
 		std::cout << "What would you like to edit about " << myInventories[sku]->getItemDesc() << "?" << std::endl;
 		std::cout << "1. Price"<< std::endl;
@@ -541,25 +551,25 @@ void Controller::modifyInventoryItem(const int sku) {
 		c = input[0];
 		switch (c) {
 			case '1':
-				std::cout << "New Price: " << std::endl;
+				std::cout << "New price: " << std::endl;
 				Input::getLine(newValue);
 				if (Input::isNumeric(newValue)) {
 					cont = false;
 					myInventories[sku]->setPrice(atoi(newValue.c_str()));
-					std::cout << "Price Updated." << std::endl;
+					std::cout << "Price updated." << std::endl;
 				}
 				break;
 			case '2':
-				std::cout << "New Quantity: " << std::endl;
+				std::cout << "New quantity: " << std::endl;
 				Input::getLine(newValue);
 				if (Input::isNumeric(newValue)) {
 					cont = false;
 					myInventories[sku]->setQuantity(atoi(newValue.c_str()));
-					std::cout << "Quantity Updated." << std::endl;
+					std::cout << "Quantity updated." << std::endl;
 				}
 				break;
 			default:
-				std::cout << "Invalid input." << std::endl;
+				std::cout << "Invalid input. Please select either 1 or 2." << std::endl;
 		}
 	}
 }

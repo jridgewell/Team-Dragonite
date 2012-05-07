@@ -68,7 +68,7 @@ public:
 
 	/* Helper Functions */
 	void placeOrder(int sku, int quantity);
-	Date getDate();
+	Date getLastDate();
 	Customer* getCustomer(const std::string& username);
 	Merchant* getMerchant(const std::string& username);
 };

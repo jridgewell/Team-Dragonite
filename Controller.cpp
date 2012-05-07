@@ -679,7 +679,7 @@ void Controller::placeOrder(int sku, int quantity)
 	myOrders.push_back(order);
 }
 
-Date Controller::getDate()
+Date Controller::getLastDate()
 {
 	Date d = (myOrders.back())->getDate();
 	d.setDay(d.getDay() + 1);

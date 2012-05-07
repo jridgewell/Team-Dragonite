@@ -328,7 +328,7 @@ void Controller::makePurchase()
 		}
 		if (Input::getIntegerInRange(sku, myInventories.size(), 1)) {
 			--sku;
-			if (myInventories[sku].getQuantity() > -1) {
+			if (myInventories[sku]->getQuantity() > -1) {
 				break;
 			}
 		}

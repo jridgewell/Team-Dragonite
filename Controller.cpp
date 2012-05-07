@@ -359,7 +359,7 @@ int Controller::placePurchase()
 
 void Controller::addInventory() {
 	int sku, categoryID, price, quantity, merchantID;
-	std::string description, categoryIDStr, priceStr, quantityStr;
+	std::string description;
 	bool cont = true;
 
 	sku = myInventories.size();
@@ -375,9 +375,7 @@ void Controller::addInventory() {
 				  << std::left << std::setw(15) << (it->second)->getCategoryName()
 			<< std::endl;
 		}
-		Input::getLine(categoryIDStr);
-		if (Input::isNumericPositive(categoryIDStr)) {
-			categoryID = atoi(categoryIDStr.c_str());
+		if (Input::getPositiveInteger(categoryID)) {
 			if (categoryID <= myCategories.size()) {
 				cont = false;
 				break;
@@ -386,11 +384,11 @@ void Controller::addInventory() {
 		std::cout << "Invalid input. Please enter an integer between 1 and " << myCategories.size() << std::endl;
 	}
 	std::cout << "Price (cents): ";
-	while (!Input::getInteger(price)) {
+	while (!Input::getPositiveInteger(price)) {
 		std::cout << "Invalid price. Please try again: ";
 	}
 	std::cout << "Quanity: ";
-	while (!Input::getInteger(price)) {
+	while (!Input::getPositiveInteger(quantity)) {
 		std::cout << "Invalid quantity. Please try again: ";
 	}
 	Inventory* i = new Inventory(sku, description, categoryID, merchantID, price, quantity);

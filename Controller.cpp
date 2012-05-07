@@ -185,7 +185,7 @@ void Controller::customerInterface()
 				cont = false;
 				break;
 			default:
-				std::cout << "Invalid input, please enter 1, 2, 3, 4, or 5." << std:: endl;
+				std::cout << "Invalid input. Please enter 1, 2, 3, 4, or 5." << std:: endl;
 		}
 	}
 }
@@ -651,7 +651,7 @@ void Controller::displayOrders()
 			int orderSKU = myOrders[i] -> getSKU();
 			std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID()
 				<< std::left << std::setw(10) << myOrders[i] -> getSKU()
-				<< std::left << std::setw(20) << myInventories[orderSKU] -> getItemDesc()
+				<< std::left << std::setw(20) << myInventories[orderSKU - 1] -> getItemDesc()
 				<< std::right << std::setw(10) << myOrders[i] -> getQuantity()
 				<< std::right << std::setw(10) << myOrders[i] -> getPrice()
 				<< std::right << std::setw(15) << (myOrders[i]->getDate()).serializeDate()

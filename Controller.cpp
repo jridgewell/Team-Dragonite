@@ -316,6 +316,7 @@ void Controller::makePurchase()
 		}
 		std::cout << "Invalid SKU. Please try again." << std::endl;
 	}
+	--sku; // Because vectors start counting at 0
 
 	if (myInventories[sku]->getQuantity() > 0) {
 		while (true) {
@@ -427,6 +428,7 @@ void Controller::removeInventory() {
 		}
 		std::cout << "Invalid SKU, please try again." << std::endl;
 	}
+	--sel; //Because vectors start counting at 0
 
 	myInventories[sel]->setQuantity(-1);
 	std::cout << "Item removed." << std::endl;
@@ -467,7 +469,7 @@ void Controller::modifyInventory() {
 		}
 		std::cout << "Invalid SKU, please try again." << std::endl;
 	}
-
+	--sel; //Because vectors start counting at 0
 	this->modifyInventoryItem(sel);
 
 	Input::wait();

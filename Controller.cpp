@@ -242,7 +242,7 @@ void Controller::createCustomer()
 	int id, zip, money;
 	std::string username, password, fullName, address, city, state;
 
-	id = myCustomers.size();
+	id = myCustomers.size() + 1;
 
 	std::cout << "Username: ";
 	Input::getLine(username);
@@ -362,7 +362,7 @@ void Controller::addInventory() {
 	std::string description;
 	bool cont = true;
 
-	sku = myInventories.size();
+	sku = myInventories.size() + 1;
 	merchantID = myMerchant->getMerchantID();
 	std::cout << "Item's description: ";
 	Input::getLine(description);
@@ -617,7 +617,7 @@ int Controller::placeOrder(int sku, int quantity)
 		int orderID, customerID, price;
 		Date date;
 
-		orderID = myOrders.size();
+		orderID = myOrders.size() + 1;
 		customerID = myCustomer -> getCustomerID();
 		price = inventory -> getPrice();
 		date = this -> getDate();

@@ -84,7 +84,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 # gtest_main.a, depending on whether it defines its own main()
 # function.
 
-All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o Merchant.o Merchant_unittest.o Inventory.o Inventory_unittest.o  gtest_main.a $(yaml_builddir)/yaml.a
+All: Customer.o Customer_unittest.o Date.o Date_unittest.o Order.o Order_unittest.o Merchant.o Merchant_unittest.o Inventory.o Inventory_unittest.o Category.o Category_unittest.o Controller.o Controller_unittest.o  gtest_main.a $(yaml_builddir)/yaml.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a
 
 Customer.o : $(USER_DIR)/Customer.cpp $(USER_DIR)/Customer.h $(GTEST_HEADERS)
@@ -139,4 +139,13 @@ Category_unittest.o : Category_unittest.cpp $(USER_DIR)/Category.h $(GTEST_HEADE
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Category_unittest.cpp
 
 Category_unittest : Category.o Category_unittest.o gtest_main.a $(yaml_builddir)/yaml.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a
+
+Controller.o : $(USER_DIR)/Controller.cpp $(USER_DIR)/Controller.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Controller.cpp
+
+Controller_unittest.o : Controller_unittest.cpp $(USER_DIR)/Controller.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c Controller_unittest.cpp
+
+Controller_unittest : Controller.o Controller_unittest.o gtest_main.a $(yaml_builddir)/yaml.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(yaml_builddir)/yaml.a

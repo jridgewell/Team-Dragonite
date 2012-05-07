@@ -3,7 +3,7 @@
  *
  *       Filename:  Category_unittest.cpp
  *
- *    Description:  Header file for Merchant test class
+ *    Description:  Header file for Category test class
  *
  *        Version:  1.0
  *        Created:  05/04/2012

@@ -1,18 +1,18 @@
-- myMerchantID: 0
+- myMerchantID: 1
   myUsername: balls
   myPassword: poke
-- myMerchantID: 1
+- myMerchantID: 2
   myUsername: potion
   myPassword: master
-- myMerchantID: 2
+- myMerchantID: 3
   myUsername: tm
   myPassword: store
-- myMerchantID: 3
+- myMerchantID: 4
   myUsername: dept
   myPassword: store
-- myMerchantID: 4
+- myMerchantID: 5
   myUsername: bicycle
   myPassword: shop
-- myMerchantID: 5
+- myMerchantID: 6
   myUsername: idrink
   myPassword: drink

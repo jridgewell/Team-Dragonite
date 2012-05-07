@@ -414,14 +414,14 @@ void Controller::addInventory() {
 
 	sku = myInventories.size();
 	merchantID = myMerchant->getMerchantID();
-	std::cout << "Item's Description: ";
+	std::cout << "Item's description: ";
 	Input::getLine(description);
 
 	std::map<std::string, Category*>::const_iterator it;
 	while (cont) {
 		std::cout << "Please select a category:" << std::endl;
 		for (it = myCategories.begin(); it != myCategories.end(); ++it) {
-			std::cout << ((it->second)->getCategoryID() + 1) << ". " << (it->second)->getCategoryName() << std::endl;
+			std::cout << (it->second)->getCategoryID() << ". " << (it->second)->getCategoryName() << std::endl;
 		}
 		Input::getLine(categoryIDStr);
 		if (Input::isNumeric(categoryIDStr)) {
@@ -431,7 +431,7 @@ void Controller::addInventory() {
 				break;
 			}
 		}
-		std::cout << "Invalid Input. Please enter an integer between 1 and " << myCategories.size() << std::endl;
+		std::cout << "Invalid input. Please enter an integer between 1 and " << myCategories.size() << std::endl;
 	}
 	std::cout << "Price (cents): ";
 	while (!Input::getInteger(price)) {
@@ -462,7 +462,7 @@ void Controller::removeInventory() {
 		for(int i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
 				if (myInventories[i]->getQuantity() > -1) {
-					std::cout << myInventories[i] -> getSKU() << ". " << myInventories[i] -> getItemDesc() << std::endl;
+					std::cout << (myInventories[i] -> getSKU() + 1) << ". " << myInventories[i] -> getItemDesc() << std::endl;
 				}
 			}
 		}

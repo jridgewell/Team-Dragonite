@@ -1,12 +1,12 @@
-- myOrderID: 0
-  myCustomerID: 0
-  mySKU: 0
+- myOrderID: 1
+  myCustomerID: 1
+  mySKU: 1
   myQuantity: 100
   myPrice: 10
   myDate: 2012/04/25
-- myOrderID: 1
-  myCustomerID: 0
-  mySKU: 0
+- myOrderID: 2
+  myCustomerID: 1
+  mySKU: 1
   myQuantity: 1000
   myPrice: 10
-  myDate: 2012/04/25
+  myDate: 2012/04/26

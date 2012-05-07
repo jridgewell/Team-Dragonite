@@ -1,4 +1,4 @@
-- myCustomerID: 0
+- myCustomerID: 1
   myUsername: shepard
   myPassword: n7reaper
   myFullName: John Shepard
@@ -7,7 +7,7 @@
   myState: Milky Way
   myZip: 4321352
   myMoney: 100000
-- myCustomerID: 1
+- myCustomerID: 2
   myUsername: ash
   myPassword: pokemon
   myFullName: Ash Ketchum

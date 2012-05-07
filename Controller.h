@@ -60,6 +60,8 @@ public:
 	void removeInventory();
 	void modifyInventory();
 	void modifyInventoryItem(const int sku);
+	void modifyInventoryPrice(const int sku);
+	void modifyInventoryQuantity(const int sku);
 
 	/* Helper Functions */
 	int placeOrder(int sku, int quantity);

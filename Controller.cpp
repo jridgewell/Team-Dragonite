@@ -557,27 +557,37 @@ void Controller::modifyInventoryItem(const int sku) {
 		c = input[0];
 		switch (c) {
 			case '1':
-				std::cout << "New price: " << std::endl;
-				Input::getLine(newValue);
-				if (Input::isNumericPositive(newValue)) {
-					cont = false;
-					myInventories[sku]->setPrice(atoi(newValue.c_str()));
-					std::cout << "Price updated." << std::endl;
-				}
+				cont = false;
+				this->modifyInventoryPrice(sku);
 				break;
 			case '2':
-				std::cout << "New quantity: " << std::endl;
-				Input::getLine(newValue);
-				if (Input::isNumericPositive(newValue)) {
-					cont = false;
-					myInventories[sku]->setQuantity(atoi(newValue.c_str()));
-					std::cout << "Quantity updated." << std::endl;
-				}
+				cont = false;
+				this->modifyInventoryQuantity(sku);
 				break;
 			default:
 				std::cout << "Invalid input. Please select either 1 or 2." << std::endl;
 		}
 	}
+}
+
+void Controller::modifyInventoryPrice(const int sku) {
+	int price;
+	std::cout << "New price: " << std::endl;
+	while (!Input::getPositiveInteger(price)) {
+		std::cout << "Invalid input. Please enter an integer >= 0." << std::endl;
+	}
+	myInventories[sku]->setPrice(price);
+	std::cout << "Price updated." << std::endl;	
+}
+
+void Controller::modifyInventoryQuantity(const int sku) {
+	int quantity;
+	std::cout << "New quantity: " << std::endl;
+	while (!Input::getPositiveInteger(quantity)) {
+		std::cout << "Invalid quantity. Please enter an integer >= 0." << std::endl;
+	}
+	myInventories[sku]->setQuantity(quantity);
+	std::cout << "Quantity updated." << std::endl;
 }
 
 int Controller::inInventory(int sku)

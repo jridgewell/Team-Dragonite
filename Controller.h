@@ -44,25 +44,26 @@ public:
 	bool checkCustomerLogin(const std::string& username, const std::string& password);
 	bool checkMerchantLogin(const std::string& username, const std::string& password);
 
-
+	/* Interface */
 	void customerInterface();
+	void merchantInterface();
 
-	void displayInventory();
+	/* Customer Actions */
 	Customer* createCustomer();
-
-	void displayMerchantInterface();
+	void displayInventory();
+	int placePurchase();
+	void displayCustomerOrders();
+	
+	/* Merchant Actions */
 	void addInventory();
 	void removeInventory();
 	void modifyInventory();
 	void modifyInventoryItem(const int sku);
 
-	int placePurchase();
+	/* Helper Functions */
 	int placeOrder(int sku, int quantity);
 	int inInventory(int sku);
-	void displayCustomerOrders();
-
 	Date getDate();
-
 	Customer* getCustomer(const std::string& username);
 	Merchant* getMerchant(const std::string& username);
 };

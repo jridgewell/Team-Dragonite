@@ -173,7 +173,7 @@ void Controller::customerInterface()
 				break;
 			case '2':
 				cont = false;
-				this->displayCustomerOrders();
+				this->displayOrders();
 				break;
 			case '3':
 				cont = false;
@@ -319,7 +319,7 @@ void Controller::displayInventory()
 	}
 }
 
-void Controller::displayCustomerOrders()
+void Controller::displayOrders()
 {
 	std::cout << std::left << std::setw(10) << "Order ID"
 		<< std::left << std::setw(10) << "SKU"
@@ -591,6 +591,9 @@ void Controller::modifyInventoryQuantity(const int sku) {
 	myInventories[sku]->setQuantity(quantity);
 	std::cout << "Quantity updated." << std::endl;
 }
+
+#pragma mark -----------------------------------------------------------------
+#pragma mark Helper Functions
 
 int Controller::inInventory(int sku)
 {

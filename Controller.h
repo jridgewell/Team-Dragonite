@@ -52,7 +52,7 @@ public:
 	void createCustomer();
 	void displayInventory();
 	int placePurchase();
-	void displayCustomerOrders();
+	void displayOrders();
 	void changeCustomerBalance();
 	
 	/* Merchant Actions */

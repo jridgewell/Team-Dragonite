@@ -246,9 +246,12 @@ void Controller::createCustomer()
 
 	std::cout << "Username: ";
 	Input::getLine(username);
+	while (username == "") {
+		std::cout << "Cannot have blank username. Please enter another username." << std::endl;
+	}
 	while(this -> getCustomer(username) != NULL)
 	{
-		std::cout << "Username already in use. Please enter another username: ";
+		std::cout << "Username already in use. Please enter another username." << std::endl;
 		Input::getLine(username);
 	}
 	std::cout << "Password: ";
@@ -263,15 +266,17 @@ void Controller::createCustomer()
 	Input::getLine(state);
 	std::cout << "Zip code: ";
 	while (!Input::getInteger(zip)) {
-		std::cout << "Invalid zip code. Please try again: ";
+		std::cout << "Invalid zip code. Please try again." << std::endl;
 	}
 	std::cout << "Starting balance: ";
 	while (!Input::getInteger(money)) {
-		std::cout << "Invalid sum. Please try again: ";
+		std::cout << "Invalid sum. Please try again. " << std::endl;
 	}
 
 	Customer* customer = new Customer(id, username, password, fullName, address, city, state, zip, money);
 	myCustomers.push_back(customer);
+	std::cout << "New customer created." << std::endl;
+	Input::wait("Press enter to go to login screen.");
 }
 
 void Controller::changeCustomerBalance() {
@@ -279,7 +284,7 @@ void Controller::changeCustomerBalance() {
 	std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
 	std::cout << "Change balance by: ";
 	while (!Input::getInteger(change)) {
-		std::cout << "Invalid amount. Please try again: ";
+		std::cout << "Invalid amount. Please try again." << std::endl;
 	}
 	myCustomer -> updateBalance(change);
 	std::cout << "Balance updated." << std::endl;

@@ -1,4 +1,6 @@
 main
+build/*
+!build/blank
 yaml-cpp/build/*
 !yaml-cpp/build/blank
 unittest/*

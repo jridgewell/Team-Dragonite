@@ -518,7 +518,7 @@ void Controller::modifyInventory() {
 				  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
 			<< std::endl;
 		}
-		if (Input::getPositiveInteger(sel))) {
+		if (Input::getPositiveInteger(sel)) {
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				cont = false;
 				break;

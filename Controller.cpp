@@ -107,19 +107,17 @@ void Controller::customerLogin()
 void Controller::merchantLogin() {
 	std::string username;
 	std::string password;
-	bool cont = true;
-	while (cont) {
+	while (true) {
 		std::cout << "Username: ";
 		Input::getLine(username);
 		std::cout << "Password: ";
 		Input::getLine(password);
 		if (this->checkMerchantLogin(username, password)) {
-			cont = false;
 			myMerchant = this->getMerchant(username);
 			isMerchant = true;
-		} else {
-			std::cout << "Wrong Username/Password" << std::endl;
+			break;
 		}
+		std::cout << "Invalid username or password" << std::endl;
 	}
 	if (isMerchant) {
 		this->merchantInterface();
@@ -360,7 +358,6 @@ int Controller::placePurchase()
 void Controller::addInventory() {
 	int sku, categoryID, price, quantity, merchantID;
 	std::string description;
-	bool cont = true;
 
 	sku = myInventories.size() + 1;
 	merchantID = myMerchant->getMerchantID();
@@ -368,7 +365,7 @@ void Controller::addInventory() {
 	Input::getLine(description);
 
 	std::map<std::string, Category*>::const_iterator it;
-	while (cont) {
+	while (true) {
 		std::cout << "Please select a category:" << std::endl;
 		for (it = myCategories.begin(); it != myCategories.end(); ++it) {
 			std::cout << std::left << std::setw(5) << (it->second)->getCategoryID()
@@ -403,10 +400,9 @@ void Controller::addInventory() {
 }
 
 void Controller::removeInventory() {
-	bool cont = true;
 	int sel;
 
-	while (cont) {
+	while (true) {
 		std::cout << "Please select a SKU:" << std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
@@ -419,7 +415,6 @@ void Controller::removeInventory() {
 		}
 		if (Input::getPositiveInteger(sel)) {
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
-				cont = false;
 				break;
 			}
 		}
@@ -436,11 +431,10 @@ void Controller::removeInventory() {
 }
 
 void Controller::modifyInventory() {
-	bool cont = true;
 	int sel;
 	std::vector<Inventory*> old;
 
-	while (cont) {
+	while (true) {
 		std::cout << "Please select a SKU:" << std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
@@ -461,7 +455,6 @@ void Controller::modifyInventory() {
 		}
 		if (Input::getPositiveInteger(sel)) {
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
-				cont = false;
 				break;
 			}
 		}

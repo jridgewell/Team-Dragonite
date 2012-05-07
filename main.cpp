@@ -32,8 +32,7 @@ using namespace std;
 
 
 int main() {
-	Controller* c = new Controller();
-	c -> displayLogin();
-//	c -> saveFiles();
-	delete(c);
+	Controller c = Controller();
+	c.displayLogin();
+//	c.saveFiles();
 }

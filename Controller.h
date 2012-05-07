@@ -51,7 +51,7 @@ public:
 	/* Customer Actions */
 	void createCustomer();
 	void displayInventory();
-	int placePurchase();
+	void makePurchase();
 	void displayOrders();
 	void changeCustomerBalance();
 	
@@ -67,8 +67,7 @@ public:
 	bool isMyInventory(const int sku);
 
 	/* Helper Functions */
-	int placeOrder(int sku, int quantity);
-	int inInventory(int sku);
+	void placeOrder(int sku, int quantity);
 	Date getDate();
 	Customer* getCustomer(const std::string& username);
 	Merchant* getMerchant(const std::string& username);

@@ -107,19 +107,17 @@ void Controller::customerLogin()
 void Controller::merchantLogin() {
 	std::string username;
 	std::string password;
-	bool cont = true;
-	while (cont) {
+	while (true) {
 		std::cout << "Username: ";
 		Input::getLine(username);
 		std::cout << "Password: ";
 		Input::getLine(password);
 		if (this->checkMerchantLogin(username, password)) {
-			cont = false;
 			myMerchant = this->getMerchant(username);
 			isMerchant = true;
-		} else {
-			std::cout << "Wrong Username/Password" << std::endl;
+			break;
 		}
+		std::cout << "Invalid username or password" << std::endl;
 	}
 	if (isMerchant) {
 		this->merchantInterface();
@@ -169,7 +167,7 @@ void Controller::customerInterface()
 		switch (c) {
 			case '1':
 				cont = false;
-				this->placePurchase();
+				this->makePurchase();
 				break;
 			case '2':
 				cont = false;
@@ -182,10 +180,12 @@ void Controller::customerInterface()
 			case '4':
 				cont = false;
 				this->displayInventory();
+				break;
 			case '5':
 				cont = false;
+				break;
 			default:
-				std::cout << "Invalid input, please enter 1, 2, 3, 4, or 5." << std:: endl;
+				std::cout << "Invalid input. Please enter 1, 2, 3, 4, or 5." << std:: endl;
 		}
 	}
 }
@@ -246,9 +246,12 @@ void Controller::createCustomer()
 
 	std::cout << "Username: ";
 	Input::getLine(username);
+	while (username == "") {
+		std::cout << "Cannot have blank username. Please enter another username." << std::endl;
+	}
 	while(this -> getCustomer(username) != NULL)
 	{
-		std::cout << "Username already in use. Please enter another username: ";
+		std::cout << "Username already in use. Please enter another username." << std::endl;
 		Input::getLine(username);
 	}
 	std::cout << "Password: ";
@@ -263,15 +266,17 @@ void Controller::createCustomer()
 	Input::getLine(state);
 	std::cout << "Zip code: ";
 	while (!Input::getInteger(zip)) {
-		std::cout << "Invalid zip code. Please try again: ";
+		std::cout << "Invalid zip code. Please try again." << std::endl;
 	}
 	std::cout << "Starting balance: ";
 	while (!Input::getInteger(money)) {
-		std::cout << "Invalid sum. Please try again: ";
+		std::cout << "Invalid sum. Please try again. " << std::endl;
 	}
 
 	Customer* customer = new Customer(id, username, password, fullName, address, city, state, zip, money);
 	myCustomers.push_back(customer);
+	std::cout << "New customer created." << std::endl;
+	Input::wait("Press enter to go to login screen.");
 }
 
 void Controller::changeCustomerBalance() {
@@ -279,7 +284,7 @@ void Controller::changeCustomerBalance() {
 	std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
 	std::cout << "Change balance by: ";
 	while (!Input::getInteger(change)) {
-		std::cout << "Invalid amount. Please try again: ";
+		std::cout << "Invalid amount. Please try again." << std::endl;
 	}
 	myCustomer -> updateBalance(change);
 	std::cout << "Balance updated." << std::endl;
@@ -290,62 +295,48 @@ void Controller::changeCustomerBalance() {
 	}
 }
 
-int Controller::placePurchase()
+void Controller::makePurchase()
 {
-	std::string skuStr, quantityStr;
-	int sku, quantity;
+	int sku, quantity, cost;
 
-	std::cout << "Please select a SKU: " << std::endl;
-	for(unsigned i = 0; i < myInventories.size(); i++)
-	{
-		std::cout << myInventories.at(i) -> getSKU() << ". " << myInventories.at(i) -> getItemDesc() << std::endl;
+	while (true) {
+		std::cout << "Please select a SKU:" << std::endl;
+		for(unsigned i = 0; i < myInventories.size(); ++i) {
+			std::cout << std::left << std::setw(5) << myInventories[i] -> getSKU()
+				  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
+			<< std::endl;
+		}
+		if (Input::getIntegerInRange(sku, myInventories.size(), 1)) {
+			break;
+		}
+		std::cout << "Invalid SKU. Please try again." << std::endl;
 	}
-	Input::getLine(skuStr);
-	sku = atoi(skuStr.c_str());
-	while(!Input::isNumeric(skuStr) || this -> inInventory(sku) == -1)
-	{
-		std::cout << "Invalid SKU. Please try again: ";
-		Input::getLine(skuStr);
-		sku = atoi(skuStr.c_str());
-	}
-	sku = atoi(skuStr.c_str());
 
 	std::cout << "Quantity: ";
-	Input::getLine(quantityStr);
-	quantity = atoi(quantityStr.c_str());
-	while(!Input::isNumeric(quantityStr) || quantity < 0)
-	{
-		std::cout << "Invalid quantity. Please try again: ";
-		Input::getLine(quantityStr);
-		quantity = atoi(quantityStr.c_str());
+	while (true) {
+		if (Input::getPositiveInteger(quantity)) {
+			if (quantity < 1) {
+				std::cout << "Invalid quantity. You have to buy at least 1." << std::endl;
+			} else if (quantity > myInventories[sku]->getQuantity()) {
+				std::cout << "Invalid quantity. We only have " << myInventories[sku]->getQuantity() << "." << std::endl;
+			} else {
+				break;
+			}
+		} else {
+			std::cout << "Invalid quantity. Please try again." << std::endl;
+		}
 	}
-	quantity = atoi(quantityStr.c_str());
 
-	Inventory* inventory = myInventories.at(sku);
-	if(quantity > 1)
-		std::cout << "Purchasing " << quantity << " " << inventory -> getItemDesc() << "s." << std::endl;
-	else
-		std::cout << "Purchasing " << quantity << " " << inventory -> getItemDesc() << "." << std::endl;
+	cost = quantity * (myInventories[sku]->getPrice());
+	if (cost > myCustomer->getMoney()) {
+		std::cout << "I'm sorry, you don't have enough money." << std::endl;
+		std::cout << "You need " << cost << " and you only have " << myCustomer->getMoney() << std::endl;
+	} else {
+		myCustomer->updateBalance(-1 * cost);
+		myInventories[sku]->purchase(quantity);
+		std::cout << "Purchase completed." << std::endl;
 
-	if(inventory -> getQuantity() < quantity)
-	{
-		std::cout << "Purchase could not be completed: \n   Not enough " << inventory -> getItemDesc() << " in stock." << std::endl;
-		return -1;
-	}
-	else if((myCustomer -> getMoney()) < (inventory -> getPrice() * quantity))
-	{
-		std::cout << "Purchase could not be completed: \n   " << myCustomer -> getUsername() << " does not have enough money." << std::endl;
-		return -1;
-	}
-	else
-	{
-		myCustomer -> updateBalance(-(inventory -> getPrice() * quantity));
-		inventory -> purchase(quantity);
-
-		std::cout << "Purchase completed: \n   " << myCustomer -> getUsername() << "'s current balance: " << myCustomer -> getMoney() << std::endl;
-
-		this -> placeOrder(sku, quantity);
-		return myCustomer -> getMoney();
+		this->placeOrder(sku, quantity);
 	}
 	
 	Input::wait();
@@ -360,7 +351,6 @@ int Controller::placePurchase()
 void Controller::addInventory() {
 	int sku, categoryID, price, quantity, merchantID;
 	std::string description;
-	bool cont = true;
 
 	sku = myInventories.size() + 1;
 	merchantID = myMerchant->getMerchantID();
@@ -368,18 +358,15 @@ void Controller::addInventory() {
 	Input::getLine(description);
 
 	std::map<std::string, Category*>::const_iterator it;
-	while (cont) {
+	while (true) {
 		std::cout << "Please select a category:" << std::endl;
 		for (it = myCategories.begin(); it != myCategories.end(); ++it) {
 			std::cout << std::left << std::setw(5) << (it->second)->getCategoryID()
 				  << std::left << std::setw(15) << (it->second)->getCategoryName()
 			<< std::endl;
 		}
-		if (Input::getPositiveInteger(categoryID)) {
-			if (categoryID <= myCategories.size()) {
-				cont = false;
-				break;
-			}
+		if (Input::getIntegerInRange(categoryID, myCategories.size())) {
+			break;
 		}
 		std::cout << "Invalid input. Please enter an integer between 1 and " << myCategories.size() << std::endl;
 	}
@@ -403,10 +390,9 @@ void Controller::addInventory() {
 }
 
 void Controller::removeInventory() {
-	bool cont = true;
 	int sel;
 
-	while (cont) {
+	while (true) {
 		std::cout << "Please select a SKU:" << std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
@@ -419,7 +405,6 @@ void Controller::removeInventory() {
 		}
 		if (Input::getPositiveInteger(sel)) {
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
-				cont = false;
 				break;
 			}
 		}
@@ -436,11 +421,10 @@ void Controller::removeInventory() {
 }
 
 void Controller::modifyInventory() {
-	bool cont = true;
 	int sel;
 	std::vector<Inventory*> old;
 
-	while (cont) {
+	while (true) {
 		std::cout << "Please select a SKU:" << std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
@@ -461,7 +445,6 @@ void Controller::modifyInventory() {
 		}
 		if (Input::getPositiveInteger(sel)) {
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
-				cont = false;
 				break;
 			}
 		}
@@ -538,19 +521,15 @@ Date Controller::getOrderFilterDate() {
 	int year, month, day;
 	std::cout << "Year: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(year)) {
-			if (year < 10000) {
-				break;
-			}
+		if (Input::getIntegerInRange(year, 9999)) {
+			break;
 		}
 		std::cout << "Invalid year. Please enter an integer between 0 and 9999." << std::endl;
 	}
 	std::cout << "Month: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(month)) {
-			if (month > 0 && month < 13) {
-				break;
-			}
+		if (Input::getIntegerInRange(month, 1, 12)) {
+			break;
 		}
 		std::cout << "Invalid month. Please enter an integer between 1 and 12." << std::endl;
 	}
@@ -558,10 +537,8 @@ Date Controller::getOrderFilterDate() {
 	d.setMonth(month);
 	std::cout << "Day: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(day)) {
-			if (day > 0 && day < d.getDaysInMonth()) {
-				break;
-			}
+		if (Input::getIntegerInRange(day, 1, d.getDaysInMonth())) {
+			break;
 		}
 		std::cout << "Invalid month. Please enter an integer between 1 and " << d.getDaysInMonth() << "." << std::endl;
 	}
@@ -573,10 +550,8 @@ int Controller::getOrderFilterID() {
 	int id;
 	std::cout << "Customer ID: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(id)) {
-			if (id > 0 && id <= myCustomers.size()) {
-				break;
-			}
+		if (Input::getIntegerInRange(id, 0, myCustomers.size())) {
+			break;
 		}
 	}
 	return id;
@@ -599,7 +574,7 @@ void Controller::displayInventory()
 		<< std::right << std::setw(10) << "Price"
 		<< std::right << std::setw(10) << "Quantity"
 	<< std::endl;
-	for(unsigned i = 0; i < myInventories.size(); i++) {
+	for(unsigned i = 0; i < myInventories.size(); ++i) {
 		if (myInventories[i]->getQuantity() > -1) {
 			if (isCustomer || (isMerchant && this->isMyInventory(i))) {
 				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
@@ -657,7 +632,7 @@ void Controller::displayOrders()
 		<< std::right << std::setw(10) << "Price"
 		<< std::right << std::setw(10) << "Date"
 	<< std::endl;
-	for(unsigned i = 0; i < myOrders.size(); i++) {
+	for(unsigned i = 0; i < myOrders.size(); ++i) {
 		if (
 			(isMerchant && this->isMyInventory(myOrders[i]->getSKU()) &&
 				(filterDate.isNull() || filterDate == myOrders[i]->getDate()) &&
@@ -667,7 +642,7 @@ void Controller::displayOrders()
 			int orderSKU = myOrders[i] -> getSKU();
 			std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID()
 				<< std::left << std::setw(10) << myOrders[i] -> getSKU()
-				<< std::left << std::setw(20) << myInventories[orderSKU] -> getItemDesc()
+				<< std::left << std::setw(20) << myInventories[orderSKU - 1] -> getItemDesc()
 				<< std::right << std::setw(10) << myOrders[i] -> getQuantity()
 				<< std::right << std::setw(10) << myOrders[i] -> getPrice()
 				<< std::right << std::setw(15) << (myOrders[i]->getDate()).serializeDate()
@@ -686,56 +661,30 @@ void Controller::displayOrders()
 #pragma mark -----------------------------------------------------------------
 #pragma mark Helper Functions
 
-int Controller::inInventory(int sku)
+void Controller::placeOrder(int sku, int quantity)
 {
-	for (unsigned i = 0; i < myInventories.size(); ++i) {
-		if (myInventories[i]->getSKU() == sku) {
-			return i;
-		}
-	}
-	return -1;
-}
+	int orderID, customerID, price;
+	Date date;
 
-int Controller::placeOrder(int sku, int quantity)
-{
-	if(this -> inInventory(sku) == -1)
-		return -1;
-	else
-	{
-		Inventory* inventory = myInventories.at(this -> inInventory(sku));
+	orderID = myOrders.size() + 1;
+	customerID = myCustomer->getCustomerID();
+	price = myInventories[sku]->getPrice();
+	date = this->getDate();
 
-		int orderID, customerID, price;
-		Date date;
-
-		orderID = myOrders.size() + 1;
-		customerID = myCustomer -> getCustomerID();
-		price = inventory -> getPrice();
-		date = this -> getDate();
-
-		Order* order = new Order(orderID, customerID, sku, quantity, price, date);
-		myOrders.push_back(order);
-
-		return orderID;
-	}
+	Order* order = new Order(orderID, customerID, sku, quantity, price, date);
+	myOrders.push_back(order);
 }
 
 Date Controller::getDate()
 {
-	time_t nowTime = time(0);
-	std::tm* localTime = localtime(&nowTime);
-	int year, month, day;
-
-	year = localTime -> tm_year + 1900;
-	month = localTime -> tm_mon + 1;
-	day = localTime -> tm_mday;
-
-	Date::Date date = Date(year, month, day);
-	return date;
+	Date d = (myOrders.back())->getDate();
+	d.setDay(d.getDay() + 1);
+	return d;
 }
 
 Customer* Controller::getCustomer(const std::string& username)
 {
-	for(unsigned i = 0; i < myCustomers.size(); i++)
+	for(unsigned i = 0; i < myCustomers.size(); ++i)
 	{
 		if(myCustomers.at(i) -> getUsername() == username)
 			return myCustomers.at(i);

@@ -8,8 +8,8 @@ srcs = $(wildcard *.cpp) $(wildcard utils/*.cpp)
 objs = $(addprefix $(build_dir)/, $(notdir $(srcs:.cpp=.o)))
 CXXFLAGS += -I$(yaml_incdir)
 
-all: $(yaml_builddir)/yaml.a $(objs)
-	$(CXX) $(CXXFLAGS) -o main $^
+all: $(yaml_builddir)/yaml.a
+	$(CXX) $(CXXFLAGS) -o main *.cpp utils/*.cpp $^
 debug: $(yaml_builddir)/yaml.a  $(objs)
 	$(CXX) $(CXXFLAGS) -g -ansi -Wall -Wunused -Wextra -Wswitch -Wshadow -Wmissing-braces -Wreturn-type -Wparentheses -Wmissing-field-initializers -Wsign-compare -Wmissing-prototypes -o main $^
 clean:

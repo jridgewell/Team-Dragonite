@@ -22,11 +22,17 @@ bool Input::getInteger(int& i, std::istream& in, const char delim) {
 }
 
 bool Input::getPositiveInteger(int& i, std::istream& in, const char delim) {
+	return Input::getIntegerInRange(i, std::numeric_limits<int>::max(), 0, in, delim);
+}
+
+bool Input::getIntegerInRange(int& i, const int high, const int low, std::istream& in, const char delim) {
 	std::string str;
 	Input::getLine(str, in, delim);
 	if (Input::isNumericPositive(str)) {
 		i = atoi(str.c_str());
-		return true;
+		if (i >= low && i <= high) {
+			return true;
+		}
 	}
 	return false;
 }

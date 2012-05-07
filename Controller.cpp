@@ -372,11 +372,8 @@ void Controller::addInventory() {
 				  << std::left << std::setw(15) << (it->second)->getCategoryName()
 			<< std::endl;
 		}
-		if (Input::getPositiveInteger(categoryID)) {
-			if (categoryID <= myCategories.size()) {
-				cont = false;
-				break;
-			}
+		if (Input::getIntegerInRange(categoryID, myCategories.size())) {
+			break;
 		}
 		std::cout << "Invalid input. Please enter an integer between 1 and " << myCategories.size() << std::endl;
 	}
@@ -531,19 +528,15 @@ Date Controller::getOrderFilterDate() {
 	int year, month, day;
 	std::cout << "Year: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(year)) {
-			if (year < 10000) {
-				break;
-			}
+		if (Input::getIntegerInRange(year, 9999)) {
+			break;
 		}
 		std::cout << "Invalid year. Please enter an integer between 0 and 9999." << std::endl;
 	}
 	std::cout << "Month: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(month)) {
-			if (month > 0 && month < 13) {
-				break;
-			}
+		if (Input::getIntegerInRange(month, 1, 12)) {
+			break;
 		}
 		std::cout << "Invalid month. Please enter an integer between 1 and 12." << std::endl;
 	}
@@ -551,10 +544,8 @@ Date Controller::getOrderFilterDate() {
 	d.setMonth(month);
 	std::cout << "Day: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(day)) {
-			if (day > 0 && day < d.getDaysInMonth()) {
-				break;
-			}
+		if (Input::getIntegerInRange(day, 1, d.getDaysInMonth())) {
+			break;
 		}
 		std::cout << "Invalid month. Please enter an integer between 1 and " << d.getDaysInMonth() << "." << std::endl;
 	}
@@ -566,10 +557,8 @@ int Controller::getOrderFilterID() {
 	int id;
 	std::cout << "Customer ID: " << std::endl;
 	while (true) {
-		if (Input::getPositiveInteger(id)) {
-			if (id > 0 && id <= myCustomers.size()) {
-				break;
-			}
+		if (Input::getIntegerInRange(id, 0, myCustomers.size())) {
+			break;
 		}
 	}
 	return id;

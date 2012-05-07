@@ -180,8 +180,10 @@ void Controller::customerInterface()
 			case '4':
 				cont = false;
 				this->displayInventory();
+				break;
 			case '5':
 				cont = false;
+				break;
 			default:
 				std::cout << "Invalid input, please enter 1, 2, 3, 4, or 5." << std:: endl;
 		}

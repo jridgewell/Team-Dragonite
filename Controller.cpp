@@ -462,20 +462,19 @@ void Controller::addInventory() {
 void Controller::removeInventory() {
 	bool cont = true;
 	int sel;
-	std::string selection;
 
 	while (cont) {
 		std::cout << "Please select a SKU:" << std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
 				if (myInventories[i]->getQuantity() > -1) {
-					std::cout << (myInventories[i] -> getSKU() + 1) << ". " << myInventories[i] -> getItemDesc() << std::endl;
+					std::cout << std::left << std::setw(5) << myInventories[i] -> getSKU()
+						  << std::left << std::setw(15) << myInventories[i] -> getItemDesc()
+					<< std::endl;
 				}
 			}
 		}
-		Input::getLine(selection);
-		if (Input::isNumericPositive(selection)) {
-			sel = atoi(selection.c_str());
+		if (Input::getPositiveInteger(sel)) {
 			if (myInventories[sel]->getMerchantID() == myMerchant->getMerchantID()) {
 				cont = false;
 				break;

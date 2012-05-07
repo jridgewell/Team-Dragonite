@@ -566,18 +566,12 @@ void Controller::modifyInventoryItem(const int sku) {
 
 int Controller::inInventory(int sku)
 {
-	int it = 0;
-
-//	while((myInventories.at(it) -> getSKU() != sku) && it < myInventories.size())
-	while(it < myInventories.size() && (myInventories.at(it) -> getSKU() != sku))
-	{
-		it++;
+	for (int i = 0; i < myInventories.size(); ++i) {
+		if (myInventories[i]->getSKU() == sku) {
+			return i;
+		}
 	}
-
-	if (it == myInventories.size())
-		return -1;
-	else
-		return it;
+	return -1;
 }
 
 int Controller::placeOrder(int sku, int quantity)

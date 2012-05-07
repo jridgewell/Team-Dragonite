@@ -29,6 +29,9 @@ void Controller::saveFiles()
 	File::outputVectorToFile("data/Order.yaml", myOrders);
 }
 
+#pragma mark -----------------------------------------------------------------
+#pragma mark Login Methods
+
 void Controller::displayLogin()
 {
 	std::string input;
@@ -100,6 +103,52 @@ void Controller::displayCustomerLogin()
 		this->customerInterface();
 	}
 }
+
+bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)
+{
+	Customer* customer = this -> getCustomer(username);
+	if (customer != NULL) {
+		if (customer->getPassword() == password) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Controller::merchantLogin() {
+	std::string username;
+	std::string password;
+	bool cont = true;
+	while (cont) {
+		std::cout << "Username: ";
+		Input::getLine(username);
+		std::cout << "Password: ";
+		Input::getLine(password);
+		if (this->checkMerchantLogin(username, password)) {
+			myMerchant = this->getMerchant(username);
+			isMerchant = true;
+			break;
+		} else {
+			std::cout << "Wrong Username/Password" << std::endl << std::endl;
+		}
+	}
+	if (isMerchant) {
+		this->displayMerchantInterface();
+	}
+}
+
+bool Controller::checkMerchantLogin(const std::string& username, const std::string& password) {
+	Merchant* m = this->getMerchant(username);
+	if (m != NULL) {
+		if (password == m->getPassword()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+#pragma mark -----------------------------------------------------------------
+#pragma mark Interface
 
 void Controller::customerInterface()
 {
@@ -202,17 +251,6 @@ void Controller::displayCustomerOrders()
 
 
 }
-}
-
-bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)
-{
-	Customer* customer = this -> getCustomer(username);
-	if (customer != NULL) {
-		if (customer->getPassword() == password) {
-			return true;
-		}
-	}
-	return false;
 }
 
 Customer* Controller::createCustomer()
@@ -579,38 +617,6 @@ Date Controller::getDate()
 
 	Date::Date date = Date(year, month, day);
 	return date;
-}
-
-void Controller::merchantLogin() {
-	std::string username;
-	std::string password;
-	bool cont = true;
-	while (cont) {
-		std::cout << "Username: ";
-		Input::getLine(username);
-		std::cout << "Password: ";
-		Input::getLine(password);
-		if (this->checkMerchantLogin(username, password)) {
-			myMerchant = this->getMerchant(username);
-			isMerchant = true;
-			break;
-		} else {
-			std::cout << "Wrong Username/Password" << std::endl << std::endl;
-		}
-	}
-	if (isMerchant) {
-		this->displayMerchantInterface();
-	}
-}
-
-bool Controller::checkMerchantLogin(const std::string& username, const std::string& password) {
-	Merchant* m = this->getMerchant(username);
-	if (m != NULL) {
-		if (password == m->getPassword()) {
-			return true;
-		}
-	}
-	return false;
 }
 
 Customer* Controller::getCustomer(const std::string& username)

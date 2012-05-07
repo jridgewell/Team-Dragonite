@@ -35,18 +35,22 @@ private:
 public:
 	Controller();
 	virtual ~Controller();
+	void saveFiles();
 
+	/* Login Methods */
 	void displayLogin();
+	void displayCustomerLogin();
+	void merchantLogin();
+	bool checkCustomerLogin(const std::string& username, const std::string& password);
+	bool checkMerchantLogin(const std::string& username, const std::string& password);
+
+
 	void customerInterface();
 
-	void displayCustomerLogin();
 	void displayInventory();
-	bool checkCustomerLogin(const std::string& username, const std::string& password);
 	Customer* createCustomer();
 
-	void merchantLogin();
 	void displayMerchantInterface();
-	bool checkMerchantLogin(const std::string& username, const std::string& password);
 	void addInventory();
 	void removeInventory();
 	void modifyInventory();
@@ -58,7 +62,6 @@ public:
 	void displayCustomerOrders();
 
 	Date getDate();
-	void saveFiles();
 
 	Customer* getCustomer(const std::string& username);
 	Merchant* getMerchant(const std::string& username);

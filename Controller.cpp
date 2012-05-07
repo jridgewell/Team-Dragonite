@@ -335,19 +335,18 @@ void Controller::makePurchase()
 		}
 	} else {
 		quantity = 0;
-		std::cout << "I'm sorry, but we don't have any of those." << std::endl;
+		std::cout << "Sorry, but we don't have any of those." << std::endl;
 	}
 
 	cost = quantity * (myInventories[sku]->getPrice());
 	if (cost > myCustomer->getMoney()) {
-		std::cout << "I'm sorry, you don't have enough money." << std::endl;
+		std::cout << "Sorry, you don't have enough money." << std::endl;
 		std::cout << "You need " << cost << " and you only have " << myCustomer->getMoney() << std::endl;
 	} else {
-		myCustomer->updateBalance(-1 * cost);
-		myInventories[sku]->purchase(quantity);
-		std::cout << "Purchase completed." << std::endl;
-
 		if (quantity > 0) {
+			myCustomer->updateBalance(-1 * cost);
+			myInventories[sku]->purchase(quantity);
+			std::cout << "Purchase completed." << std::endl;
 			this->placeOrder(sku, quantity);
 		}
 	}
@@ -408,18 +407,23 @@ void Controller::addInventory() {
 }
 
 void Controller::removeInventory() {
-	int sel;
+	int sel, count = 0;
 
 	while (true) {
 		std::cout << "Please select a SKU:" << std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
 				if (myInventories[i]->getQuantity() > -1) {
+					++count;
 					std::cout << std::left << std::setw(5) << myInventories[i] -> getSKU()
 						  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
 					<< std::endl;
 				}
 			}
+		}
+		if (count == 0) {
+			std::cout << "Sorry, but you don't have any items." << std::endl;
+			break;
 		}
 		if (Input::getIntegerInRange(sel, myInventories.size(), 1)) {
 			--sel;
@@ -430,8 +434,10 @@ void Controller::removeInventory() {
 		std::cout << "Invalid SKU, please try again." << std::endl;
 	}
 
-	myInventories[sel]->setQuantity(-1);
-	std::cout << "Item removed." << std::endl;
+	if (count > 0) {
+		myInventories[sel]->setQuantity(-1);
+		std::cout << "Item removed." << std::endl;
+	}
 
 	Input::wait();
 	if (isMerchant) {
@@ -550,7 +556,7 @@ Date Controller::getOrderFilterDate() {
 	}
 	std::cout << "Month: ";
 	while (true) {
-		if (Input::getIntegerInRange(month, 1, 12)) {
+		if (Input::getIntegerInRange(month, 12, 1)) {
 			break;
 		}
 		std::cout << "Invalid month. Please enter an integer between 1 and 12." << std::endl;
@@ -560,10 +566,10 @@ Date Controller::getOrderFilterDate() {
 	d.setMonth(month);
 	std::cout << "Day: ";
 	while (true) {
-		if (Input::getIntegerInRange(day, 1, d.getDaysInMonth())) {
+		if (Input::getIntegerInRange(day, d.getDaysInMonth(), 1)) {
 			break;
 		}
-		std::cout << "Invalid month. Please enter an integer between 1 and " << d.getDaysInMonth() << "." << std::endl;
+		std::cout << "Invalid day. Please enter an integer between 1 and " << d.getDaysInMonth() << "." << std::endl;
 		std::cout << "Day: ";
 	}
 	d.setDay(day);
@@ -573,12 +579,12 @@ Date Controller::getOrderFilterDate() {
 int Controller::getOrderFilterID() {
 	int id;
 	while (true) {
-		std::cout << "Customer ID: ";
+		std::cout << "Please select a customer ID: " << std::endl;
 		std::cout << "ID" << std::endl;
 		for (unsigned i = 0; i < myCustomers.size(); ++i) {
 			std::cout << i << std::endl;
 		}
-		if (Input::getIntegerInRange(id, 0, myCustomers.size())) {
+		if (Input::getIntegerInRange(id, myCustomers.size(), 0)) {
 			break;
 		}
 		std::cout << "Invalid customer ID" << std::endl;

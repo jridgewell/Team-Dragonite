@@ -238,7 +238,7 @@ void Controller::merchantInterface() {
 void Controller::createCustomer()
 {
 	int id, zip, money;
-	std::string username, password, fullName, address, city, state, zipStr, moneyStr;
+	std::string username, password, fullName, address, city, state;
 
 	id = myCustomers.size();
 
@@ -260,22 +260,13 @@ void Controller::createCustomer()
 	std::cout << "State: ";
 	Input::getLine(state);
 	std::cout << "Zip code: ";
-	Input::getLine(zipStr);
-	while(!Input::isNumeric(zipStr))
-	{
+	while (!Input::getInteger(zip)) {
 		std::cout << "Invalid zip code. Please try again: ";
-		Input::getLine(zipStr);
 	}
 	std::cout << "Starting balance: ";
-	Input::getLine(moneyStr);
-	while(!Input::isNumeric(moneyStr))
-	{
+	while (!Input::getInteger(money)) {
 		std::cout << "Invalid sum. Please try again: ";
-		Input::getLine(moneyStr);
 	}
-
-	zip = atoi(zipStr.c_str());
-	money = atoi(moneyStr.c_str());
 
 	Customer* customer = new Customer(id, username, password, fullName, address, city, state, zip, money);
 	myCustomers.push_back(customer);

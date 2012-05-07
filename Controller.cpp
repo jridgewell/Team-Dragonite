@@ -153,7 +153,6 @@ bool Controller::checkMerchantLogin(const std::string& username, const std::stri
 void Controller::customerInterface()
 {
 	char c;
-	int skuInt, quantityInt, changeInt;
 	bool cont = true;
 	std::string input;
 	std::string sku, quantity, change;
@@ -236,7 +235,7 @@ void Controller::merchantInterface() {
 #pragma mark -----------------------------------------------------------------
 #pragma mark Customer Actions
 
-Customer* Controller::createCustomer()
+void Controller::createCustomer()
 {
 	int id, zip, money;
 	std::string username, password, fullName, address, city, state, zipStr, moneyStr;
@@ -300,14 +299,14 @@ void Controller::changeCustomerBalance() {
 
 void Controller::displayInventory()
 {
-	int categoryID;
 	std::map<std::string, Category*>::iterator it;
 
 	std::cout << std::left << std::setw(10) << "SKU"
-		  << std::left << std::setw(20) << "Item Description"
-		  << std::right << std::setw(10) << "Price"
-		  << std::right << std::setw(10) << "Quantity" << std::endl;
-	for(int i = 0; i < myInventories.size(); i++) {
+		<< std::left << std::setw(20) << "Item Description"
+		<< std::right << std::setw(10) << "Price"
+		<< std::right << std::setw(10) << "Quantity"
+	<< std::endl;
+	for(unsigned i = 0; i < myInventories.size(); i++) {
 		if (myInventories[i]->getQuantity() > -1) {
 			if (isCustomer || (isMerchant && myInventories[i]->getMerchantID() == myMerchant->getMerchantID())) {
 				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
@@ -336,7 +335,7 @@ void Controller::displayCustomerOrders()
 		<< std::right << std::setw(10) << "Price"
 		<< std::right << std::setw(10) << "Date"
 	<< std::endl;
-	for(int i = 0; i < myOrders.size(); i++) {
+	for(unsigned i = 0; i < myOrders.size(); i++) {
 		if (myOrders[i]->getCustomerID() == myCustomer->getCustomerID()) {
 			int orderSKU = myOrders[i] -> getSKU();
 			std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID()
@@ -361,7 +360,7 @@ int Controller::placePurchase()
 	int sku, quantity;
 
 	std::cout << "Please select a SKU: " << std::endl;
-	for(int i = 0; i < myInventories.size(); i++)
+	for(unsigned i = 0; i < myInventories.size(); i++)
 	{
 		std::cout << myInventories.at(i) -> getSKU() << ". " << myInventories.at(i) -> getItemDesc() << std::endl;
 	}
@@ -476,7 +475,7 @@ void Controller::removeInventory() {
 
 	while (cont) {
 		std::cout << "Please select a SKU:" << std::endl;
-		for(int i = 0; i < myInventories.size(); ++i) {
+		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
 				if (myInventories[i]->getQuantity() > -1) {
 					std::cout << (myInventories[i] -> getSKU() + 1) << ". " << myInventories[i] -> getItemDesc() << std::endl;
@@ -511,7 +510,7 @@ void Controller::modifyInventory() {
 
 	while (cont) {
 		std::cout << "Please select a SKU:" << std::endl;
-		for(int i = 0; i < myInventories.size(); ++i) {
+		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
 				if (myInventories[i]->getQuantity() > -1) {
 					std::cout << myInventories[i] -> getSKU() << ". " << myInventories[i] -> getItemDesc() << std::endl;
@@ -521,7 +520,7 @@ void Controller::modifyInventory() {
 			}
 		}
 		std::cout << "Old Items -------------------" << std::endl;
-		for(int i = 0; i < old.size(); ++i) {
+		for(unsigned i = 0; i < old.size(); ++i) {
 			std::cout << old[i] -> getSKU() << ". " << old[i] -> getItemDesc() << std::endl;
 		}
 		Input::getLine(selection);
@@ -592,7 +591,7 @@ void Controller::modifyInventoryItem(const int sku) {
 
 int Controller::inInventory(int sku)
 {
-	for (int i = 0; i < myInventories.size(); ++i) {
+	for (unsigned i = 0; i < myInventories.size(); ++i) {
 		if (myInventories[i]->getSKU() == sku) {
 			return i;
 		}
@@ -639,7 +638,7 @@ Date Controller::getDate()
 
 Customer* Controller::getCustomer(const std::string& username)
 {
-	for(int i = 0; i < myCustomers.size(); i++)
+	for(unsigned i = 0; i < myCustomers.size(); i++)
 	{
 		if(myCustomers.at(i) -> getUsername() == username)
 			return myCustomers.at(i);

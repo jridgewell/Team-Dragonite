@@ -49,7 +49,7 @@ public:
 	void merchantInterface();
 
 	/* Customer Actions */
-	Customer* createCustomer();
+	void createCustomer();
 	void displayInventory();
 	int placePurchase();
 	void displayCustomerOrders();

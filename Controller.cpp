@@ -309,13 +309,7 @@ void Controller::displayInventory()
 		  << std::right << std::setw(10) << "Quantity" << std::endl;
 	for(int i = 0; i < myInventories.size(); i++) {
 		if (myInventories[i]->getQuantity() > -1) {
-			if (!isMerchant) {
-				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
-					  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
-					  << std::right <<  std::setw(10) << myInventories[i] -> getPrice()
-					  << std::right << std::setw(10) << myInventories[i] -> getQuantity()
-				<< std::endl;
-			} else if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
+			if (isCustomer || (isMerchant && myInventories[i]->getMerchantID() == myMerchant->getMerchantID())) {
 				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
 					  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
 					  << std::right <<  std::setw(10) << myInventories[i] -> getPrice()

@@ -1,6 +1,6 @@
 yaml_srcdir = yaml-cpp/src
 yaml_incdir = yaml-cpp/include
-yaml_builddir = build
+yaml_builddir = yaml-cpp/build
 yaml_srcs = $(wildcard $(yaml_srcdir)/*.cpp)
 yaml_objs = $(addprefix $(yaml_builddir)/, $(notdir $(yaml_srcs:.cpp=.o)))
 CXXFLAGS += -I$(yaml_incdir)

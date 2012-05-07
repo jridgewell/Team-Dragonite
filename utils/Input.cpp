@@ -11,18 +11,16 @@ std::istream& Input::getLine(std::string& str, std::istream& in, char delim) {
 	return in;
 }
 
-bool Input::isNumeric(std::string& str, std::istream& in)
-{
-	if((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
-	{
-		for(int i = 1; i < str.length(); i++)
-		{
-			if( !(str[i] >= '0' && str[i] <= '9'))
-				return false;
+bool Input::isNumeric(std::string& str) {
+	unsigned i = 0;
+	if (str[0] == '-') {
+		i = 1;
+	}
+	for ( ; i < str.length(); ++i) {
+		if (!(str[i] >= '0' && str[i] <= '9')) {
+			return false;
 		}
 	}
-	else
-		return false;
 	return true;
 }
 

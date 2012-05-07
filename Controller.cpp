@@ -33,11 +33,12 @@ void Controller::displayLogin()
 {
 	std::string input;
 	bool cont = true;
+	char c;
 	std::cout << "Are you a [C]ustomer or a [M]erchant? ";
-	Input::getLine(input);
-	char c = input[0];
 	while(cont)
 	{
+		Input::getLine(input);
+		c = input[0];
 		switch(c)
 		{
 			case 'c':
@@ -52,8 +53,6 @@ void Controller::displayLogin()
 				break;
 			default:
 				std::cout << "Please type either [C] or [M]." << std::endl;
-				Input::getLine(input);
-				c = input[0];
 		}
 	}
 }

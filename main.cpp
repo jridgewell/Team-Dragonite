@@ -17,22 +17,11 @@
  */
 
 #include "Controller.h"
-#include "Category.h"
-#include "Customer.h"
-#include "Inventory.h"
-#include "Merchant.h"
-#include "Order.h"
-#include "utils/MapHelpers.h"
-
-#include <iostream>
-#include <vector>
-#include <map>
-#include <fstream>
 using namespace std;
 
 
 int main() {
 	Controller c = Controller();
 	c.displayLogin();
-//	c.saveFiles();
+	c.saveFiles();
 }

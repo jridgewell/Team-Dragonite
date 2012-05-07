@@ -317,20 +317,24 @@ void Controller::makePurchase()
 		std::cout << "Invalid SKU. Please try again." << std::endl;
 	}
 
-	while (true) {
-		std::cout << "Quantity: ";
-		if (Input::getPositiveInteger(quantity)) {
-			if (quantity < 1) {
-				std::cout << "Invalid quantity. You have to buy at least 1." << std::endl;
-			} else if (quantity > myInventories[sku]->getQuantity()) {
-				std::cout << "Invalid quantity. We only have " << myInventories[sku]->getQuantity() << "." << std::endl;
-			} else {
-				break;
-			}
+	if (myInventories[sku]->getQuantity() > 0) {
+		while (true) {
 			std::cout << "Quantity: ";
-		} else {
-			std::cout << "Invalid quantity. Please try again." << std::endl;
+			if (Input::getPositiveInteger(quantity)) {
+				if (quantity < 1) {
+					std::cout << "Invalid quantity. You have to buy at least 1." << std::endl;
+				} else if (quantity > myInventories[sku]->getQuantity()) {
+					std::cout << "Invalid quantity. We only have " << myInventories[sku]->getQuantity() << "." << std::endl;
+				} else {
+					break;
+				}
+			} else {
+				std::cout << "Invalid quantity. Please try again." << std::endl;
+			}
 		}
+	} else {
+		quantity = 0;
+		std::cout << "I'm sorry, but we don't have any of those." << std::endl;
 	}
 
 	cost = quantity * (myInventories[sku]->getPrice());
@@ -342,7 +346,9 @@ void Controller::makePurchase()
 		myInventories[sku]->purchase(quantity);
 		std::cout << "Purchase completed." << std::endl;
 
-		this->placeOrder(sku, quantity);
+		if (quantity > 0) {
+			this->placeOrder(sku, quantity);
+		}
 	}
 	
 	Input::wait();

@@ -245,14 +245,16 @@ void Controller::createCustomer()
 	id = myCustomers.size() + 1;
 
 	std::cout << "Username: ";
-	Input::getLine(username);
-	while (username == "") {
-		std::cout << "Cannot have blank username. Please enter another username." << std::endl;
-	}
-	while(this -> getCustomer(username) != NULL)
-	{
-		std::cout << "Username already in use. Please enter another username." << std::endl;
-		Input::getLine(username);
+	while(true) {
+		if (Input::getNonEmptyLine(username)) {
+			if (this->getCustomer(username) != NULL) {
+				break;
+			}
+			std::cout << "Username already in use. Please enter another username." << std::endl;
+		} else {
+			std::cout << "Cannot have blank username. Please enter another username." << std::endl;
+		}
+		std::cout << "Username: ";
 	}
 	std::cout << "Password: ";
 	Input::getLine(password);
@@ -355,7 +357,9 @@ void Controller::addInventory() {
 	sku = myInventories.size() + 1;
 	merchantID = myMerchant->getMerchantID();
 	std::cout << "Item's description: ";
-	Input::getLine(description);
+	while (!Input::getNonEmptyLine(description)) {
+		std::cout << "Invalid description. Must not be empty." << std::endl;
+	}
 
 	std::map<std::string, Category*>::const_iterator it;
 	while (true) {

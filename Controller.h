@@ -62,6 +62,9 @@ public:
 	void modifyInventoryItem(const int sku);
 	void modifyInventoryPrice(const int sku);
 	void modifyInventoryQuantity(const int sku);
+	Date getOrderFilterDate();
+	int getOrderFilterID();
+	bool isMyInventory(const int sku);
 
 	/* Helper Functions */
 	int placeOrder(int sku, int quantity);

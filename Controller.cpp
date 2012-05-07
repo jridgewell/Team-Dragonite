@@ -533,6 +533,60 @@ void Controller::modifyInventoryQuantity(const int sku) {
 	std::cout << "Quantity updated." << std::endl;
 }
 
+Date Controller::getOrderFilterDate() {
+	Date d;
+	int year, month, day;
+	std::cout << "Year: " << std::endl;
+	while (true) {
+		if (Input::getPositiveInteger(year)) {
+			if (year < 10000) {
+				break;
+			}
+		}
+		std::cout << "Invalid year. Please enter an integer between 0 and 9999." << std::endl;
+	}
+	std::cout << "Month: " << std::endl;
+	while (true) {
+		if (Input::getPositiveInteger(month)) {
+			if (month > 0 && month < 13) {
+				break;
+			}
+		}
+		std::cout << "Invalid month. Please enter an integer between 1 and 12." << std::endl;
+	}
+	d.setYear(year);
+	d.setMonth(month);
+	std::cout << "Day: " << std::endl;
+	while (true) {
+		if (Input::getPositiveInteger(day)) {
+			if (day > 0 && day < d.getDaysInMonth()) {
+				break;
+			}
+		}
+		std::cout << "Invalid month. Please enter an integer between 1 and " << d.getDaysInMonth() << "." << std::endl;
+	}
+	d.setDay(day);
+	return d;
+}
+
+int Controller::getOrderFilterID() {
+	int id;
+	std::cout << "Customer ID: " << std::endl;
+	while (true) {
+		if (Input::getPositiveInteger(id)) {
+			if (id > 0 && id <= myCustomers.size()) {
+				break;
+			}
+		}
+	}
+	return id;
+}
+
+bool Controller::isMyInventory(const int sku) {
+	return (myInventories[sku]->getMerchantID() == myMerchant->getMerchantID());
+};
+
+
 #pragma mark -----------------------------------------------------------------
 #pragma mark Customer/Merchant Actions
 
@@ -547,7 +601,7 @@ void Controller::displayInventory()
 	<< std::endl;
 	for(unsigned i = 0; i < myInventories.size(); i++) {
 		if (myInventories[i]->getQuantity() > -1) {
-			if (isCustomer || (isMerchant && myInventories[i]->getMerchantID() == myMerchant->getMerchantID())) {
+			if (isCustomer || (isMerchant && this->isMyInventory(i))) {
 				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
 					  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
 					  << std::right <<  std::setw(10) << myInventories[i] -> getPrice()
@@ -567,6 +621,35 @@ void Controller::displayInventory()
 
 void Controller::displayOrders()
 {
+	Date filterDate;
+	filterDate.setNull();
+	int filterID = -1;
+	if (isMerchant) {
+		bool cont = true;
+		std::string input;
+		char c;
+		std::cout << "What orders would you like to dispaly?" << std::endl;
+		std::cout << "1. All orders." << std::endl;
+		std::cout << "2. Orders on date..." << std::endl;
+		std::cout << "3. Orders made by customer ID..." << std::endl;
+		Input::getLine(input);
+		c = input[0];
+		switch (c) {
+			case '1':
+				cont = false;
+				break;
+			case '2':
+				cont = false;
+				filterDate = this->getOrderFilterDate();
+				break;
+			case '3':
+				cont = false;
+				filterID = this->getOrderFilterID();
+				break;
+			default:
+				std::cout << "Invalid input. Please enter 1, 2, or 3." << std::endl;
+		}
+	}
 	std::cout << std::left << std::setw(10) << "Order ID"
 		<< std::left << std::setw(10) << "SKU"
 		<< std::left << std::setw(20) << "Item Description"
@@ -575,7 +658,12 @@ void Controller::displayOrders()
 		<< std::right << std::setw(10) << "Date"
 	<< std::endl;
 	for(unsigned i = 0; i < myOrders.size(); i++) {
-		if ((isCustomer && myOrders[i]->getCustomerID() == myCustomer->getCustomerID())) {
+		if (
+			(isMerchant && this->isMyInventory(myOrders[i]->getSKU()) &&
+				(filterDate.isNull() || filterDate == myOrders[i]->getDate()) &&
+				(filterID == -1 || filterID == myOrders[i]->getCustomerID())
+			) || (isCustomer && myOrders[i]->getCustomerID() == myCustomer->getCustomerID())
+		) {
 			int orderSKU = myOrders[i] -> getSKU();
 			std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID()
 				<< std::left << std::setw(10) << myOrders[i] -> getSKU()
@@ -588,7 +676,9 @@ void Controller::displayOrders()
 	}
 
 	Input::wait();
-	if (isCustomer) {
+	if (isMerchant) {
+		this->merchantInterface();
+	} else if (isCustomer) {
 		this->customerInterface();
 	}
 }

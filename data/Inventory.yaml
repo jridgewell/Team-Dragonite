@@ -1,84 +1,84 @@
 - mySKU: 1
   myItemDesc: Pokeball
-  myCategoryID: 0
+  myCategoryID: 1
   myPrice: 10
   myQuantity: 100
-  myMerchantID: 0
+  myMerchantID: 1
 - mySKU: 2
   myItemDesc: Greatball
-  myCategoryID: 0
+  myCategoryID: 1
   myPrice: 100
   myQuantity: 10
-  myMerchantID: 0
+  myMerchantID: 1
 - mySKU: 3
   myItemDesc: Ultraball
-  myCategoryID: 0
+  myCategoryID: 1
   myPrice: 1000
   myQuantity: 1
-  myMerchantID: 0
+  myMerchantID: 1
 - mySKU: 4
   myItemDesc: Masterball
-  myCategoryID: 0
+  myCategoryID: 1
   myPrice: 10000
   myQuantity: 0
-  myMerchantID: 0
+  myMerchantID: 1
 - mySKU: 5
   myItemDesc: Potion
-  myCategoryID: 1
+  myCategoryID: 2
   myPrice: 50
   myQuantity: 20
-  myMerchantID: 1
+  myMerchantID: 2
 - mySKU: 6
   myItemDesc: Super Potion
-  myCategoryID: 1
+  myCategoryID: 2
   myPrice: 100
   myQuantity: 4
-  myMerchantID: 1
+  myMerchantID: 2
 - mySKU: 7
   myItemDesc: Hyper Potion
-  myCategoryID: 1
+  myCategoryID: 2
   myPrice: 250
   myQuantity: 3
-  myMerchantID: 1
+  myMerchantID: 2
 - mySKU: 8
   myItemDesc: Fire Stone
-  myCategoryID: 3
-  myPrice: 300
-  myQuantity: 1
-  myMerchantID: 3
-- mySKU: 9
-  myItemDesc: Water Stone
-  myCategoryID: 3
-  myPrice: 300
-  myQuantity: 1
-  myMerchantID: 3
-- mySKU: 10
-  myItemDesc: Thunder Stone
-  myCategoryID: 3
-  myPrice: 300
-  myQuantity: 1
-  myMerchantID: 3
-- mySKU: 11
-  myItemDesc: Bicycle
   myCategoryID: 4
-  myPrice: 500
+  myPrice: 300
   myQuantity: 1
   myMerchantID: 4
+- mySKU: 9
+  myItemDesc: Water Stone
+  myCategoryID: 4
+  myPrice: 300
+  myQuantity: 1
+  myMerchantID: 4
+- mySKU: 10
+  myItemDesc: Thunder Stone
+  myCategoryID: 4
+  myPrice: 300
+  myQuantity: 1
+  myMerchantID: 4
+- mySKU: 11
+  myItemDesc: Bicycle
+  myCategoryID: 5
+  myPrice: 500
+  myQuantity: 1
+  myMerchantID: 5
 - mySKU: 12
   myItemDesc: Lemonade
-  myCategoryID: 5
+  myCategoryID: 6
   myPrice: 10
   myQuantity: 8
-  myMerchantID: 5
+  myMerchantID: 6
 - mySKU: 13
   myItemDesc: Iced Tea
-  myCategoryID: 5
+  myCategoryID: 6
   myPrice: 10
   myQuantity: 6
-  myMerchantID: 5
+  myMerchantID: 6
 - mySKU: 14
   myItemDesc: Soda Pop
-  myCategoryID: 5
+  myCategoryID: 6
   myPrice: 10
   myQuantity: 9
-  myMerchantID: 5
+  myMerchantID: 6

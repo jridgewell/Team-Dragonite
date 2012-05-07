@@ -158,10 +158,11 @@ void Controller::customerInterface()
 	{
 		std::cout << "What would you like to do?" << std::endl;
 		std::cout << "1. Display inventory." << std::endl;
-		std::cout << "2. Place an order." << std::endl;
-		std::cout << "3. View order history." << std::endl;
-		std::cout << "4. Change balance." << std::endl;
-		std::cout << "5. Exit." << std::endl;
+		std::cout << "2. Show balance." << std::endl;
+		std::cout << "3. Change balance." << std::endl;
+		std::cout << "4. Place an order." << std::endl;
+		std::cout << "5. View order history." << std::endl;
+		std::cout << "6. Exit." << std::endl;
 		Input::getLine(input);
 		c = input[0];
 		switch (c) {
@@ -170,22 +171,26 @@ void Controller::customerInterface()
 				this->displayInventory();
 				break;
 			case '2':
-				cont = false;
-				this->makePurchase();
+				std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
+				Input::wait();
 				break;
 			case '3':
 				cont = false;
-				this->displayOrders();
+				this->changeCustomerBalance();
 				break;
 			case '4':
 				cont = false;
-				this->changeCustomerBalance();
+				this->makePurchase();
 				break;
 			case '5':
 				cont = false;
+				this->displayOrders();
+				break;
+			case '6':
+				cont = false;
 				break;
 			default:
-				std::cout << "Invalid input. Please enter 1, 2, 3, 4, or 5." << std:: endl;
+				std::cout << "Invalid input. Please enter 1, 2, 3, 4, 5, or 6." << std:: endl;
 		}
 	}
 }
@@ -305,6 +310,7 @@ void Controller::makePurchase()
 	int sku, quantity, cost;
 
 	while (true) {
+		std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
 		std::cout << "Please select a SKU:" << std::endl;
 		std::cout << std::left << std::setw(10) << "SKU" 
 			<< std::left << std::setw(20) << "Item Description"

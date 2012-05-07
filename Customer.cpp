@@ -212,7 +212,7 @@ int Customer::purchase(const int money)
 	return this -> getMoney();
 }
 
-int Customer::balance(int money)
+int Customer::updateBalance(const int money)
 {
 	this -> setMoney(this -> getMoney() + money);
 	return this -> getMoney();

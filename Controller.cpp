@@ -146,7 +146,7 @@ void Controller::customerInterface()
 				Input::getLine(change);
 			}
 			changeInt = atoi(change.c_str());
-			customer -> balance(changeInt);
+			customer -> updateBalance(changeInt);
 			Input::wait();
 		}
 		
@@ -526,7 +526,7 @@ int Controller::placePurchase()
 	}
 	else
 	{
-		customer -> balance(-(inventory -> getPrice() * quantity));	
+		customer -> updateBalance(-(inventory -> getPrice() * quantity));	
 		inventory -> purchase(quantity);
 
 		std::cout << "Purchase completed: \n   " << customer -> getUsername() << "'s current balance: " << customer -> getMoney() << std::endl;

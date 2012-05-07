@@ -47,7 +47,7 @@ void Controller::displayLogin()
 			case 'c':
 			case 'C':
 				cont = false;
-				this -> displayCustomerLogin();
+				this -> customerLogin();
 				break;
 			case 'm':
 			case 'M':
@@ -60,7 +60,7 @@ void Controller::displayLogin()
 	}
 }
 
-void Controller::displayCustomerLogin()
+void Controller::customerLogin()
 {
 	std::string input;
 	std::string username, password;
@@ -104,17 +104,6 @@ void Controller::displayCustomerLogin()
 	}
 }
 
-bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)
-{
-	Customer* customer = this -> getCustomer(username);
-	if (customer != NULL) {
-		if (customer->getPassword() == password) {
-			return true;
-		}
-	}
-	return false;
-}
-
 void Controller::merchantLogin() {
 	std::string username;
 	std::string password;
@@ -135,6 +124,17 @@ void Controller::merchantLogin() {
 	if (isMerchant) {
 		this->displayMerchantInterface();
 	}
+}
+
+bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)
+{
+	Customer* customer = this -> getCustomer(username);
+	if (customer != NULL) {
+		if (customer->getPassword() == password) {
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Controller::checkMerchantLogin(const std::string& username, const std::string& password) {

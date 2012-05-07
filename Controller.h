@@ -39,7 +39,7 @@ public:
 
 	/* Login Methods */
 	void displayLogin();
-	void displayCustomerLogin();
+	void customerLogin();
 	void merchantLogin();
 	bool checkCustomerLogin(const std::string& username, const std::string& password);
 	bool checkMerchantLogin(const std::string& username, const std::string& password);

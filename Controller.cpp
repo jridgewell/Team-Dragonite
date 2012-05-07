@@ -247,7 +247,7 @@ void Controller::createCustomer()
 	std::cout << "Username: ";
 	while(true) {
 		if (Input::getNonEmptyLine(username)) {
-			if (this->getCustomer(username) != NULL) {
+			if (this->getCustomer(username) == NULL) {
 				break;
 			}
 			std::cout << "Username already in use. Please enter another username." << std::endl;

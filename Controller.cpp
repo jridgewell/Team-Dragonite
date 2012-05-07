@@ -630,7 +630,7 @@ void Controller::displayOrders()
 		<< std::left << std::setw(20) << "Item Description"
 		<< std::right << std::setw(10) << "Quantity"
 		<< std::right << std::setw(10) << "Price"
-		<< std::right << std::setw(10) << "Date"
+		<< std::right << std::setw(15) << "Date"
 	<< std::endl;
 	for(unsigned i = 0; i < myOrders.size(); ++i) {
 		if (

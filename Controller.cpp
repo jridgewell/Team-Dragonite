@@ -269,10 +269,12 @@ void Controller::createCustomer()
 	std::cout << "Zip code: ";
 	while (!Input::getInteger(zip)) {
 		std::cout << "Invalid zip code. Please try again." << std::endl;
+		std::cout << "Zip code: ";
 	}
 	std::cout << "Starting balance: ";
 	while (!Input::getInteger(money)) {
 		std::cout << "Invalid sum. Please try again. " << std::endl;
+		std::cout << "Starting balance: ";
 	}
 
 	Customer* customer = new Customer(id, username, password, fullName, address, city, state, zip, money);
@@ -287,6 +289,7 @@ void Controller::changeCustomerBalance() {
 	std::cout << "Change balance by: ";
 	while (!Input::getInteger(change)) {
 		std::cout << "Invalid amount. Please try again." << std::endl;
+		std::cout << "Change balance by: ";
 	}
 	myCustomer -> updateBalance(change);
 	std::cout << "Balance updated." << std::endl;
@@ -314,8 +317,8 @@ void Controller::makePurchase()
 		std::cout << "Invalid SKU. Please try again." << std::endl;
 	}
 
-	std::cout << "Quantity: ";
 	while (true) {
+		std::cout << "Quantity: ";
 		if (Input::getPositiveInteger(quantity)) {
 			if (quantity < 1) {
 				std::cout << "Invalid quantity. You have to buy at least 1." << std::endl;
@@ -324,6 +327,7 @@ void Controller::makePurchase()
 			} else {
 				break;
 			}
+			std::cout << "Quantity: ";
 		} else {
 			std::cout << "Invalid quantity. Please try again." << std::endl;
 		}
@@ -359,6 +363,7 @@ void Controller::addInventory() {
 	std::cout << "Item's description: ";
 	while (!Input::getNonEmptyLine(description)) {
 		std::cout << "Invalid description. Must not be empty." << std::endl;
+		std::cout << "Item's description: ";
 	}
 
 	std::map<std::string, Category*>::const_iterator it;
@@ -377,10 +382,12 @@ void Controller::addInventory() {
 	std::cout << "Price (cents): ";
 	while (!Input::getPositiveInteger(price)) {
 		std::cout << "Invalid price. Please try again: ";
+		std::cout << "Price (cents): ";
 	}
 	std::cout << "Quantity: ";
 	while (!Input::getPositiveInteger(quantity)) {
 		std::cout << "Invalid quantity. Please try again: ";
+		std::cout << "Quanity: ";
 	}
 	Inventory* i = new Inventory(sku, description, categoryID, merchantID, price, quantity);
 	myInventories.push_back(i);
@@ -502,9 +509,10 @@ void Controller::modifyInventoryItem(const int sku) {
 
 void Controller::modifyInventoryPrice(const int sku) {
 	int price;
-	std::cout << "New price: " << std::endl;
+	std::cout << "New price: ";
 	while (!Input::getPositiveInteger(price)) {
 		std::cout << "Invalid input. Please enter an integer >= 0." << std::endl;
+		std::cout << "New price: ";
 	}
 	myInventories[sku]->setPrice(price);
 	std::cout << "Price updated." << std::endl;	
@@ -512,9 +520,10 @@ void Controller::modifyInventoryPrice(const int sku) {
 
 void Controller::modifyInventoryQuantity(const int sku) {
 	int quantity;
-	std::cout << "New quantity: " << std::endl;
+	std::cout << "New quantity: ";
 	while (!Input::getPositiveInteger(quantity)) {
 		std::cout << "Invalid quantity. Please enter an integer >= 0." << std::endl;
+		std::cout << "New quantity: ";
 	}
 	myInventories[sku]->setQuantity(quantity);
 	std::cout << "Quantity updated." << std::endl;
@@ -523,28 +532,31 @@ void Controller::modifyInventoryQuantity(const int sku) {
 Date Controller::getOrderFilterDate() {
 	Date d;
 	int year, month, day;
-	std::cout << "Year: " << std::endl;
+	std::cout << "Year: ";
 	while (true) {
 		if (Input::getIntegerInRange(year, 9999)) {
 			break;
 		}
 		std::cout << "Invalid year. Please enter an integer between 0 and 9999." << std::endl;
+		std::cout << "Year: ";
 	}
-	std::cout << "Month: " << std::endl;
+	std::cout << "Month: ";
 	while (true) {
 		if (Input::getIntegerInRange(month, 1, 12)) {
 			break;
 		}
 		std::cout << "Invalid month. Please enter an integer between 1 and 12." << std::endl;
+		std::cout << "Month: ";
 	}
 	d.setYear(year);
 	d.setMonth(month);
-	std::cout << "Day: " << std::endl;
+	std::cout << "Day: ";
 	while (true) {
 		if (Input::getIntegerInRange(day, 1, d.getDaysInMonth())) {
 			break;
 		}
 		std::cout << "Invalid month. Please enter an integer between 1 and " << d.getDaysInMonth() << "." << std::endl;
+		std::cout << "Day: ";
 	}
 	d.setDay(day);
 	return d;
@@ -552,11 +564,17 @@ Date Controller::getOrderFilterDate() {
 
 int Controller::getOrderFilterID() {
 	int id;
-	std::cout << "Customer ID: " << std::endl;
 	while (true) {
+		std::cout << "Customer ID: ";
+		std::cout << "ID" << std::endl;
+		for (unsigned i = 0; i < myCustomers.size(); ++i) {
+			std::cout << i << std::endl;
+		}
 		if (Input::getIntegerInRange(id, 0, myCustomers.size())) {
 			break;
 		}
+		std::cout << "Invalid customer ID" << std::endl;
+		std::cout << "Customer ID: ";
 	}
 	return id;
 }
@@ -673,7 +691,7 @@ void Controller::placeOrder(int sku, int quantity)
 	orderID = myOrders.size() + 1;
 	customerID = myCustomer->getCustomerID();
 	price = myInventories[sku]->getPrice();
-	date = this->getDate();
+	date = this->getLastDate();
 
 	Order* order = new Order(orderID, customerID, sku, quantity, price, date);
 	myOrders.push_back(order);

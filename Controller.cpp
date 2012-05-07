@@ -222,7 +222,7 @@ void Controller::merchantInterface() {
 				cont = false;
 				break;
 			case '5':
-				this->displayInventory();
+				this->displayOrders();
 				cont = false;
 				break;
 			case '6':
@@ -284,63 +284,6 @@ void Controller::changeCustomerBalance() {
 	myCustomer -> updateBalance(change);
 	std::cout << "Balance updated." << std::endl;
 	
-	Input::wait();
-	if (isCustomer) {
-		this->customerInterface();
-	}
-}
-
-void Controller::displayInventory()
-{
-	std::map<std::string, Category*>::iterator it;
-
-	std::cout << std::left << std::setw(10) << "SKU"
-		<< std::left << std::setw(20) << "Item Description"
-		<< std::right << std::setw(10) << "Price"
-		<< std::right << std::setw(10) << "Quantity"
-	<< std::endl;
-	for(unsigned i = 0; i < myInventories.size(); i++) {
-		if (myInventories[i]->getQuantity() > -1) {
-			if (isCustomer || (isMerchant && myInventories[i]->getMerchantID() == myMerchant->getMerchantID())) {
-				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
-					  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
-					  << std::right <<  std::setw(10) << myInventories[i] -> getPrice()
-					  << std::right << std::setw(10) << myInventories[i] -> getQuantity()
-				<< std::endl;
-			}
-		}
-	}
-	
-	Input::wait();
-	if (isMerchant) {
-		this->merchantInterface();
-	} else if (isCustomer) {
-		this->customerInterface();
-	}
-}
-
-void Controller::displayOrders()
-{
-	std::cout << std::left << std::setw(10) << "Order ID"
-		<< std::left << std::setw(10) << "SKU"
-		<< std::left << std::setw(20) << "Item Description"
-		<< std::right << std::setw(10) << "Quantity"
-		<< std::right << std::setw(10) << "Price"
-		<< std::right << std::setw(10) << "Date"
-	<< std::endl;
-	for(unsigned i = 0; i < myOrders.size(); i++) {
-		if ((isCustomer && myOrders[i]->getCustomerID() == myCustomer->getCustomerID())) {
-			int orderSKU = myOrders[i] -> getSKU();
-			std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID()
-				<< std::left << std::setw(10) << myOrders[i] -> getSKU()
-				<< std::left << std::setw(20) << myInventories[orderSKU] -> getItemDesc()
-				<< std::right << std::setw(10) << myOrders[i] -> getQuantity()
-				<< std::right << std::setw(10) << myOrders[i] -> getPrice()
-				<< std::right << std::setw(15) << (myOrders[i]->getDate()).serializeDate()
-			<< std::endl;
-		}
-	}
-
 	Input::wait();
 	if (isCustomer) {
 		this->customerInterface();
@@ -590,6 +533,66 @@ void Controller::modifyInventoryQuantity(const int sku) {
 	}
 	myInventories[sku]->setQuantity(quantity);
 	std::cout << "Quantity updated." << std::endl;
+}
+
+#pragma mark -----------------------------------------------------------------
+#pragma mark Customer/Merchant Actions
+
+void Controller::displayInventory()
+{
+	std::map<std::string, Category*>::iterator it;
+
+	std::cout << std::left << std::setw(10) << "SKU"
+		<< std::left << std::setw(20) << "Item Description"
+		<< std::right << std::setw(10) << "Price"
+		<< std::right << std::setw(10) << "Quantity"
+	<< std::endl;
+	for(unsigned i = 0; i < myInventories.size(); i++) {
+		if (myInventories[i]->getQuantity() > -1) {
+			if (isCustomer || (isMerchant && myInventories[i]->getMerchantID() == myMerchant->getMerchantID())) {
+				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
+					  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
+					  << std::right <<  std::setw(10) << myInventories[i] -> getPrice()
+					  << std::right << std::setw(10) << myInventories[i] -> getQuantity()
+				<< std::endl;
+			}
+		}
+	}
+	
+	Input::wait();
+	if (isMerchant) {
+		this->merchantInterface();
+	} else if (isCustomer) {
+		this->customerInterface();
+	}
+}
+
+void Controller::displayOrders()
+{
+	std::cout << std::left << std::setw(10) << "Order ID"
+		<< std::left << std::setw(10) << "SKU"
+		<< std::left << std::setw(20) << "Item Description"
+		<< std::right << std::setw(10) << "Quantity"
+		<< std::right << std::setw(10) << "Price"
+		<< std::right << std::setw(10) << "Date"
+	<< std::endl;
+	for(unsigned i = 0; i < myOrders.size(); i++) {
+		if ((isCustomer && myOrders[i]->getCustomerID() == myCustomer->getCustomerID())) {
+			int orderSKU = myOrders[i] -> getSKU();
+			std::cout << std::left << std::setw(10) << myOrders[i] -> getOrderID()
+				<< std::left << std::setw(10) << myOrders[i] -> getSKU()
+				<< std::left << std::setw(20) << myInventories[orderSKU] -> getItemDesc()
+				<< std::right << std::setw(10) << myOrders[i] -> getQuantity()
+				<< std::right << std::setw(10) << myOrders[i] -> getPrice()
+				<< std::right << std::setw(15) << (myOrders[i]->getDate()).serializeDate()
+			<< std::endl;
+		}
+	}
+
+	Input::wait();
+	if (isCustomer) {
+		this->customerInterface();
+	}
 }
 
 #pragma mark -----------------------------------------------------------------

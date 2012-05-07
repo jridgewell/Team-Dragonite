@@ -306,10 +306,19 @@ void Controller::makePurchase()
 
 	while (true) {
 		std::cout << "Please select a SKU:" << std::endl;
+		std::cout << std::left << std::setw(10) << "SKU" 
+			<< std::left << std::setw(20) << "Item Description"
+			<< std::right << std::setw(10) << "Price"
+			<< std::right << std::setw(10) << "Quantity"
+		<< std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
-			std::cout << std::left << std::setw(5) << myInventories[i] -> getSKU()
-				  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
-			<< std::endl;
+			if (myInventories[i]->getQuantity() > -1) {
+				std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
+					  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
+					  << std::right << std::setw(10) << myInventories[i] -> getPrice()
+					  << std::right << std::setw(10) << myInventories[i] -> getQuantity()
+				<< std::endl;
+			}
 		}
 		if (Input::getIntegerInRange(sku, myInventories.size(), 1)) {
 			break;
@@ -410,13 +419,20 @@ void Controller::removeInventory() {
 	int sel, count = 0;
 
 	while (true) {
-		std::cout << "Please select a SKU:" << std::endl;
+		std::cout << "Please select a SKU from:" << std::endl;
+		std::cout << std::left << std::setw(10) << "SKU" 
+			<< std::left << std::setw(20) << "Item Description"
+			<< std::right << std::setw(10) << "Price"
+			<< std::right << std::setw(10) << "Quantity"
+		<< std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
 				if (myInventories[i]->getQuantity() > -1) {
 					++count;
-					std::cout << std::left << std::setw(5) << myInventories[i] -> getSKU()
+					std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
 						  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
+						  << std::right << std::setw(10) << myInventories[i] -> getPrice()
+						  << std::right << std::setw(10) << myInventories[i] -> getQuantity()
 					<< std::endl;
 				}
 			}
@@ -450,12 +466,19 @@ void Controller::modifyInventory() {
 	std::vector<Inventory*> old;
 
 	while (true) {
-		std::cout << "Please select a SKU:" << std::endl;
+		std::cout << "Please select a SKU from:" << std::endl;
+		std::cout << std::left << std::setw(10) << "SKU" 
+			<< std::left << std::setw(20) << "Item Description"
+			<< std::right << std::setw(10) << "Price"
+			<< std::right << std::setw(10) << "Quantity"
+		<< std::endl;
 		for(unsigned i = 0; i < myInventories.size(); ++i) {
 			if (myInventories[i]->getMerchantID() == myMerchant->getMerchantID()) {
 				if (myInventories[i]->getQuantity() > -1) {
-					std::cout << std::left << std::setw(5) << myInventories[i] -> getSKU()
+					std::cout << std::left << std::setw(10) << myInventories[i] -> getSKU()
 						  << std::left << std::setw(20) << myInventories[i] -> getItemDesc()
+						  << std::right << std::setw(10) << myInventories[i] -> getPrice()
+						  << std::right << std::setw(10) << myInventories[i] -> getQuantity()
 					<< std::endl;
 				} else {
 					old.push_back(myInventories[i]);
@@ -463,10 +486,16 @@ void Controller::modifyInventory() {
 			}
 		}
 		std::cout << "Old Items -------------------" << std::endl;
-		for(unsigned i = 0; i < old.size(); ++i) {
-			std::cout << std::left << std::setw(5) << old[i] -> getSKU()
-				  << std::left << std::setw(20) << old[i] -> getItemDesc()
-			<< std::endl;
+		if (old.size() > 0) {
+			for(unsigned i = 0; i < old.size(); ++i) {
+				std::cout << std::left << std::setw(10) << old[i] -> getSKU()
+					  << std::left << std::setw(20) << old[i] -> getItemDesc()
+					  << std::right << std::setw(10) << old[i] -> getPrice()
+					  << std::right << std::setw(10) << old[i] -> getQuantity()
+				<< std::endl;
+			}
+		} else {
+			std::cout << "None." << std::endl;
 		}
 		if (Input::getIntegerInRange(sel, myInventories.size(), 1)) {
 			--sel;

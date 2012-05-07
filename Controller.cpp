@@ -380,6 +380,13 @@ void Controller::makePurchase()
 void Controller::addInventory() {
 	int sku, categoryID, price, quantity, merchantID;
 	std::string description;
+	std::map<std::string, Category*>::const_iterator it;
+	std::map<int, std::string> cats;
+	std::map<int, std::string>::const_iterator it2;
+
+	for (it = myCategories.begin(); it != myCategories.end(); ++it) {
+		cats[(it->second)->getCategoryID()] = (it->second)->getCategoryName();
+	}
 
 	sku = myInventories.size() + 1;
 	merchantID = myMerchant->getMerchantID();
@@ -389,12 +396,14 @@ void Controller::addInventory() {
 		std::cout << "Item's description: ";
 	}
 
-	std::map<std::string, Category*>::const_iterator it;
 	while (true) {
 		std::cout << "Please select a category:" << std::endl;
-		for (it = myCategories.begin(); it != myCategories.end(); ++it) {
-			std::cout << std::left << std::setw(5) << (it->second)->getCategoryID()
-				  << std::left << std::setw(15) << (it->second)->getCategoryName()
+		std::cout << std::left << std::setw(5) << "ID"
+			  << std::left << std::setw(15) << "Category Name"
+		<< std::endl;
+		for (unsigned i = 1; i <= cats.size(); ++i) {
+			std::cout << std::left << std::setw(5) << (myCategories[cats[i]])->getCategoryID()
+				  << std::left << std::setw(15) << (myCategories[cats[i]])->getCategoryName()
 			<< std::endl;
 		}
 		if (Input::getIntegerInRange(categoryID, myCategories.size())) {

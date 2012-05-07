@@ -14,10 +14,10 @@
 #include "utils/KeyExtractor.h"
 #include "Category.h"
 #include "Customer.h"
-#include "Date.h"
 #include "Inventory.h"
 #include "Merchant.h"
 #include "Order.h"
+#include "Date.h"
 
 class Controller
 {
@@ -27,11 +27,11 @@ private:
 	bool isMerchant;
 	Merchant* myMerchant;
 	Customer* myCustomer;
-	std::map<std::string, Category::Category*> myCategories;
-	std::map<std::string, Merchant::Merchant*> myMerchants;
-	std::vector<Customer::Customer*> myCustomers;
-	std::vector<Inventory::Inventory*> myInventories;
-	std::vector<Order::Order*> myOrders;
+	std::map<std::string, Category*> myCategories;
+	std::map<std::string, Merchant*> myMerchants;
+	std::vector<Customer*> myCustomers;
+	std::vector<Inventory*> myInventories;
+	std::vector<Order*> myOrders;
 
 public:
 	Controller();
@@ -43,7 +43,7 @@ public:
 	void displayCustomerLogin();
 	void displayInventory();
 	bool checkCustomerLogin(const std::string& username, const std::string& password);
-	Customer::Customer* createCustomer();
+	Customer* createCustomer();
 
 	void merchantLogin();
 	void displayMerchantInterface();
@@ -61,8 +61,8 @@ public:
 	Date::Date getDate();
 	void saveFiles();
 
-	Customer::Customer* getCustomer(const std::string& username);
-	Merchant::Merchant* getMerchant(const std::string& username);
+	Customer* getCustomer(const std::string& username);
+	Merchant* getMerchant(const std::string& username);
 
 	void setUsername(const std::string& username);
 	const std::string& getUsername() const;

@@ -4,8 +4,8 @@ Controller::Controller()
 {
 	isCustomer = false;
 	isMerchant = false;
-	File::parseFileToMap<std::string, Category::Category, categoryKeyExtractor>("data/Category.yaml", myCategories);
-	File::parseFileToMap<std::string, Merchant::Merchant, merchantKeyExtractor>("data/Merchant.yaml", myMerchants);
+	File::parseFileToMap<std::string, Category, categoryKeyExtractor>("data/Category.yaml", myCategories);
+	File::parseFileToMap<std::string, Merchant, merchantKeyExtractor>("data/Merchant.yaml", myMerchants);
 	File::parseFileToVector("data/Customer.yaml", myCustomers);
 	File::parseFileToVector("data/Inventory.yaml", myInventories);
 	File::parseFileToVector("data/Order.yaml", myOrders);
@@ -166,7 +166,7 @@ void Controller::customerInterface()
 void Controller::displayInventory()
 {
 	int categoryID;
-	std::map<std::string, Category::Category*>::iterator it;	
+	std::map<std::string, Category*>::iterator it;	
 
 	std::cout << std::left << std::setw(10) << "SKU" 
 		  << std::left << std::setw(20) << "Item Description" 
@@ -220,7 +220,7 @@ bool Controller::checkCustomerLogin(const std::string& username, const std::stri
 	return false;
 }
 
-Customer::Customer* Controller::createCustomer()
+Customer* Controller::createCustomer()
 {
 	int id, zip, money;
 	std::string username, password, fullName, address, city, state, zipStr, moneyStr;
@@ -262,7 +262,7 @@ Customer::Customer* Controller::createCustomer()
 	zip = atoi(zipStr.c_str());
 	money = atoi(moneyStr.c_str());
 
-	Customer::Customer* customer = new Customer(id, username, password, fullName, address, city, state, zip, money);
+	Customer* customer = new Customer(id, username, password, fullName, address, city, state, zip, money);
 	myCustomers.push_back(customer);
 }
 
@@ -623,7 +623,7 @@ bool Controller::checkMerchantLogin(const std::string& username, const std::stri
 	return false;
 }
 
-Customer::Customer* Controller::getCustomer(const std::string& username)
+Customer* Controller::getCustomer(const std::string& username)
 {
 	for(int i = 0; i < myCustomers.size(); i++)
 	{

@@ -140,7 +140,6 @@ void Order::parseYaml(const YAML::Node& node) {
 }
 
 YAML::Emitter& Order::emitYaml(YAML::Emitter& out) const {
-        out << YAML::BeginSeq;
         out << YAML::BeginMap;
         out << YAML::Key << "myOrderID";
         out << YAML::Value << this->myOrderID;
@@ -155,7 +154,6 @@ YAML::Emitter& Order::emitYaml(YAML::Emitter& out) const {
         out << YAML::Key << "myDate";
         out << YAML::Value << (this->myDate).serializeDate();
         out << YAML::EndMap;
-        out << YAML::EndSeq;
         return out;
 }
 

@@ -16,6 +16,9 @@
  * =====================================================================================
  */
 
+/**
+* Main method, simply initializes the controller class
+*/
 #include "Controller.h"
 using namespace std;
 

@@ -7,7 +7,7 @@
 #include "Controller.h"
 
 /*
-* Puts the stored data into the YAML for use in the program?
+* Loads past information from yaml
 */
 Controller::Controller()
 {
@@ -21,7 +21,7 @@ Controller::Controller()
 }
 
 /*
-* Deletes the old data stored in the YAML, creating a new slate
+* Cleans pointers during deconstruction
 */
 Controller::~Controller()
 {
@@ -33,7 +33,7 @@ Controller::~Controller()
 }
 
 /*
-* Saves all of the newly created  objects to the YAML
+* Saves all state information into yaml
 */
 void Controller::saveFiles()
 {

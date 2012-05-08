@@ -784,12 +784,12 @@ void Controller::displayInventory()
 	}
 }
 
-/*
+/**
 * Display's a customer's orders
 * Pre: None
 * Post: The logged in customer's orders are displayed in the format of their choice
-void Controller::displayOrders()
 */
+void Controller::displayOrders()
 {
 	Date filterDate;
 	filterDate.setNull();

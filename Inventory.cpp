@@ -39,11 +39,21 @@ Inventory::Inventory(const Inventory& inventory)
 	this -> setQuantity(inventory.myQuantity);
 }
 
+/**
+* Saves an inventory object's data to the YAML
+* Pre: A node from the YAML is entered
+* Post: The information from the inventory object is saved onto the input node
+*/
 Inventory::Inventory(const YAML::Node& node)
 {
 	this -> parseYaml(node);
 }
 
+/*
+* Creates an inventory object using the information on the node
+* Pre: A YAML with the inventory information on it is passed in
+* Post: An inventory is created using the data from the node
+*/
 void Inventory::parseYaml(const YAML::Node& node)
 {
 	node["mySKU"] >> this->mySKU;
@@ -54,6 +64,11 @@ void Inventory::parseYaml(const YAML::Node& node)
 	node["myQuantity"] >> this->myQuantity;
 }
 
+/*
+* Uses an emitter to initialize the YAML to record data for the inventory class
+* Pre: An emitter is passed in
+* Post: New inventories created are stored on the YAML
+*/
 YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
 {
 	out << YAML::BeginMap;
@@ -73,6 +88,10 @@ YAML::Emitter& Inventory::emitYaml(YAML::Emitter& out) const
 	return out;
 }
 
+/* Purchases an object
+* Pre: The quantity of the object purchased is passed
+* Post: The quantity of the object is changed depending on the amount puchased
+*/
 int Inventory::purchase(const int quantity)
 {
 	this -> setQuantity(this -> getQuantity() - quantity);

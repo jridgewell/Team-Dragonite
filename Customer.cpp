@@ -82,6 +82,9 @@ Customer::Customer(const YAML::Node& node) {
 	this->parseYaml(node);
 }
 
+/*
+* Initializes the YAML 
+*/
 YAML::Emitter& Customer::emitYaml(YAML::Emitter& out) const {
 	out << YAML::BeginMap;
 	out << YAML::Key << "myCustomerID";
@@ -206,12 +209,22 @@ void Customer::parseYaml(const YAML::Node& node) {
 	node["myMoney"] >> this->myMoney;
 }
 
+/*
+* Purchases an item
+* Pre: The customer's account balance is input as an int
+* Post: The item's quantity is decreased by the number purchased, and the customer's account balance is subtracted the total purchase amount
+*/
 int Customer::purchase(const int money)
 {
 	this -> setMoney(this -> getMoney() - money);
 	return this -> getMoney();
 }
 
+/*
+* Changes the customer's balance
+* Pre: An amount is input as an int
+* Post: The customer's balance is increased or descreased by the amount entered
+*/
 int Customer::updateBalance(const int money)
 {
 	this -> setMoney(this -> getMoney() + money);

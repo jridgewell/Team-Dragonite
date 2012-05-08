@@ -1,12 +1,12 @@
-- myCategoryID: 1
-  myCategoryName: Pokeballs
-- myCategoryID: 2
-  myCategoryName: Potions
-- myCategoryID: 3
-  myCategoryName: TMs
-- myCategoryID: 4
-  myCategoryName: Stones
 - myCategoryID: 5
   myCategoryName: Bicycles
 - myCategoryID: 6
   myCategoryName: Drinks
+- myCategoryID: 1
+  myCategoryName: Pokeballs
+- myCategoryID: 2
+  myCategoryName: Potions
+- myCategoryID: 4
+  myCategoryName: Stones
+- myCategoryID: 3
+  myCategoryName: TMs

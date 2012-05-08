@@ -139,6 +139,11 @@ void Order::parseYaml(const YAML::Node& node) {
 	this->setDate(Date(temp));
 }
 
+/**
+* Stores newly created Orders on the YAML
+* Pre: An emitter is passed in to store data on
+* Post: The new order is placed in the YAML
+*/
 YAML::Emitter& Order::emitYaml(YAML::Emitter& out) const {
         out << YAML::BeginMap;
         out << YAML::Key << "myOrderID";

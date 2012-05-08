@@ -1,5 +1,14 @@
+/**
+* Comments by: Andrew Wageheim
+*
+*/
+
+
 #include "Controller.h"
 
+/*
+* Puts the stored data into the YAML for use in the program?
+*/
 Controller::Controller()
 {
 	isCustomer = false;
@@ -11,6 +20,9 @@ Controller::Controller()
 	File::parseFileToVector("data/Order.yaml", myOrders);
 }
 
+/*
+* Deletes the old data stored in the YAML, creating a new slate
+*/
 Controller::~Controller()
 {
 	File::deleteMap(myCategories);
@@ -20,6 +32,9 @@ Controller::~Controller()
 	File::deleteVector(myOrders);
 }
 
+/*
+* Saves all of the newly created  objects to the YAML
+*/
 void Controller::saveFiles()
 {
 	File::outputMapToFile("data/Category.yaml", myCategories);
@@ -32,6 +47,9 @@ void Controller::saveFiles()
 #pragma mark -----------------------------------------------------------------
 #pragma mark Login Methods
 
+/*
+* Starts up the class, running all of the methods and creating the user interface
+*/
 void Controller::displayLogin()
 {
 	std::string input;
@@ -60,6 +78,9 @@ void Controller::displayLogin()
 	}
 }
 
+/*
+* Customer login method
+*/
 void Controller::customerLogin()
 {
 	std::string input;
@@ -104,6 +125,9 @@ void Controller::customerLogin()
 	}
 }
 
+/*
+* Merchant login method
+*/
 void Controller::merchantLogin() {
 	std::string username;
 	std::string password;
@@ -124,6 +148,11 @@ void Controller::merchantLogin() {
 	}
 }
 
+/*
+* Checks to see if the customer is a valid customer stored within the YAML
+* Pre: A customer's username and password is passed in
+* Post: If the customer is found, the program continues to run. If not, the customer is asked to re-enter their information
+*/
 bool Controller::checkCustomerLogin(const std::string& username, const std::string& password)
 {
 	Customer* customer = this -> getCustomer(username);
@@ -135,6 +164,11 @@ bool Controller::checkCustomerLogin(const std::string& username, const std::stri
 	return false;
 }
 
+/*
+* Checks to see if the merchant is a valid merchant stored within the YAML
+* Pre: A merchant's username and password is passed in
+* Post: If the merchant is found, the program continues to run. If not, the merchant is asked to re-enter their info
+*/
 bool Controller::checkMerchantLogin(const std::string& username, const std::string& password) {
 	Merchant* m = this->getMerchant(username);
 	if (m != NULL) {
@@ -148,6 +182,11 @@ bool Controller::checkMerchantLogin(const std::string& username, const std::stri
 #pragma mark -----------------------------------------------------------------
 #pragma mark Interface
 
+/*
+* Provides the customer with their UI
+* Pre: None
+* Post: The customer's UI is established, providing them with their options for using the program
+*/
 void Controller::customerInterface()
 {
 	char c;
@@ -195,6 +234,11 @@ void Controller::customerInterface()
 	}
 }
 
+/*
+* Provides the merchant with their UI
+* Pre: None
+* Post: The merchant's UI is established, providing them with their options for using the program
+*/ 
 void Controller::merchantInterface() {
 	bool cont = true;
 	std::string input;
@@ -242,6 +286,11 @@ void Controller::merchantInterface() {
 #pragma mark -----------------------------------------------------------------
 #pragma mark Customer Actions
 
+/*
+* Creates a brand new customer, then asks for their information
+* Pre: None
+* Post: A new customer is created, his information is stored on the YAML
+*/
 void Controller::createCustomer()
 {
 	int id, zip, money;
@@ -288,6 +337,11 @@ void Controller::createCustomer()
 	Input::wait("Press enter to go to login screen.");
 }
 
+/*
+* Changes the customer's balance
+* Pre: None
+* Post: The customer's balance is changed by the new value, with positive numbers adding to the balance and negative numbers subtracting from it
+*/
 void Controller::changeCustomerBalance() {
 	int change;
 	std::cout << "Current balance: " << myCustomer -> getMoney() << std::endl;
@@ -305,6 +359,11 @@ void Controller::changeCustomerBalance() {
 	}
 }
 
+/*
+* Makes a purchase, changing the item quanity and customer balance respectively
+* Pre: None
+* Post: A SKU of an item is chosen, then the amount desired is entered. If the customer has enough funds, the cost of the item(s) is subtracted from the user's balance
+*/
 void Controller::makePurchase()
 {
 	int sku, quantity, cost;
@@ -377,6 +436,11 @@ void Controller::makePurchase()
 #pragma mark -----------------------------------------------------------------
 #pragma mark Merchant Actions
 
+/**
+* Adds an item to the inventory
+* Pre: None
+* Post: The name, quantity and  price of the item are asked for. The items is then created and given the next available SKU
+*/
 void Controller::addInventory() {
 	int sku, categoryID, price, quantity, merchantID;
 	std::string description;
@@ -432,6 +496,11 @@ void Controller::addInventory() {
 	}
 }
 
+/**
+* Removes an item from the inventory
+* Pre: None
+* Post: The SKU of said item is retrieved, than the item is removed from the inventory
+*/
 void Controller::removeInventory() {
 	int sel, count = 0;
 
@@ -478,6 +547,11 @@ void Controller::removeInventory() {
 	}
 }
 
+/**
+* Presents the UI for modifying a merchant's inventory
+* Pre: None
+* Post: The item is chosen from the inventory by it's sku, then the method to modify it is caled
+*/
 void Controller::modifyInventory() {
 	int sel;
 	std::vector<Inventory*> old;
@@ -530,6 +604,11 @@ void Controller::modifyInventory() {
 	}
 }
 
+/**
+* An item in the inventory has its price or quantity modified
+* Pre: None
+* Post: The item is chosen from the inventory by it's sku, then the price or quantity is modified
+*/
 void Controller::modifyInventoryItem(const int sku) {
 	bool cont = true;
 	std::string input;
@@ -567,6 +646,11 @@ void Controller::modifyInventoryItem(const int sku) {
 	}
 }
 
+/*
+* Modifies the price of an inventory item
+* Pre: The SKU of the selected item is input
+* Post: The price of the item is changed to the input value
+*/
 void Controller::modifyInventoryPrice(const int sku) {
 	int price;
 	std::cout << "New price: ";
@@ -578,6 +662,11 @@ void Controller::modifyInventoryPrice(const int sku) {
 	std::cout << "Price updated." << std::endl;	
 }
 
+/*
+* Modifies the quantity of an inventory item
+* Pre: The SKU of the selected item is input
+* Post: The quantity of the item is changed to the input value
+*/
 void Controller::modifyInventoryQuantity(const int sku) {
 	int quantity;
 	std::cout << "New quantity: ";
@@ -589,6 +678,11 @@ void Controller::modifyInventoryQuantity(const int sku) {
 	std::cout << "Quantity updated." << std::endl;
 }
 
+/**
+* Gets the date of an order and checks for the validity of the date
+* Pre: None
+* Post: The date of the order is retrieved
+*/
 Date Controller::getOrderFilterDate() {
 	Date d;
 	int year, month, day;
@@ -621,7 +715,11 @@ Date Controller::getOrderFilterDate() {
 	d.setDay(day);
 	return d;
 }
-
+/*
+* Gets the customer ID of an order
+* Pre: None
+* Post: A customer ID is selected, then their order is retrieved
+*/
 int Controller::getOrderFilterID() {
 	int id;
 	while (true) {
@@ -639,6 +737,11 @@ int Controller::getOrderFilterID() {
 	return id;
 }
 
+/**
+* Checks to see if an item is in an inventory
+* Pre: None
+* Post: If the item is found, returns true
+*/
 bool Controller::isMyInventory(const int sku) {
 	return (myInventories[sku]->getMerchantID() == myMerchant->getMerchantID());
 };
@@ -647,6 +750,11 @@ bool Controller::isMyInventory(const int sku) {
 #pragma mark -----------------------------------------------------------------
 #pragma mark Customer/Merchant Actions
 
+/**
+* Display's a merchant's inventory
+* Pre: None
+* Post: The logged in merchant's inventory is displayed
+*/
 void Controller::displayInventory()
 {
 	std::map<std::string, Category*>::iterator it;
@@ -676,7 +784,12 @@ void Controller::displayInventory()
 	}
 }
 
+/*
+* Display's a customer's orders
+* Pre: None
+* Post: The logged in customer's orders are displayed in the format of their choice
 void Controller::displayOrders()
+*/
 {
 	Date filterDate;
 	filterDate.setNull();
@@ -743,6 +856,9 @@ void Controller::displayOrders()
 #pragma mark -----------------------------------------------------------------
 #pragma mark Helper Functions
 
+/*
+* Places an order for the logged in customer
+*/
 void Controller::placeOrder(int sku, int quantity)
 {
 	int orderID, customerID, price;
@@ -757,6 +873,9 @@ void Controller::placeOrder(int sku, int quantity)
 	myOrders.push_back(order);
 }
 
+/*
+* Gets the last date an order was placed
+*/
 Date Controller::getLastDate()
 {
 	Date d = (myOrders.back())->getDate();
@@ -764,6 +883,9 @@ Date Controller::getLastDate()
 	return d;
 }
 
+/*
+* Accessors and Mutates
+*/
 Customer* Controller::getCustomer(const std::string& username)
 {
 	for(unsigned i = 0; i < myCustomers.size(); ++i)

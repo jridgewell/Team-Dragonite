@@ -16,6 +16,12 @@
 #include "Order.h"
 #include "Date.h"
 
+
+/**
+* Outlines the Controller class and the features contained therein
+* The controller class ties all of the other classes together, forming the backbone of the program
+*/
+
 class Controller
 {
 private:
